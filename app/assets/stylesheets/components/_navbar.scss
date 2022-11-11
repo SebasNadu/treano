@@ -1,6 +1,6 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: white;
+  background: $dark;
 }
 
 .navbar-lewagon .navbar-collapse {
@@ -8,5 +8,32 @@
 }
 
 .navbar-lewagon .navbar-brand img {
-  width: 40px;
+  width: 3rem;
+}
+
+.sidebar {
+  width: 3rem;
+  height: 90vh;
+  position: fixed;
+  background-color: $primary;
+}
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+.nav-item {
+  width: 100%;
+}
+.nav-item:last-child {
+  margin-top: auto;
+}
+.nav-link {
+  display: flex;
+  align-items: center;
+  color: $light;
 }

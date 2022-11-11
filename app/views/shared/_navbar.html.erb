@@ -1,7 +1,7 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
     <%= link_to "#", class: "navbar-brand" do %>
-      <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
+      <%= inline_svg_tag 'svg/treano', style: "font-size: 32px;" %>
     <% end %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,3 +34,39 @@
     </div>
   </div>
 </div>
+<nav class="sidebar">
+  <ul class="sidebar-nav">
+    <li class="nav-item">
+      <%= link_to "#", class: "nav-link" do %>
+        <%= inline_svg_tag 'svg/treano', style: "font-size: 2rem;" %>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "#", class: "nav-link text-light" do %>
+        <%= inline_svg_tag 'svg/home', style: "font-size: 1.5rem;" %>
+        <span class="link-text">Home</span>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "#", class: "nav-link text-light" do %>
+        <%= inline_svg_tag 'svg/box', style: "font-size: 1.5rem;" %>
+        <span class="link-text">Dashboard</span>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "#", class: "nav-link text-light" do %>
+        <%= inline_svg_tag 'svg/list', style: "font-size: 1.5rem;" %>
+        <span class="link-text">Lists</span>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "#", class: "nav-link text-light" do %>
+        <%= inline_svg_tag 'svg/layers', style: "font-size: 1.5rem;" %>
+        <span class="link-text">Leaderboard</span>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+    </li>
+  </ul>
+</nav>

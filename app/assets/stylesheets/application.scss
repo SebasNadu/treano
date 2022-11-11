@@ -10,3 +10,14 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+
+body::-webkit-scrollbar {
+	width: 0.25rem;
+}
+body::-webkit-scrollbar-track {
+	background: $gray-800;
+}
+body::-webkit-scrollbar-thumb {
+	background: $primary;
+}

@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_11_165202) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_12_084909) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "challenges", force: :cascade do |t|
+    t.string "challenge_name"
+    t.integer "treanos"
+    t.boolean "completed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "lists", force: :cascade do |t|
     t.string "list_name"
@@ -23,6 +31,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_11_165202) do
     t.index ["user_id"], name: "index_lists_on_user_id"
   end
 
+  create_table "movies", force: :cascade do |t|
+    t.string "original_title"
+    t.string "country_of_origin"
+    t.string "trailer_url"
+    t.text "overview"
+    t.date "release_date"
+    t.string "poster_url"
+    t.string "tagline"
+    t.float "rating_average"
+    t.integer "tmdb_id"
+    t.integer "imdb_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "saved_lists", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "list_id", null: false
@@ -30,6 +53,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_11_165202) do
     t.datetime "updated_at", null: false
     t.index ["list_id"], name: "index_saved_lists_on_list_id"
     t.index ["user_id"], name: "index_saved_lists_on_user_id"
+  end
+
+  create_table "user_challenges", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "challenge_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_user_challenges_on_challenge_id"
+    t.index ["user_id"], name: "index_user_challenges_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -53,4 +85,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_11_165202) do
   add_foreign_key "lists", "users"
   add_foreign_key "saved_lists", "lists"
   add_foreign_key "saved_lists", "users"
+  add_foreign_key "user_challenges", "challenges"
+  add_foreign_key "user_challenges", "users"
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_12_084909) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_12_162915) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_12_084909) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "list_items", force: :cascade do |t|
+    t.bigint "list_id", null: false
+    t.string "listable_type", null: false
+    t.bigint "listable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_list_items_on_list_id"
+    t.index ["listable_type", "listable_id"], name: "index_list_items_on_listable"
+  end
+
   create_table "lists", force: :cascade do |t|
     t.string "list_name"
     t.integer "votes"
@@ -31,19 +41,47 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_12_084909) do
     t.index ["user_id"], name: "index_lists_on_user_id"
   end
 
+  create_table "media_providers", force: :cascade do |t|
+    t.bigint "provider_id", null: false
+    t.string "providable_type", null: false
+    t.bigint "providable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["providable_type", "providable_id"], name: "index_media_providers_on_providable"
+    t.index ["provider_id"], name: "index_media_providers_on_provider_id"
+  end
+
   create_table "movies", force: :cascade do |t|
-    t.string "original_title"
+    t.string "title"
     t.string "country_of_origin"
-    t.string "trailer_url"
     t.text "overview"
     t.date "release_date"
     t.string "poster_url"
-    t.string "tagline"
     t.float "rating_average"
     t.integer "tmdb_id"
-    t.integer "imdb_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "providers", force: :cascade do |t|
+    t.string "provider_name"
+    t.string "logo_path"
+    t.integer "tmdb_provider_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.string "reviewable_type", null: false
+    t.bigint "reviewable_id", null: false
+    t.integer "tmdb_review_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "saved_lists", force: :cascade do |t|
@@ -55,6 +93,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_12_084909) do
     t.index ["user_id"], name: "index_saved_lists_on_user_id"
   end
 
+  create_table "tvs", force: :cascade do |t|
+    t.string "title"
+    t.text "overview"
+    t.string "country"
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "tmdb_id"
+    t.integer "imdb_id"
+    t.integer "number_of_seasons"
+    t.integer "number_of_episodes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "user_challenges", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "challenge_id", null: false
@@ -62,6 +114,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_12_084909) do
     t.datetime "updated_at", null: false
     t.index ["challenge_id"], name: "index_user_challenges_on_challenge_id"
     t.index ["user_id"], name: "index_user_challenges_on_user_id"
+  end
+
+  create_table "user_providers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "provider_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider_id"], name: "index_user_providers_on_provider_id"
+    t.index ["user_id"], name: "index_user_providers_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -82,9 +143,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_12_084909) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "list_items", "lists"
   add_foreign_key "lists", "users"
+  add_foreign_key "media_providers", "providers"
+  add_foreign_key "reviews", "users"
   add_foreign_key "saved_lists", "lists"
   add_foreign_key "saved_lists", "users"
   add_foreign_key "user_challenges", "challenges"
   add_foreign_key "user_challenges", "users"
+  add_foreign_key "user_providers", "providers"
+  add_foreign_key "user_providers", "users"
 end

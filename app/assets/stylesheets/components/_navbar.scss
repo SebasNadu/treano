@@ -12,10 +12,9 @@
 }
 
 .sidebar {
-  width: 3rem;
-  height: 90vh;
   position: fixed;
-  background-color: $primary;
+  //background-color: $primary;
+  transition: width 300ms ease;
 }
 .sidebar-nav {
   list-style: none;
@@ -26,14 +25,78 @@
   align-items: center;
   height: 100%;
 }
-.nav-item {
+.side-item {
   width: 100%;
 }
-.nav-item:last-child {
+.side-item:last-child {
   margin-top: auto;
 }
-.nav-link {
+.side-link {
   display: flex;
   align-items: center;
+  height: 3rem;
   color: $light;
+  text-decoration: none;
+  svg {
+    min-width: 1rem;
+    margin: 0 1rem;
+  }
+  img {
+    min-width: 1rem;
+    margin: 0 0.5rem;
+  }
+}
+.link-text {
+  display: none;
+  margin-left: 0.5rem;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: $light;
+  letter-spacing: 0.3ch;
+  width: 100%;
+}
+.logo svg {
+  margin-left: 0.5rem;
+  transform: rotate(0deg);
+  transition: transform 900ms ease;
+}
+.sidebar:hover .logo svg {
+  transform: rotateY(-360deg)
+}
+@media only screen and (max-width: 600px) {
+  .sidebar {
+    bottom: 0;
+    width: 100vw;
+    height: 4rem;
+    border-radius: 20px 20px 0 0;
+  }
+  .logo {
+    display: none;
+  }
+  .sidebar-nav {
+    flex-direction: row;
+  }
+  .side-link {
+    justify-content: center;
+  }
+
+}
+@media only screen and (min-width: 600px) {
+  .sidebar {
+    top: 0;
+    width: 4rem;
+    height: 100vh;
+    border-radius: 0 20px 20px 0;
+  }
+  .sidebar:hover {
+    width: 16rem;
+  }
+  .sidebar:hover .link-text {
+    display: block;
+  }
 }

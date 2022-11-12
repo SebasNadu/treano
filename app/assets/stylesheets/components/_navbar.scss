@@ -13,7 +13,7 @@
 
 .sidebar {
   position: fixed;
-  background-color: $primary;
+  //background-color: $primary;
   transition: width 300ms ease;
 }
 .sidebar-nav {
@@ -39,11 +39,11 @@
   text-decoration: none;
   svg {
     min-width: 1rem;
-    margin: 0 0.75rem;
+    margin: 0 1rem;
   }
   img {
     min-width: 1rem;
-    margin: 0 0.25rem;
+    margin: 0 0.5rem;
   }
 }
 .link-text {
@@ -63,7 +63,7 @@
 .logo svg {
   margin-left: 0.5rem;
   transform: rotate(0deg);
-  transition: transform 500ms ease;
+  transition: transform 900ms ease;
 }
 .sidebar:hover .logo svg {
   transform: rotateY(-360deg)
@@ -72,7 +72,8 @@
   .sidebar {
     bottom: 0;
     width: 100vw;
-    height: 3rem;
+    height: 4rem;
+    border-radius: 20px 20px 0 0;
   }
   .logo {
     display: none;
@@ -83,12 +84,14 @@
   .side-link {
     justify-content: center;
   }
+
 }
 @media only screen and (min-width: 600px) {
   .sidebar {
     top: 0;
-    width: 3rem;
+    width: 4rem;
     height: 100vh;
+    border-radius: 0 20px 20px 0;
   }
   .sidebar:hover {
     width: 16rem;

@@ -13,8 +13,6 @@ class User < ApplicationRecord
   has_many :providers, through: :user_providers
   has_many :reviews
 
-  has_many :movies, through: :reviews, source: :movies
-  :conditions => "reviews.reviewable_type = 'Movie'"
-  has_many :tvs, through: :reviews, source: :tvs
-  :conditions => "reviews.reviewable_type = 'Tv'"
+  has_many :movies, through: :reviews, source: :reviewable, source_type: 'Movie'
+  has_many :tvs, through: :reviews, source: :reviewable, source_type: 'Tv'
 end

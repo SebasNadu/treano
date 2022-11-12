@@ -14,4 +14,7 @@ class User < ApplicationRecord
   has_many :streaming_platforms, through: :user_streaming_platforms
   has_many :movie_reviews
   has_many :movies, through: :movie_reviews
+  has_many :poly_review_tests
+  has_many :tv_series, through: :poly_review_tests
+  has_many :movies, through: :poly_review_tests
 end

@@ -7,4 +7,5 @@ class Movie < ApplicationRecord
   has_many :streaming_platforms, through: :movie_platforms
   has_many :movie_genres
   has_many :genres, through: :movie_genres
+  has_many :poly_review_tests, as: :testable
 end

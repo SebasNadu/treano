@@ -1,4 +1,4 @@
-class Movie < ApplicationRecord
+class Tv < ApplicationRecord
   has_many :list_items, as: :listable
   has_many :lists, through: :list_items
   has_many :media_providers, as: :providable

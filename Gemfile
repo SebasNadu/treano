@@ -48,6 +48,9 @@ gem "sassc-rails"
 # Use inline svg to tag svg files in the view inline_svg_tag(file_name, options={})
 gem 'inline_svg'
 
+#json require
+gem 'json', '~> 2.6', '>= 2.6.2'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

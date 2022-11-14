@@ -1,7 +1,10 @@
+<h4 class="py-3">This is a movie show</h4>
 
-<div class="neu-form my-5 p-4">
-  <h4 class="py-3">Add your review</h4>
-  <%= simple_form_for [@movie, @test_review] do |f| %>
-    <%= f.button :submit, class:"btn btn-outline-success my-3" %>
-  <% end %>
+<div>
+  <%= @movie.title %>
+  <%= @movie.country_of_origin %>
+  <%= @movie.release_date %>
+  <%= @movie.overview %>
+  <%= @movie.rating_average %>
+  <%= link_to "Home", root_path %>
 </div>

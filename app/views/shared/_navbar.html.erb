@@ -1,18 +1,23 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand" do %>
-      <%= inline_svg_tag 'svg/treano', style: "font-size: 32px;" %>
-    <% end %>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
+<div class="navbar navbar-top ms-auto sticky-top">
+  <div class="container-fluid d-flex d-row justify-content-end">
+      <ul class=" d-flex d-row list-unstyled align-items-center justify-content-center m-0">
         <% if user_signed_in? %>
-          <li class="nav-item active">
-            <%= link_to "Home", "#", class: "nav-link" %>
+          <li class="nav-item">
+            <div class="btn-group dropstart">
+              <button type="button" class="btn btn-ghost dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= inline_svg_tag 'svg/search.svg', style: "font-size: 1.5rem;" %>
+              </button>
+              <div class="dropdown-menu p-0 bg-transparent rounded">
+                <%= simple_form_for :search, url: root_path, method: :get, input_html: { class: 'w-100'} do |f| %>
+                  <div class="search-form-control form-group p-0 bg-transparent">
+                    <input class="form-control string required bg-trans" type="text" name="search[query]" id="search_query" placeholder="Search" />
+                    <button name="button" type="submit" class="btn btn-input">
+                      <i class="fas fa-search"></i> Search
+                    </button>
+                  </div>
+                <% end %>
+              </div>
+            </div>
           </li>
           <li class="nav-item">
             <%= link_to "Messages", "#", class: "nav-link" %>
@@ -27,46 +32,48 @@
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+            <%= link_to new_user_session_path, class: "nav-link" do %>
+              <%= inline_svg_tag 'svg/log-in.svg', style: "font-size: 1.5rem;" %>
+            <% end %>
           </li>
         <% end %>
       </ul>
-    </div>
   </div>
 </div>
-<nav class="sidebar bg-warning">
-  <ul class="sidebar-nav py-3">
+<nav class="sidebar sticky-top">
+  <ul class="sidebar-nav">
     <li class="logo">
-      <h2 class="link-text pe-4 fw-bold">Treano</h2>
-      <%= inline_svg_tag 'svg/treano', style: "font-size: 2rem;" %>
+      <h2 class="logo-text my-0">Treano</h2>
+      <%= inline_svg_tag 'svg/treano.svg', style: "font-size: 2rem;" %>
     </li>
     <li class="side-item">
       <%= link_to "#", class: "side-link text-light" do %>
-        <%= inline_svg_tag 'svg/home', style: "font-size: 1.5rem;" %>
+        <%= inline_svg_tag 'svg/home.svg', style: "font-size: 1.5rem;" %>
         <span class="link-text">Home</span>
       <% end %>
     </li>
     <li class="side-item">
       <%= link_to "#", class: "side-link text-light" do %>
-        <%= inline_svg_tag 'svg/box', style: "font-size: 1.5rem;" %>
+        <%= inline_svg_tag 'svg/box.svg', style: "font-size: 1.5rem;" %>
         <span class="link-text">Dashboard</span>
       <% end %>
     </li>
     <li class="side-item">
       <%= link_to "#", class: "side-link text-light" do %>
-        <%= inline_svg_tag 'svg/list', style: "font-size: 1.5rem;" %>
+        <%= inline_svg_tag 'svg/list.svg', style: "font-size: 1.5rem;" %>
         <span class="link-text">Lists</span>
       <% end %>
     </li>
     <li class="side-item">
       <%= link_to "#", class: "side-link text-light" do %>
-        <%= inline_svg_tag 'svg/layers', style: "font-size: 1.5rem;" %>
+        <%= inline_svg_tag 'svg/layers.svg', style: "font-size: 1.5rem;" %>
         <span class="link-text">Leaderboard</span>
       <% end %>
     </li>
     <li class="side-item">
-      <%= link_to "#", class: "side-link" do %>
-        <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle" %>
+      <%= link_to "#", class: "side-link text-light" do %>
+        <%= inline_svg_tag 'svg/help-circle.svg', style: "font-size: 1.5rem;" %>
+        <span class="link-text">Credits</span>
       <% end %>
     </li>
   </ul>

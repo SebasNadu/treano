@@ -1,21 +1,15 @@
-.navbar-lewagon {
-  justify-content: space-between;
+.navbar-top {
   background: $dark;
-}
-
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
-}
-
-.navbar-lewagon .navbar-brand img {
-  width: 3rem;
+  width: 95vw;
 }
 
 .sidebar {
-  position: fixed;
-  //background-color: $primary;
-  transition: width 300ms ease;
+  //position: fixed;
+  background-color: $primary;
+  transition: width 600ms ease;
+  overflow: scroll;
 }
+
 .sidebar-nav {
   list-style: none;
   padding: 0;
@@ -23,56 +17,83 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
   height: 100%;
 }
+
 .side-item {
   width: 100%;
 }
+
 .side-item:last-child {
-  margin-top: auto;
+  margin-top: 6rem;
 }
+
 .side-link {
   display: flex;
   align-items: center;
-  height: 3rem;
+  //height: 5rem;
   color: $light;
   text-decoration: none;
+  transition: 600ms;
   svg {
-    min-width: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    min-width: 1.5rem;
     margin: 0 1rem;
+    fill: none;
+    transition: 500ms;
+    &:hover {
+      color: $secondary;
+      width: 2rem;
+      height: 2rem;
+      fill: $light;
+    }
   }
   img {
-    min-width: 1rem;
-    margin: 0 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
+    margin: 0 .75rem;
   }
 }
+
 .link-text {
   display: none;
-  margin-left: 0.5rem;
+  margin-left: 0rem;
 }
+
 .logo {
-  display: flex;
-  align-items: center;
   font-weight: bold;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   text-align: center;
   color: $light;
   letter-spacing: 0.3ch;
   width: 100%;
 }
+
 .logo svg {
-  margin-left: 0.5rem;
-  transform: rotate(0deg);
-  transition: transform 900ms ease;
+  width: 2rem;
+  height: 2rem;
+  transform: rotateY(0deg);
+  transition: 900ms ease;
 }
-.sidebar:hover .logo svg {
-  transform: rotateY(-360deg)
+
+.logo-text {
+  display: inline;
+  font-weight: bold;
+  position: absolute;
+  left: -999px;
+  transition: 500ms ease; 
 }
+
+
+
 @media only screen and (max-width: 600px) {
   .sidebar {
     bottom: 0;
     width: 100vw;
-    height: 4rem;
+    height: 3.5rem;
     border-radius: 20px 20px 0 0;
   }
   .logo {
@@ -86,17 +107,26 @@
   }
 
 }
+
 @media only screen and (min-width: 600px) {
   .sidebar {
     top: 0;
-    width: 4rem;
+    width: 3.5rem;
     height: 100vh;
     border-radius: 0 20px 20px 0;
-  }
-  .sidebar:hover {
-    width: 16rem;
-  }
-  .sidebar:hover .link-text {
-    display: block;
+
+    &:hover {
+      width: 16rem;
+    }
+    &:hover .link-text {
+      display: inline;
+    }
+    &:hover .logo svg {
+      margin-left: 11rem;
+      transform: rotateY(-360deg)
+    }
+    &:hover .logo .logo-text {
+      left: 2.5rem;
+    }
   }
 }

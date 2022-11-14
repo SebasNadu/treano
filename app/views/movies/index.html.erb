@@ -1,0 +1,10 @@
+<% @movies.each do |movie| %>
+<div>
+  <%= movie.title %>
+  <%= movie.country_of_origin %>
+  <%= movie.release_date %>
+  <%= movie.overview %>
+  <%= movie.rating_average %>
+  <%= link_to "See more", movie_path(movie) %>
+</div>
+<% end %>

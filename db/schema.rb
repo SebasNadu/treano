@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_13_170615) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_11_13_190815) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,16 +61,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_170615) do
     t.integer "tmdb_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "backdrop"
     t.string "backdrop_url"
   end
 
   create_table "providers", force: :cascade do |t|
     t.string "provider_name"
     t.string "logo_path"
-    t.integer "tmdb_provider_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "ios_appstore_url"
+    t.string "android_playstore_url"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -100,12 +99,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_170615) do
     t.string "title"
     t.text "overview"
     t.string "country"
-    t.date "start_date"
-    t.date "end_date"
+    t.date "first_air_date"
     t.integer "tmdb_id"
-    t.integer "imdb_id"
-    t.integer "number_of_seasons"
-    t.integer "number_of_episodes"
+    t.string "backdrop_url"
+    t.string "poster_url"
+    t.float "rating_average"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

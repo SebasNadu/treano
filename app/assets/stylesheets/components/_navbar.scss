@@ -1,18 +1,10 @@
-.navbar-lewagon {
-  justify-content: space-between;
+.navbar-top {
   background: $dark;
-}
-
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
-}
-
-.navbar-lewagon .navbar-brand img {
-  width: 3rem;
+  width: 95vw;
 }
 
 .sidebar {
-  position: fixed;
+  //position: fixed;
   background-color: $primary;
   transition: width 600ms ease;
   overflow: scroll;

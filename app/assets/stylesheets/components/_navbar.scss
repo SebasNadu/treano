@@ -1,10 +1,9 @@
 .navbar-top {
-  background: $dark;
-  width: 95vw;
+  //background: $dark;
+  width: 90vw;
 }
 
 .sidebar {
-  //position: fixed;
   background-color: $primary;
   transition: width 600ms ease;
   overflow: scroll;

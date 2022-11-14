@@ -11,9 +11,17 @@
   </head>
 
   <body>
-    <%#= render "shared/navbar" %>
-
-    <%= yield %>
+    <div class="container-fluid row p-0 m-0">
+      <div class="col-auto p-0 m-0">
+        <%= render "shared/sidebar" %>
+      </div>
+      <div class="container col min-vh-100 p-0 m-0">
+        <%= render "shared/navbar" %>
+        <div class="container-fluid mt-5 py-4">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
     <%= render "shared/flashes" %>
   </body>
 </html>

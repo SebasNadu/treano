@@ -1,5 +1,13 @@
-<div class="navbar navbar-top ms-auto fixed-top">
+<div class="navbar navbar-top ms-auto sticky-top">
   <div class="container-fluid d-flex d-row justify-content-end">
+    <% t = Time.now %>
+    <% if t.hour < 12 %>
+      <p class="fs-2 fw-light text-light me-auto my-0">Good moring <%= current_user.username %></p>
+    <% elsif t.hour >= 12 %>
+      <p class="fs-2 fw-light text-light me-auto my-0">Welcome back</p>
+    <% elsif t.hour > 18 %>
+      <p class="fs-2 fw-light text-light me-auto my-0">Welcome back</p>
+    <% end %>
       <ul class=" d-flex d-row list-unstyled align-items-center justify-content-center m-0">
         <% if user_signed_in? %>
           <li class="nav-item">
@@ -20,7 +28,26 @@
             </div>
           </li>
           <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
+            <div class="dropdown-center">
+              <button type="button" class="btn btn-ghost dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                <%= inline_svg_tag 'svg/grid.svg', style: "font-size: 1.5rem;" %>
+              </button>
+              <form class="dropdown-menu dropdown-menu-end p-2 bg-trans border-0">
+                <div class="mb-3">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="dropdownCheck2">
+                    <label class="form-check-label" for="dropdownCheck2">
+                    </label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+              </form>
+            </div>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-ghost">
+              <%= inline_svg_tag 'svg/bell.svg', style: "font-size: 1.5rem;" %>
+            </button>
           </li>
           <li class="nav-item dropdown">
             <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
@@ -40,3 +67,5 @@
       </ul>
   </div>
 </div>
+
+<%= render "shared/sidebar" %>

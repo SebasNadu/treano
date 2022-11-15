@@ -13,11 +13,16 @@
 
 
 body::-webkit-scrollbar {
-	width: 0.25rem;
+	width: 0.4rem;
+	height: 0.4rem;
 }
 body::-webkit-scrollbar-track {
-	background: $gray-800;
+	background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 body::-webkit-scrollbar-thumb {
 	background: $primary;
+	border-radius: 16px;
 }

@@ -4,9 +4,9 @@
     <% if t.hour < 12 %>
       <p class="fs-2 fw-light text-light me-auto my-0">Good moring <%= current_user.username %></p>
     <% elsif t.hour >= 12 %>
-      <p class="fs-2 fw-light text-light me-auto my-0">Welcome back</p>
+      <p class="fs-2 fw-light text-light me-auto my-0">Good afternoon <%= current_user.username %></p>
     <% elsif t.hour > 18 %>
-      <p class="fs-2 fw-light text-light me-auto my-0">Welcome back</p>
+      <p class="fs-2 fw-light text-light me-auto my-0">Good night <%= current_user.username %></p>
     <% end %>
       <ul class=" d-flex d-row list-unstyled align-items-center justify-content-center m-0">
         <% if user_signed_in? %>

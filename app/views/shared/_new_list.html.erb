@@ -1,0 +1,5 @@
+<%= simple_form_for [@list] do |f| %>
+  <%= f.input :list_name, placeholder: "List name" %>
+  <%= f.input :description %>
+  <%= f.submit "Create a list", class: "btn btn-flat" %>
+<% end %>

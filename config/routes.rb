@@ -7,4 +7,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :movies, only: %i[index show]
   resources :tvs, only: %i[index show]
+
+  resources :lists
+  get '/dashboard', to: "dashboard#dashboard"
 end

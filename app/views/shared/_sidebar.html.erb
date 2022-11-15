@@ -1,4 +1,4 @@
-<nav class="sidebar sticky-top">
+<nav class="sidebar position-fixed">
   <ul class="sidebar-nav">
     <li class="logo">
       <h2 class="logo-text my-0">Treano</h2>
@@ -26,6 +26,12 @@
       <%= link_to "#", class: "side-link text-light" do %>
         <%= inline_svg_tag 'svg/layers.svg', style: "font-size: 1.5rem;" %>
         <span class="link-text">Leaderboard</span>
+      <% end %>
+    </li>
+    <li class="side-item">
+      <%= link_to "#", class: "side-link text-light" do %>
+        <%= inline_svg_tag 'svg/log-out.svg', style: "font-size: 1.5rem;" %>
+        <span class="link-text">Log out</span>
       <% end %>
     </li>
     <li class="side-item">

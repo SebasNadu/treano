@@ -1,13 +1,14 @@
-<h1>Tvs#index</h1>
-<p>Find me in app/views/tvs/index.html.erb</p>
-
-<% @tvs.each do |tv| %>
-<div>
-  <%= tv.title %>
-  <%= tv.country %>
-  <%= tv.start_date %>
-  <%= tv.end_date %>
-  <%= tv.overview %>
-  <%= link_to "See more", tv_path(tv) %>
+<div class="container">
+  <% @tvs.each do |tv| %>
+  <ul>
+    <li>
+      <p><%= tv.title %></p>
+      <p><%= tv.country %></p>
+      <p><%= tv.first_air_date %></p>
+      <p><%= tv.overview %></p>
+      <p><%= tv.rating_average %></p>
+      <p><%= link_to "See more", tv_path(tv) %></p>
+    </li>
+  </ul>
+  <% end %>
 </div>
-<% end %>

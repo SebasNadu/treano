@@ -1,10 +1,14 @@
-<% @movies.each do |movie| %>
-<div>
-  <%= movie.title %>
-  <%= movie.country_of_origin %>
-  <%= movie.release_date %>
-  <%= movie.overview %>
-  <%= movie.rating_average %>
-  <%= link_to "See more", movie_path(movie) %>
+<div class="container">
+  <% @movies.each do |movie| %>
+  <ul>
+    <li>
+      <p><%= movie.title %></p>
+      <p><%= movie.country_of_origin %></p>
+      <p><%= movie.release_date %></p>
+      <p><%= movie.overview %></p>
+      <p><%= movie.rating_average %></p>
+      <p><%= link_to "See more", movie_path(movie) %></p>
+    </li>
+  </ul>
+  <% end %>
 </div>
-<% end %>

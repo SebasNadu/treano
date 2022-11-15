@@ -1,0 +1,12 @@
+<div class="container">
+  <h1>User dashboard</h1>
+  <h1>My profile</h1>
+  <p><%= @user.first_name %></p>
+  <h1>My stats</h1>
+  <div>
+    <h1>My lists</h1>
+      <%= render 'shared/new_list' %>
+      <%= render 'shared/lists' %>
+  </div>
+  <h1>My reviews</h1>
+</div>

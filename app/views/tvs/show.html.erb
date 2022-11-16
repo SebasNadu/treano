@@ -1,11 +1,28 @@
-<h1>Tvs#show</h1>
-<p>Find me in app/views/tvs/show.html.erb</p>
+<div class="container">
+  <h1>Tvs#show</h1>
+  <p>Find me in app/views/tvs/show.html.erb</p>
 
-<div>
-  <%= tv.title %>
-  <%= tv.country %>
-  <%= tv.first_air_date %>
-  <%= tv.overview %>
-  <%= tv.rating_average %>
-  <%= link_to "Home", root_path %>
+  <div>
+
+    <p><%= @tv.title %></p>
+    <p><%= @tv.country %></p>
+    <p><%= @tv.first_air_date %></p>
+    <p><%= @tv.overview %></p>
+    <p><%= @tv.rating_average %></p>
+    <p><%= link_to "Home", root_path %></p>
+
+  </div>
+
+  <%= render "shared/new_list_item" %>
+  <%= render "shared/new_review" %>
+
+  <% @tv.reviews.each do |review| %>
+  <p><%= review.user.username %></p>
+  <p><%= review.rating %></p>
+  <p><%= review.content %></p>
+  <p><%= link_to "Delete",
+    review_path(review),
+    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %></p>
+  <hr>
+  <% end %>
 </div>

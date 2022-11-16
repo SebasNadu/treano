@@ -5,6 +5,11 @@ class TvsController < ApplicationController
   end
 
   def show
+    @review = Review.new
+    @reviewable = @tv
+    @list_item = ListItem.new
+    @listable = @tv
+    @lists = List.where(["user_id = :user_id", { user_id: current_user.id }])
   end
 
   private

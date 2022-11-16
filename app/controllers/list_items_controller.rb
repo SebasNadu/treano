@@ -7,11 +7,17 @@ class ListItemsController < ApplicationController
     @list_item.list = @list
     @list_item.listable = @listable
     if @list_item.save
-      redirect_to movie_path(Movie.find(params[:movie_id]))
+      redirect_to polymorphic_path(@listable)
     else
       @list_item = ListItem.new
       render "movies/show", status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @list_item = ListItem.find(params[:id])
+    @list_item.destroy
+    redirect_to polymorphic_path(@list_item.list), status: :see_other
   end
 
   private

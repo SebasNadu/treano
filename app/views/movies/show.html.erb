@@ -10,24 +10,18 @@
     <p><%= link_to "Home", root_path %>
   </div>
 
-  <%= simple_form_for [@movie, @list_item] do |f| %>
-    <%= f.association :list, collection: @lists %>
-    <%= f.submit "Add to list", class: "btn btn-primary" %>
-  <% end %>
+  <%= render "shared/new_list_item" %>
 
- <%= simple_form_for [@movie, @review] do |f| %>
-    <%= f.input :rating %>
-    <%= f.input :content %>
-    <%= f.submit "Add a review", class: "btn btn-primary" %>
-  <% end %>
+  <%= render "shared/new_review" %>
+
 
   <% @movie.reviews.each do |review| %>
   <p><%= review.user.username %></p>
   <p><%= review.rating %></p>
   <p><%= review.content %></p>
+  <p><%= link_to "Delete",
+    review_path(review),
+    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %></p>
   <hr>
   <% end %>
-
-
-
 </div>

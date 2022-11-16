@@ -9,4 +9,12 @@
   data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
   %>
   <% end %>
+
+  <% @list.list_items.each do |list_item| %>
+  <p><%= list_item.listable.title %></p>
+  <p><%= link_to "Remove from list",
+    list_item_path(list_item),
+    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %></p>
+  <% end %>
+
 </div>

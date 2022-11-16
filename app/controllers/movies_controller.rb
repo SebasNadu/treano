@@ -7,7 +7,9 @@ class MoviesController < ApplicationController
 
   def show
     @review = Review.new
+    @reviewable = @movie
     @list_item = ListItem.new
+    @listable = @movie
     @lists = List.where(["user_id = :user_id", { user_id: current_user.id }])
   end
 

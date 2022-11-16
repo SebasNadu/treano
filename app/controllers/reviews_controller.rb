@@ -6,22 +6,24 @@ class ReviewsController < ApplicationController
     @review.user = current_user
     @review.reviewable = @reviewable
     if @review.save
-      redirect_to movie_path(Movie.find(params[:movie_id]))
+      redirect_to polymorphic_path(@reviewable)
     else
       @review = Review.new
       render "movies/show", status: :unprocessable_entity
     end
   end
 
-  private
-
-  # def set_reviewable
-  #   if params[:controller] == "movies"
-  #     @reviewable = Movie.find(params[:id])
-  #   elsif params[:controller] == "tvs"
-  #     @reviewable = Tv.find(params[:id])
-  #   end
+  # def edit
+  #   @review = Review.find(params[:id])
   # end
+
+  def destroy
+    @review = Review.find(params[:id])
+    @review.destroy
+    redirect_to polymorphic_path(@review.reviewable), status: :see_other
+  end
+
+  private
 
   def set_reviewable
     if params[:movie_id].present?

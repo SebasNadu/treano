@@ -1,0 +1,4 @@
+  <%= simple_form_for [@listable, @list_item] do |f| %>
+    <%= f.association :list, collection: @lists %>
+    <%= f.submit "Add to list", class: "btn btn-primary" %>
+  <% end %>

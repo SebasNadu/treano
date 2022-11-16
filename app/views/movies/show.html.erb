@@ -1,10 +1,33 @@
-<h4 class="py-3">This is a movie show</h4>
+<div class="container">
+  <h4 class="py-3">This is a movie show</h4>
 
-<div>
-  <%= @movie.title %>
-  <%= @movie.country_of_origin %>
-  <%= @movie.release_date %>
-  <%= @movie.overview %>
-  <%= @movie.rating_average %>
-  <%= link_to "Home", root_path %>
+  <div>
+    <p><%= @movie.title %></p>
+    <p><%= @movie.country_of_origin %></p>
+    <p><%= @movie.release_date %></p>
+    <p><%= @movie.overview %></p>
+    <p><%= @movie.rating_average %></p>
+    <p><%= link_to "Home", root_path %>
+  </div>
+
+  <%= simple_form_for [@movie, @list_item] do |f| %>
+    <%= f.association :list, collection: @lists %>
+    <%= f.submit "Add to list", class: "btn btn-primary" %>
+  <% end %>
+
+ <%= simple_form_for [@movie, @review] do |f| %>
+    <%= f.input :rating %>
+    <%= f.input :content %>
+    <%= f.submit "Add a review", class: "btn btn-primary" %>
+  <% end %>
+
+  <% @movie.reviews.each do |review| %>
+  <p><%= review.user.username %></p>
+  <p><%= review.rating %></p>
+  <p><%= review.content %></p>
+  <hr>
+  <% end %>
+
+
+
 </div>

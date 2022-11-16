@@ -1,7 +1,7 @@
 class DashboardController < ApplicationController
   before_action :set_user
 
-  def dashboard
+  def index
     @list = List.new
     @lists = List.where(["user_id = :user_id", { user_id: @user }])
   end

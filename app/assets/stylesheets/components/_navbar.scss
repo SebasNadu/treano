@@ -1,9 +1,20 @@
 .navbar-top {
   //background: $dark;
-  width: 90vw;
+  width: 100vw;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.1);
+  //border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.hello {
+  margin-left: 4rem;
 }
 
 .sidebar {
+  z-index: 20;
   background-color: $primary;
   transition: width 600ms ease;
   overflow: scroll;
@@ -87,8 +98,10 @@
 }
 
 
-
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
+  .hello {
+  margin-left: 1em;
+  }
   .sidebar {
     bottom: 0;
     width: 100vw;
@@ -109,7 +122,7 @@
   }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 768px) {
   .sidebar {
     bottom: 0;
     width: 3.5rem;

@@ -25,7 +25,7 @@ movies["results"].each do |movie|
   Movie.create(
     title: movie["title"],
     overview: movie["overview"],
-    poster_url: "https://image.tmdb.org/t/p/w780#{movie["poster_path"]}",
+    poster_url: "https://image.tmdb.org/t/p/w500#{movie["poster_path"]}",
     backdrop_url: "https://image.tmdb.org/t/p/w1280#{movie["backdrop_path"]}",
     rating_average: movie["vote_average"],
     tmdb_id: movie["id"],
@@ -39,7 +39,7 @@ tvs["results"].each do |tv|
   Tv.create(
     title: tv["name"],
     overview: tv["overview"],
-    poster_url: "https://image.tmdb.org/t/p/w780#{tv["poster_path"]}",
+    poster_url: "https://image.tmdb.org/t/p/w500#{tv["poster_path"]}",
     backdrop_url: "https://image.tmdb.org/t/p/w1280#{tv["backdrop_path"]}",
     rating_average: tv["vote_average"],
     tmdb_id: tv["id"],

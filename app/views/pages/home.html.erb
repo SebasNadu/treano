@@ -7,34 +7,31 @@
 <% @weeklytrends_movies.size %>
 <% @upcoming_movies.size %>
 
-<div class="container-fluid ps-0 ps-sm-4 py-4">
-<div data-controller="carousel" class="swiper-container">
-  <div class="swiper-wrapper">
-    <div class="swiper-slide">Slide 1</div>
-    <div class="swiper-slide">Slide 2</div>
-    <div class="swiper-slide">Slide 3</div>
-  </div>
-</div>
-  <div class="">
-    <div class="container-cards p-2 p-sm-3">
-      <h3>Popular movies</h3>
-      <div data-controller="carousel media_carousel" class="media-scroller swiper swiper-container" data-carousel-options-value='{
-      "pagination": { "el": ".swiper-pagination", "dynamicBullets": "true" }, "navigation": { "nextEl": ".swiper-button-next", "pervEl": ".swiper-button-prev"
-      }}'>
-        <div class="swiper-pagination"></div>
-        <div class="mx-aut media-group swiper-wrapper">
+<div class="container-fluid px-3 ps-sm-4 py-4">
+  <div class="container-cards py-0 py-sm-1" data-controller="treano-carousel">
+    <div class="row m-0">
+      <div class="header">
+        <h3 class="title m-0">Popular movies</h3>
+        <div class="progress-bar" data-treano-carousel-target="progressbar">
+        </div>
+      </div>
+      <div  class="container-media pb-4 p-0">
+        <button class="handle left-handle" data-action="click->treano-carousel#updatePrev">
+          <div class="text mb-3">&#8249;</div>
+        </button>
+        <div class="slider" data-treano-carousel-target="slider">
           <% @popular_movies.each do |movie| %>
-            <div class="media-element swiper-slide">
+            <div class="media-element">
               <%= image_tag movie[:poster_url] %>
-              <%#<div class="medio-description bg-trans">%>
-                <%#<h5><%= movie[:title] ></h5>%>
-              <%#</div>%>
-            </div>  
+              <div class="info text-center">
+                <p class="text1"><%= movie[:title] %></p>
+              </div>
+            </div>
           <% end %>
         </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <button class="handle right-handle" data-action="click->treano-carousel#updateNext">
+          <div class="text mb-4">&#8250;</div>
+        </button>
       </div>
     </div>
   </div>

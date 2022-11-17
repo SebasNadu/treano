@@ -1,13 +1,17 @@
 <div class="navbar navbar-top ms-auto sticky-top">
   <div class="container-fluid d-flex d-row justify-content-end">
     <div class="flex-grow-1 hello">
-      <% t = Time.now %>
-      <% if t.hour < 12 %>
-        <p class="fs-4 fw-light text-light my-0">Good moring <%= current_user.username %></p>
-      <% elsif t.hour >= 12 %>
-        <p class="fs-4 fw-light text-light my-0">Good afternoon <%= current_user.username %></p>
-      <% elsif t.hour > 18 %>
-        <p class="fs-4 fw-light text-light my-0">Good night <%= current_user.username %></p>
+      <% if user_signed_in? %>
+        <% t = Time.now %>
+        <% if t.hour < 12 %>
+          <p class="fs-4 fw-light text-light my-0">Good morning <%= current_user.username %></p>
+        <% elsif t.hour >= 12 %>
+          <p class="fs-4 fw-light text-light my-0">Good afternoon <%= current_user.username %></p>
+        <% elsif t.hour > 18 %>
+          <p class="fs-4 fw-light text-light my-0">Good night <%= current_user.username %></p>
+        <% end %>
+      <% else %>
+        <p class="fs-4 fw-light text-light my-0">Join to us!</p>
       <% end %>
     </div>
       <ul class=" d-flex d-row list-unstyled align-items-center justify-content-center m-0">

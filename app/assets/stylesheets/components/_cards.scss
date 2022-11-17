@@ -17,7 +17,7 @@
 .container-media {
   display: flex;
   justify-content: center;
-  //overflow: hidden;
+  overflow: hidden;
 }
 
 .slider {
@@ -36,6 +36,21 @@
   flex: 0 0 calc(100% / var(--items-per-screen));
   max-width: calc(100% / var(--items-per-screen));
   position: relative;
+  //margin-bottom: calc(--img-gap * 2);
+  transform: scale(1);
+  &:hover {
+    transform: scale(1.2);
+    .info {
+      bottom: -10%;
+      height: 60%;
+      border-radius: 0 0 1rem 1rem;
+      //background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background-blend-mode: screen;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, $dark 100%);
+    }
+  }
   img {
     width: 100%;
     aspect-ratio: 4 / 5;
@@ -46,11 +61,22 @@
   }
   .info {
     position: absolute;
-    bottom: 0;
+    bottom: -20%;
     margin: 0 var(--img-gap);
     width: 85%;
-    height: 35%;
+    height: 20%;
+    font-size: 80%;
+    font-weight: 600;
+    border-radius: 0 0 0rem 0rem;
+    background: red;
   }
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .handle {
@@ -133,6 +159,9 @@
   :root {
     --handle-size: 2rem;
   }
+  .info {
+    font-size: 60%;
+  }
 }
 
 @media (max-width: 576px) {
@@ -141,6 +170,9 @@
   }
   :root {
     --handle-size: 2rem;
+  }
+  .info {
+    font-size: 65%;
   }
 }
 

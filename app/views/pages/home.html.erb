@@ -15,7 +15,7 @@
         <div class="progress-bar" data-treano-carousel-target="progressbar">
         </div>
       </div>
-      <div  class="container-media pb-4 p-0">
+      <div  class="container-media pb-5 p-0">
         <button class="handle left-handle" data-action="click->treano-carousel#updatePrev">
           <div class="text mb-3">&#8249;</div>
         </button>
@@ -23,8 +23,12 @@
           <% @popular_movies.each do |movie| %>
             <div class="media-element">
               <%= image_tag movie[:poster_url] %>
-              <div class="info text-center">
-                <p class="text1"><%= movie[:title] %></p>
+              <div class="info text-center py-2">
+                <p class="text1 m-0 line-clamp"><%= movie[:title] %></p>
+                <div class="d-flex align-items-center flex-column justify-content-between px-1">
+                  <small class="text-muted ">Rating: <%= movie[:rating_average] %></small>
+                  <small class="text-muted">Release date: <%= movie[:release_date] %></small>
+                </div>
               </div>
             </div>
           <% end %>

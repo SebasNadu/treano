@@ -1,16 +1,16 @@
 <div class="container">
-  <p><%= @list.list_name %></p>
-  <p><%= @list.description %></p>
-  <p><%= @list.votes %></p>
-  <% if @list.user.id == current_user.id %>
-  <p><%= link_to "Edit list", edit_list_path(@list) %></p>
+  <p><%= list.list_name %></p>
+  <p><%= list.description %></p>
+  <p><%= list.votes %></p>
+  <% if list.user.id == current_user.id %>
+  <p><%= link_to "Edit list", edit_list_path(list) %></p>
   <%= link_to "Delete",
-  list_path(@list),
+  list_path(list),
   data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
   %>
   <% end %>
 
-  <% @list.list_items.each do |list_item| %>
+  <% list.list_items.each do |list_item| %>
   <p><%= list_item.listable.title %></p>
   <p><%= link_to "Remove from list",
     list_item_path(list_item),

@@ -12,7 +12,7 @@ class ListsController < ApplicationController
     if @list.save
       redirect_to list_path(@list)
     else
-      render :lists, status: :unprocessable_entity
+      render 'dashboard/index', status: :unprocessable_entity
     end
   end
 
@@ -29,7 +29,7 @@ class ListsController < ApplicationController
 
   def destroy
     @list.destroy
-    redirect_to lists_path, status: :see_other
+    redirect_to dashboard_path, status: :see_other
   end
 
   private

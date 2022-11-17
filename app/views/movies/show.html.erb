@@ -10,9 +10,9 @@
     <p><%= link_to "Home", root_path %>
   </div>
 
-  <%= render "shared/new_list_item" %>
+  <%#= render "shared/new_list_item", locals: { listable: @listable, list_item: @list_item } %>
 
-  <%= render "shared/new_review" %>
+  <%= render "shared/new_review", locals: { reviewable: reviewable, review: review } %>
 
 
   <% @movie.reviews.each do |review| %>

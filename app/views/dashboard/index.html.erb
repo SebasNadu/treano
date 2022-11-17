@@ -5,8 +5,10 @@
   <h1>My stats</h1>
   <div>
     <h1>My lists</h1>
-      <%= render 'shared/new_list' %>
-      <%= render 'shared/lists' %>
+      <%= render 'shared/new_list', list: @list %>
+      <% if @lists %>
+      <%= render 'shared/lists', lists: @lists %>
+      <% end %>
   </div>
   <h1>My reviews</h1>
 </div>

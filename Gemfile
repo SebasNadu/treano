@@ -46,7 +46,7 @@ gem "bootsnap", require: false
 gem "sassc-rails"
 
 # Use inline svg to tag svg files in the view inline_svg_tag(file_name, options={})
-gem 'inline_svg'
+#gem 'inline_svg'
 
 #json require
 gem 'json', '~> 2.6', '>= 2.6.2'

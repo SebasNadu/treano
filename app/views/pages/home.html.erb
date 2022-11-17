@@ -7,165 +7,36 @@
 <% @weeklytrends_movies.size %>
 <% @upcoming_movies.size %>
 
-<div class="container-fluid ps-4 py-4">
-  <div class="">
-    <div class="container-cards p-3 pt-2 p-md-4 pt-md-3">
-      <h3>Popular movies</h3>
-      <div class="media-scroller">
-        <div class="mx-auto media-group" id="group-1">
-          <% @popular_movies[0..4].each do |movie| %>
+<div class="container-fluid px-3 ps-sm-4 py-4">
+  <div class="container-cards py-0 py-sm-1" data-controller="treano-carousel">
+    <div class="row m-0">
+      <div class="header">
+        <h3 class="title m-0">Popular movies</h3>
+        <div class="progress-bar" data-treano-carousel-target="progressbar">
+        </div>
+      </div>
+      <div  class="container-media pb-5 p-0">
+        <button class="handle left-handle" data-action="click->treano-carousel#updatePrev">
+          <div class="text mb-3">&#8249;</div>
+        </button>
+        <div class="slider" data-treano-carousel-target="slider">
+          <% @popular_movies.each do |movie| %>
             <div class="media-element">
               <%= image_tag movie[:poster_url] %>
-              <div class="medio-description bg-trans">
-                <h5><%= movie[:title] %></h5>
+              <div class="info text-center py-2">
+                <p class="text1 m-0 line-clamp"><%= movie[:title] %></p>
+                <div class="d-flex align-items-center flex-column justify-content-between px-1">
+                  <small class="text-muted ">Rating: <%= movie[:rating_average] %></small>
+                  <small class="text-muted">Release date: <%= movie[:release_date] %></small>
+                </div>
               </div>
-            </div>  
-          <% end %>
-          <%= link_to "#group-2", aria: {label: "next"}, class: "next text-center" do %>
-            <%= inline_svg_tag 'svg/chevrons-right.svg', style: "font-size: 3rem;", class: "" %>
+            </div>
           <% end %>
         </div>
-        <div class="mx-auto media-group" id="group-2">
-          <%= link_to "#group-1", aria: {label: "previous"}, class: "previous" do %>
-            <%= inline_svg_tag 'svg/chevrons-left.svg', style: "font-size: 3rem;", class: "" %>
-          <% end %>
-          <% @popular_movies[5..9].each do |movie| %>
-            <div class="media-element">
-              <%= image_tag movie[:poster_url] %>
-            </div>  
-          <% end %>
-          <%= link_to "#group-3", aria: {label: "next"}, class: "next" do %>
-            <%= inline_svg_tag 'svg/chevrons-right.svg', style: "font-size: 3rem;", class: "" %>
-          <% end %>
-        </div>
-        <div class="mx-auto media-group" id="group-3">
-          <%= link_to "#group-2", aria: {label: "previous"}, class: "previous" do %>
-            <%= inline_svg_tag 'svg/chevrons-left.svg', style: "font-size: 3rem;", class: "" %>
-          <% end %>
-          <% @popular_movies[9..14].each do |movie| %>
-            <div class="media-element">
-              <%= image_tag movie[:poster_url] %>
-            </div>  
-          <% end %>
-          <%= link_to "#group-4", aria: {label: "next"}, class: "next" do %>
-            <%= inline_svg_tag 'svg/chevrons-right.svg', style: "font-size: 3rem;", class: "" %>
-          <% end %>
-        </div>
-        <div class="mx-auto media-group" id="group-4">
-          <%= link_to "#group-3", aria: {label: "previous"}, class: "previous" do %>
-            <%= inline_svg_tag 'svg/chevrons-left.svg', style: "font-size: 3rem;", class: "" %>
-          <% end %>
-          <% @popular_movies[15..19].each do |movie| %>
-            <div class="media-element">
-              <%= image_tag movie[:poster_url] %>
-            </div>  
-          <% end %>
-          <%= link_to "#group-1", aria: {label: "next"}, class: "next" do %>
-            <%= inline_svg_tag 'svg/chevrons-right.svg', style: "font-size: 3rem;", class: "" %>
-          <% end %>
-        </div>
-        <%= inline_svg_tag 'svg/chevrons-left.svg', style: "font-size: 3rem;", class: "p-0" %>
-        <%= inline_svg_tag 'svg/chevrons-right.svg', style: "font-size: 3rem;", class: "p-0" %>
+        <button class="handle right-handle" data-action="click->treano-carousel#updateNext">
+          <div class="text mb-4">&#8250;</div>
+        </button>
       </div>
-    </div>
-
-    <h3>Top-rated movies</h3>
-    <div class="container-cards media-scroller">
-      <div class="mx-auto media-group">
-        <% @toprated_movies[0..4].each do |movie| %>
-          <div class="media-element">
-            <%= image_tag movie[:poster_url] %>
-          </div>  
-        <% end %>
-      </div>
-      <div class="mx-auto media-group">
-        <% @toprated_movies[5..9].each do |movie| %>
-          <div class="media-element">
-            <%= image_tag movie[:poster_url] %>
-          </div>  
-        <% end %>
-      </div>
-      <div class="mx-auto media-group">
-        <% @toprated_movies[10..14].each do |movie| %>
-          <div class="media-element">
-            <%= image_tag movie[:poster_url] %>
-          </div>  
-        <% end %>
-      </div>
-      <div class="mx-auto media-group">
-        <% @toprated_movies[15..19].each do |movie| %>
-          <div class="media-element">
-            <%= image_tag movie[:poster_url] %>
-          </div>  
-        <% end %>
-      </div>
-      <%= inline_svg_tag 'svg/chevrons-left.svg', style: "font-size: 1.5rem;" %>
-      <%= inline_svg_tag 'svg/chevrons-right.svg', style: "font-size: 1.5rem;" %>
-    </div>
-    <div class="container-cards media-scroller">
-      <div class="mx-auto media-group">
-        <% @weeklytrends_movies[0..4].each do |movie| %>
-          <div class="media-element">
-            <%= image_tag movie[:poster_url] %>
-          </div>  
-        <% end %>
-      </div>
-      <div class="mx-auto media-group">
-        <% @weeklytrends_movies[5..9].each do |movie| %>
-          <div class="media-element">
-            <%= image_tag movie[:poster_url] %>
-          </div>  
-        <% end %>
-      </div>
-      <div class="mx-auto media-group">
-        <% @weeklytrends_movies[10..14].each do |movie| %>
-          <div class="media-element">
-            <%= image_tag movie[:poster_url] %>
-          </div>  
-        <% end %>
-      </div>
-      <div class="mx-auto media-group">
-        <% @weeklytrends_movies[15..19].each do |movie| %>
-          <div class="media-element">
-            <%= image_tag movie[:poster_url] %>
-          </div>  
-        <% end %>
-      </div>
-      <%= inline_svg_tag 'svg/chevrons-left.svg', style: "font-size: 1.5rem;" %>
-      <%= inline_svg_tag 'svg/chevrons-right.svg', style: "font-size: 1.5rem;" %>
-    </div>
-    <div class="container-cards media-scroller">
-      <div class="mx-auto media-group">
-        <% @upcoming_movies[0..4].each do |movie| %>
-          <div class="media-element">
-            <%= image_tag movie[:poster_url] %>
-          </div>  
-        <% end %>
-      </div>
-      <div class="mx-auto media-group">
-        <% @upcoming_movies[5..9].each do |movie| %>
-          <div class="media-element">
-            <%= image_tag movie[:poster_url] %>
-          </div>  
-        <% end %>
-      </div>
-      <div class="mx-auto media-group">
-        <% @upcoming_movies[10..14].each do |movie| %>
-          <div class="media-element">
-            <%= image_tag movie[:poster_url] %>
-          </div>  
-        <% end %>
-      </div>
-      <div class="mx-auto media-group">
-        <% @upcoming_movies[15..19].each do |movie| %>
-          <div class="media-element">
-            <%= image_tag movie[:poster_url] %>
-          </div>  
-        <% end %>
-      </div>
-      <%= inline_svg_tag 'svg/chevrons-left.svg', style: "font-size: 1.5rem;" %>
-      <%= inline_svg_tag 'svg/chevrons-right.svg', style: "font-size: 1.5rem;" %>
     </div>
   </div>
 </div>
-

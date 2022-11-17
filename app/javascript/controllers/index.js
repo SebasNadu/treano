@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import TreanoCarouselController from "./treano_carousel_controller"
+application.register("treano-carousel", TreanoCarouselController)

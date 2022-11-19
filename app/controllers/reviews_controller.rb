@@ -5,22 +5,30 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     @review.user = current_user
     @review.reviewable = @reviewable
-    if @review.save
-      redirect_to polymorphic_path(@reviewable)
-    else
-      @review = Review.new
-      render "movies/show", status: :unprocessable_entity
+
+    respond_to do |format|
+      if @review.save
+        format.html { redirect_to polymorphic_path(@reviewable) }
+        format.json
+      else
+        format.html { render "movies/show", status: :unprocessable_entity }
+        format.json
+      end
     end
   end
 
-  # def edit
-  #   @review = Review.find(params[:id])
-  # end
+  def edit
+    @review = Review.find(params[:id])
+  end
 
   def destroy
     @review = Review.find(params[:id])
     @review.destroy
-    redirect_to polymorphic_path(@review.reviewable), status: :see_other
+
+    respond_to do |format|
+      format.html { render "movies/show", status: :see_other }
+      format.text { render partial: "shared/new_review", locals: { reviewable: @reviewable, review: @review }, formats: [:html] }
+    end
   end
 
   private

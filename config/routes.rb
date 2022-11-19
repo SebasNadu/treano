@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :reviews, only: %i[create]
   end
 
-  resources :reviews, only: %i[destroy]
+  resources :reviews, only: %i[edit update destroy]
   resources :list_items, only: %i[destroy]
 
   resources :tvs, only: %i[index show] do

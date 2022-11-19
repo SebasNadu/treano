@@ -5,31 +5,33 @@
       <%= render 'svg/treano'%>     
     </li>
     <li class="side-item">
-      <%= link_to "#", class: "side-link" do %>
+
+      <%= link_to root_path, class: "side-link" do %>
         <%= render 'svg/home' %>   
         <span class="link-text">Home</span>
       <% end %>
     </li>
     <li class="side-item">
-      <%= link_to "#", class: "side-link" do %>
-        <%= render 'svg/box' %>   
+
+      <%= link_to dashboard_path, class: "side-link" do %>
+        <%= render 'svg/box' %>
         <span class="link-text">Dashboard</span>
       <% end %>
     </li>
     <li class="side-item">
-      <%= link_to "#", class: "side-link" do %>
+      <%= link_to lists_path, class: "side-link" do %>
         <%= render 'svg/list' %>   
         <span class="link-text">Lists</span>
       <% end %>
     </li>
     <li class="side-item">
       <%= link_to "#", class: "side-link" do %>
-        <%= render 'svg/layers' %>   
+        <%= render 'svg/layers' %>
         <span class="link-text">Leaderboard</span>
       <% end %>
     </li>
     <li class="side-item">
-      <%= link_to "#", class: "side-link" do %>
+      <%= link_to destroy_user_session_path, data: {turbo_method: :delete}, class: "side-link" do %>
         <%= render 'svg/log-out' %>   
         <span class="link-text">Log out</span>
       <% end %>

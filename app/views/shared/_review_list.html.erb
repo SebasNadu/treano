@@ -1,0 +1,5 @@
+<div data-insert-in-list-target="items">
+    <% reviewable.reviews.each do |review| %>
+      <%= render "shared/review", review: review %>
+  <% end %>
+</div>

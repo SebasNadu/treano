@@ -1,42 +1,44 @@
-<% @airly_tvs.size %> 
-<% @popular_tvs.size %>
-<% @toprated_tvs.size %>
-<% @weeklytrends_tvs.size %>
-<% @popular_movies.size %>
-<% @toprated_movies.size %>
-<% @weeklytrends_movies.size %>
-<% @upcoming_movies.size %>
-
-<div class="container-fluid px-3 ps-sm-4 py-4">
-  <div class="container-cards py-0 py-sm-1" data-controller="treano-carousel">
-    <div class="row m-0">
-      <div class="header">
-        <h3 class="title m-0">Popular movies</h3>
-        <div class="progress-bar" data-treano-carousel-target="progressbar">
-        </div>
-      </div>
-      <div  class="container-media pb-5 p-0">
-        <button class="handle left-handle" data-action="click->treano-carousel#updatePrev">
-          <div class="text mb-3">&#8249;</div>
-        </button>
-        <div class="slider" data-treano-carousel-target="slider">
-          <% @popular_movies.each do |movie| %>
-            <div class="media-element">
-              <%= image_tag movie[:poster_url] %>
-              <div class="info text-center py-2">
-                <p class="text1 m-0 line-clamp"><%= movie[:title] %></p>
-                <div class="d-flex align-items-center flex-column justify-content-between px-1">
-                  <small class="text-muted ">Rating: <%= movie[:rating_average] %></small>
-                  <small class="text-muted">Release date: <%= movie[:release_date] %></small>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
-        <button class="handle right-handle" data-action="click->treano-carousel#updateNext">
-          <div class="text mb-4">&#8250;</div>
-        </button>
-      </div>
-    </div>
+<div id="carouselBanner" class="carousel slide carousel-fade mt-n5" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="4" aria-label="Slide 5"></button>
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="5" aria-label="Slide 6"></button>
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="6" aria-label="Slide 7"></button>
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="7" aria-label="Slide 8"></button>
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="8" aria-label="Slide 9"></button>
+    <button type="button" data-bs-target="#carouselBanner" data-bs-slide-to="9" aria-label="Slide 10"></button>
   </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="<%= @trends_media[0][:backdrop_url] %>" class="d-block w-100" alt="...">
+    </div>
+    <% @trends_media[1..9].each do |media| %>
+      <div class="carousel-item">
+        <img src="<%= media[:backdrop_url] %>" class="d-block w-100" alt="...">
+      </div>
+    <% end %>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselBanner" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselBanner" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+<div class="container-fluid m-0 px-3 ps-sm-4 py-4">
+  <%= render 'shared/movies_slider', movies: @popular_movies, slider_title: 'Popular movies' %>
+  <%= render 'shared/tvs_slider', tvs: @popular_tvs, slider_title: 'Popular Tv shows' %>
+  <%= render 'shared/movies_slider', movies: @toprated_movies, slider_title: 'Top rated movies' %>
+  <%= render 'shared/tvs_slider', tvs: @toprated_tvs, slider_title: 'Top rated Tv shows' %>
+  <%= render 'shared/movies_slider', movies: @weeklytrends_movies, slider_title: 'Weekly trends movies' %>
+  <%= render 'shared/tvs_slider', tvs: @weeklytrends_tvs, slider_title: 'Weekly trend Tv shows' %>
+  <%= render 'shared/movies_slider', movies: @upcoming_movies, slider_title: 'Upcoming movies' %>
+  <%= render 'shared/tvs_slider', tvs: @airly_tvs, slider_title: 'On air Tv shows' %>
 </div>

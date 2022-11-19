@@ -1,0 +1,46 @@
+<div class="container-cards m-0 py-0 py-sm-1 mb-4" data-controller="treano-carousel">
+  <div class="row m-0">
+    <div class="header">
+      <h3 class="title m-0"><%= slider_title %></h3>
+      <div class="progress-bar" data-treano-carousel-target="progressbar">
+      </div>
+    </div>
+    <div  class="container-media pb-4 p-0">
+      <button class="handle left-handle" data-action="click->treano-carousel#updatePrev">
+        <div class="text mb-3">&#8249;</div>
+      </button>
+      <div class="slider" data-treano-carousel-target="slider">
+        <% movies.each do |movie| %>
+          <div class="media-element">
+            <%= image_tag movie[:poster_url] %>
+            <% this_movie = Movie.find_by(tmdb_id: movie[:tmdb_id]) %>
+            <% if this_movie %>
+              <%= link_to movie_path(this_movie) do%>
+            <div class="info p-2 d-flex flex-column align-items-center justify-content-between">
+              <div class="d-flex align-items-center flex-column justify-content-between inside-info">
+                <p class="line-clamp-s mb-2"><%= movie[:title] %></p>
+                <small>&#11088; <%= movie[:rating_average] %></small>
+                <small class="mb-1">&#x1F4C5; <%= movie[:release_date] %></small>
+                <small class="line-clamp mb-1"><%= movie[:overview] %></small>
+              </div>
+            </div>
+            <% end %>
+          <% else %>
+            <div class="info p-2 d-flex flex-column align-items-center justify-content-between">
+              <div class="d-flex align-items-center flex-column justify-content-between inside-info">
+                <p class="line-clamp-s mb-1"><%= movie[:title] %></p>
+                <small>&#11088; <%= movie[:rating_average] %></small>
+                <small class="mb-1">&#x1F4C5; <%= movie[:release_date] %></small>
+                <small class="line-clamp mb-1"><%= movie[:overview] %></small>
+              </div>
+            </div>
+          <% end %>
+          </div>
+        <% end %>
+      </div>
+      <button class="handle right-handle" data-action="click->treano-carousel#updateNext">
+        <div class="text mb-4">&#8250;</div>
+      </button>
+    </div>
+  </div>
+</div>

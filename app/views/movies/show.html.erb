@@ -11,17 +11,23 @@
   </div>
 
   <%#= render "shared/new_list_item", locals: { listable: @listable, list_item: @list_item } %>
+ <div data-controller="insert-in-list" data-insert-in-list-position-value="beforebegin">
+    <%# user_review = Review.where(reviewable_id: params[:id], reviewable_type: "Movie", user: current_user) %>
+    <%# if user_review.empty? %>
+    <%= render "shared/new_review",  reviewable: @reviewable, review: @review %>
+    <%# else %>
+    <%# <p>You already reviewed this movie</p> %>
+    <%#= render "shared/review", review: user_review.first %>
+    <%# end %>
+    <div data-insert-in-list-target="items">
+      <% if @movie.reviews.empty? %>
+        <small><em class="text-muted">Be the first one to review this movie</em></small>
+      <% else %>
+        <% @movie.reviews.each do |review| %>
+          <%= render "shared/review", review: review %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 
-  <%= render "shared/new_review", locals: { reviewable: reviewable, review: review } %>
-
-
-  <% @movie.reviews.each do |review| %>
-  <p><%= review.user.username %></p>
-  <p><%= review.rating %></p>
-  <p><%= review.content %></p>
-  <p><%= link_to "Delete",
-    review_path(review),
-    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %></p>
-  <hr>
-  <% end %>
 </div>

@@ -25,7 +25,7 @@ export default class extends Controller {
     .then((data) => {
       if (data.inserted_item) {
         this.itemsTarget.insertAdjacentHTML(this.positionValue, data.inserted_item)
-        // this.formTarget.classList.add("d-none")
+        this.formTarget.classList.add("d-none")
         this.firstTarget.classList.add("d-none")
       } else {
       this.formTarget.outerHTML = data.form

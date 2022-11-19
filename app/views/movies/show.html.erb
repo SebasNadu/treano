@@ -11,14 +11,14 @@
   </div>
 
   <%#= render "shared/new_list_item", locals: { listable: @listable, list_item: @list_item } %>
- <div data-controller="insert-in-list" data-insert-in-list-position-value="beforebegin">
+ <div data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin">
     <div data-insert-in-list-target="infos">
       <% user_review = Review.where(reviewable_id: params[:id], reviewable_type: "Movie", user: current_user) %>
       <% if user_review.empty? %>
-      <%= render "shared/review_form",  reviewable: @reviewable, review: @review %>
+      <%= render "reviews/review_form",  reviewable: @reviewable, review: @review %>
       <% else %>
       <p>You already reviewed this movie</p>
-      <%= render "shared/review", review: user_review.first %>
+      <%#= render "shared/review", review: user_review.first %>
       <% end %>
 
       <% if @movie.reviews.empty? %>
@@ -27,7 +27,7 @@
         </div>
       <% end %>
     </div>
-    <%= render "shared/review_list", reviewable: @movie %>
+    <%= render "reviews/review_list", reviewable: @movie %>
   </div>
 
 </div>

@@ -11,7 +11,7 @@ class ReviewsController < ApplicationController
         format.json
       else
         format.html { render "movies/show", status: :unprocessable_entity }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
+        format.json 
 
       end
     end

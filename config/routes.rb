@@ -20,4 +20,5 @@ Rails.application.routes.draw do
 
   resources :lists
   get '/dashboard', to: "dashboard#index"
+  get '/dashboard/:id/', to: "dashboard#show", as: :users
 end

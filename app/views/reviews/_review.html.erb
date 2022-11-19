@@ -1,0 +1,6 @@
+<p><%= link_to review.user.username, users_path(review.user) %> <small><em class="text-muted"><%= distance_of_time_in_words_to_now(review.created_at) %> ago</em></small></p>
+<% review.rating.times do %>
+  <i class="fa-solid fa-star"></i>
+<% end %>
+<p class="mb-0"><%= review.content %></p>
+<hr>

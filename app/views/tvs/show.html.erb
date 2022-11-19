@@ -13,8 +13,8 @@
 
   </div>
 
-  <%#= render "shared/new_list_item" %>
-  <%= render "shared/new_review", reviewable: @reviewable, review: @review %>
+  <%#= render "/new_list_item" %>
+  <%= render "reviews/new_review", reviewable: @reviewable, review: @review %>
 
   <% @tv.reviews.each do |review| %>
   <p><%= review.user.username %></p>

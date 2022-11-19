@@ -1,38 +1,47 @@
-<div class="navbar navbar-top ms-auto sticky-top">
-  <div class="container-fluid d-flex d-row justify-content-end">
+<div class="navbar navbar-top py-0 py-sm-1 ms-auto sticky-top">
+  <div class="container-fluid d-flex d-row justify-content-end align-items-start">
     <div class="flex-grow-1 hello">
-      <% t = Time.now %>
-      <% if t.hour < 12 %>
-        <p class="fs-4 fw-light text-light my-0">Good moring <%= current_user.username %></p>
-      <% elsif t.hour >= 12 %>
-        <p class="fs-4 fw-light text-light my-0">Good afternoon <%= current_user.username %></p>
-      <% elsif t.hour > 18 %>
-        <p class="fs-4 fw-light text-light my-0">Good night <%= current_user.username %></p>
+      <div class="d-flex flex-column flex-sm-row">
+      <% if user_signed_in? %>
+        <% t = Time.now %>
+        <% if t.hour < 12 %>
+            <p class="fs-4 fw-light text-light m-0 p-0">Good morning</p>
+            <p class="fs-4 fw-light text-light m-0 p-0 ps-2"><%= current_user.username %></p>
+        <% elsif t.hour >= 12 %>
+            <p class="fs-4 fw-light text-light m-0 p-0">Good afternoon</p>
+            <p class="fs-4 fw-light text-light m-0 p-0 ps-2"><%= current_user.username %></p>
+        <% elsif t.hour > 18 %>
+            <p class="fs-4 fw-light text-light m-0 p-0">Good night</p>
+            <p class="fs-4 fw-light text-light m-0 p-0 ps-2"><%= current_user.username %></p>
+        <% end %>
+      <% else %>
+        <p class="fs-4 fw-light text-light my-0">Join to us!</p>
       <% end %>
+        </div>
     </div>
-      <ul class=" d-flex d-row list-unstyled align-items-center justify-content-center m-0">
+    <ul class="py-0 d-flex d-row list-unstyled align-items-center justify-content-end m-0">
         <% if user_signed_in? %>
           <li class="nav-item">
             <div class="btn-group dropstart">
               <button type="button" class="btn btn-ghost dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <%= inline_svg_tag 'svg/search.svg', style: "font-size: 1.5rem;" %>
+                <%= render 'svg/search' %>
               </button>
               <div class="dropdown-menu p-0 bg-transparent rounded">
                 <%= simple_form_for :search, url: root_path, method: :get, input_html: { class: 'w-100'} do |f| %>
                   <div class="search-form-control form-group p-0 bg-transparent">
                     <input class="form-control string required bg-trans" type="text" name="search[query]" id="search_query" placeholder="Search" />
-                    <button name="button" type="submit" class="btn btn-input">
-                      <i class="fas fa-search"></i> Search
+                    <button name="button" type="submit" class="btn btn-input text-center">
+                      Send
                     </button>
                   </div>
                 <% end %>
               </div>
             </div>
           </li>
-          <li class="nav-item">
+          <li class="nav-item flex-wrap">
             <div class="dropdown-center">
               <button type="button" class="btn btn-ghost dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                <%= inline_svg_tag 'svg/grid.svg', style: "font-size: 1.5rem;" %>
+                <%= render 'svg/grid' %>
               </button>
               <form class="dropdown-menu dropdown-menu-end p-2 bg-trans border-0">
                 <div class="mb-3">
@@ -48,7 +57,7 @@
           </li>
           <li class="nav-item">
             <button class="btn btn-ghost">
-              <%= inline_svg_tag 'svg/bell.svg', style: "font-size: 1.5rem;" %>
+              <%= render 'svg/bell' %>
             </button>
           </li>
           <li class="nav-item dropdown">
@@ -62,7 +71,7 @@
         <% else %>
           <li class="nav-item">
             <%= link_to new_user_session_path, class: "nav-link" do %>
-              <%= inline_svg_tag 'svg/log-in.svg', style: "font-size: 1.5rem;" %>
+              <%= render 'svg/log-in' %>
             <% end %>
           </li>
         <% end %>

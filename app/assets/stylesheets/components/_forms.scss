@@ -1,6 +1,5 @@
 .search-form-control {
   position: relative;
-  overflow: hidden;
 }
 
 .search-form-control .btn {
@@ -11,7 +10,8 @@
 }
 
 .search-form-control .form-control {
-  width: 20rem;
+  width: 35vw;
+  height: 2rem;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   overflow: hidden;
 }

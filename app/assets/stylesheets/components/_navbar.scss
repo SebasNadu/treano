@@ -1,9 +1,7 @@
 .navbar-top {
   //background: $dark;
-  width: 100vw;
   z-index: 10;
   background: rgba(0, 0, 0, 0.1);
-  //border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -27,7 +25,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  //justify-content: space-around;
   height: 100%;
 }
 
@@ -36,48 +34,47 @@
 }
 
 .side-item:last-child {
-  margin-top: 6vh;
+  margin-top: auto;
 }
 
 .side-link {
   display: flex;
   align-items: center;
-  //height: 5rem;
+  height: 3rem;
   color: $light;
   text-decoration: none;
+  filter: grayscale(100%) opacity(0.8);
   transition: 600ms;
   svg {
-    width: 1.5rem;
-    height: 1.5rem;
-    min-width: 1.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    min-width: 1.2rem;
     margin: 0 1rem;
-    fill: none;
-    transition: 500ms;
-    &:hover {
-      color: $secondary;
+    transition: 400ms;
+    color: $light;
+  }
+  &:hover {
+    filter: grayscale(0%) opacity(1);
+    background: $dark;
+    color: $secondary;
+    svg {
       width: 2rem;
       height: 2rem;
-      fill: $light;
+      color: $secondary;
     }
-  }
-  img {
-    width: 2rem;
-    height: 2rem;
-    min-width: 2rem;
-    margin: 0 .75rem;
   }
 }
 
 .link-text {
   display: none;
-  margin-left: 0rem;
+  margin-left: .5rem;
 }
 
 .logo {
   font-weight: bold;
-  margin-bottom: 1vh;
   text-align: center;
   color: $light;
+  background: $dark;
   letter-spacing: 0.3ch;
   width: 100%;
 }
@@ -98,14 +95,14 @@
 }
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 576px) {
   .hello {
   margin-left: 1em;
   }
   .sidebar {
     bottom: 0;
     width: 100vw;
-    height: 3.5rem;
+    height: 3.2rem;
     border-radius: 20px 20px 0 0;
   }
   .logo {
@@ -122,25 +119,25 @@
   }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 576px) {
   .sidebar {
     bottom: 0;
-    width: 3.5rem;
+    width: 3.2rem;
     height: 100vh;
     border-radius: 0 20px 20px 0;
 
     &:hover {
-      width: 16rem;
+      width: 14rem;
     }
     &:hover .link-text {
       display: inline;
     }
     &:hover .logo svg {
-      margin-left: 11rem;
+      margin-left: 9rem;
       transform: rotateY(-360deg)
     }
     &:hover .logo .logo-text {
-      left: 2.5rem;
+      left: 1rem;
     }
   }
 }

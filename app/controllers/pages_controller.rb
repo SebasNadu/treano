@@ -13,6 +13,12 @@ class PagesController < ApplicationController
     @toprated_movies = set_movies(@t_toprated_movies)
     @weeklytrends_movies = set_movies(@t_weeklytrends_movies)
     @upcoming_movies = set_movies(@t_upcoming_movies)
+    @trends_media = []
+    10.times do |i|
+      @trends_media << @weeklytrends_movies[i]
+      @trends_media << @weeklytrends_tvs[i]
+      i += 1
+    end
   end
 
   private

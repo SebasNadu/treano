@@ -7,6 +7,7 @@
   <h1>User dashboard</h1>
   <h1>My profile</h1>
   <p><%= @user.first_name %></p>
+  <%= cl_image_tag @user.avatar.key, height: 300, width: 400, crop: :fill %>
   <h1>My stats</h1>
   <div>
     <h1>My lists</h1>

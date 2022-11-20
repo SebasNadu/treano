@@ -45,6 +45,8 @@ gem "bootsnap", require: false
 # Use Sass to process CSS
 gem "sassc-rails"
 
+gem "cloudinary"
+
 # Use inline svg to tag svg files in the view inline_svg_tag(file_name, options={})
 #gem 'inline_svg'
 

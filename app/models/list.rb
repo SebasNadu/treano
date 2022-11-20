@@ -7,4 +7,5 @@ class List < ApplicationRecord
   has_many :tvs, through: :list_items, source: :listable, source_type: 'Tv'
 
   validates :list_name, presence: true
+  has_one_attached :cover_picture
 end

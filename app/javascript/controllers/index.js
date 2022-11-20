@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AddMovieController from "./add_movie_controller"
+application.register("add-movie", AddMovieController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 

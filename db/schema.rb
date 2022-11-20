@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_14_223142) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_19_163337) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,13 +49,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_223142) do
     t.bigint "providable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "ios_url"
+    t.string "android_url"
+    t.string "web_url"
     t.index ["providable_type", "providable_id"], name: "index_media_providers_on_providable"
     t.index ["provider_id"], name: "index_media_providers_on_provider_id"
   end
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
-    t.string "country_of_origin"
     t.text "overview"
     t.date "release_date"
     t.string "poster_url"
@@ -64,6 +66,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_223142) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "backdrop_url"
+    t.string "trailer_url"
+    t.string "tagline"
   end
 
   create_table "providers", force: :cascade do |t|

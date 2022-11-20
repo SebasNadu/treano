@@ -10,9 +10,8 @@ class ReviewsController < ApplicationController
         format.html { redirect_to polymorphic_path(@reviewable) }
         format.json
       else
-        format.html { render "movies/show", status: :unprocessable_entity }
-        format.json 
-
+        format.html { render "#{@review.reviewable_type.downcase.pluralize}/show", status: :unprocessable_entity }
+        format.json
       end
     end
   end
@@ -54,6 +53,14 @@ class ReviewsController < ApplicationController
       @reviewable = Tv.find(params[:tv_id])
     end
   end
+
+  # def set_reviewable
+  #   if params[:movie_id].present?
+  #     @reviewable = Movie.find(params[:movie_id])
+  #   elsif params[:tv_id].present?
+  #     @reviewable = Tv.find(params[:tv_id])
+  #   end
+  # end
 
   def review_params
     params.require(:review).permit(:rating, :content)

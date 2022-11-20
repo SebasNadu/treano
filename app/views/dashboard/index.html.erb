@@ -5,19 +5,18 @@
   <h1>My stats</h1>
   <div>
     <h1>My lists</h1>
-      <%= render 'shared/new_list', list: @list %>
       <% if @lists %>
-      <%= render 'shared/lists', lists: @lists %>
+      <%= render 'lists/lists', lists: @lists %>
       <% end %>
   </div>
   <h1>My reviews</h1>
   <% user_reviews = current_user.reviews %>
   <% user_reviews.each do |review| %>
-    <%= render "shared/review", review: review %>
+    <%= render "reviews/review", review: review %>
     <button aria-label="Edit movie">
       <i class="fa-solid fa-pen fa-xs ml-2" data-action="click->insert-in-list#displayForm"></i>
     </button>
-    <%= render "shared/edit_review", class: "d-none", review: review %>
+    <%= render "reviews/edit_review", class: "d-none", review: review %>
     <p><%= link_to "Delete",
             review_path(review),
             data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %></p>

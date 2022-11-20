@@ -9,10 +9,7 @@ class ListItemsController < ApplicationController
     if @list_item.save
       redirect_to polymorphic_path(@listable)
     else
-      @list_item = ListItem.new
-      @movie = Movie.find(params[:movie_id])
-      render 'movies/show', status: :unprocessable_entity
-      raise
+      render "#{@list_item.listable_type.downcase.pluralize}/show", status: :unprocessable_entity
     end
   end
 
@@ -27,18 +24,10 @@ class ListItemsController < ApplicationController
   def set_listable
     if params[:movie_id].present?
       @listable = Movie.find(params[:movie_id])
-    else
-      @listable = Movie.find(params[:id])
+    elsif params[:tv_id].present?
+      @listable = Tv.find(params[:tv_id])
     end
   end
-
-  # def set_listable
-  #   if params[:movie_id].present?
-  #     @listable = Movie.find(params[:movie_id])
-  #   elsif params[:tv_id].present?
-  #     @listable = Tv.find(params[:tv_id])
-  #   end
-  # end
 
   def list_item_params
     params.require(:list_item).permit(:listable_id, :listable_type)

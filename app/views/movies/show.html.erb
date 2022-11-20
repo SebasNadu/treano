@@ -14,24 +14,22 @@
 
   <div>
     <p><%= @movie.title %></p>
-    <p><%= @movie.country_of_origin %></p>
     <p><%= @movie.release_date %></p>
     <p><%= @movie.overview %></p>
+    <p><%= @movie.tagline %></p>
     <p><%= @movie.rating_average %></p>
     <p><%= link_to "Home", root_path %>
   </div>
 
-  <%#= render "shared/new_list_item", locals: { listable: @listable, list_item: @list_item } %>
+  <%= render "list_items/new_list_item", listable: @listable, list_item: @list_item, lists: @lists %>
  <div data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin">
     <div data-insert-in-list-target="infos">
       <% user_review = Review.where(reviewable_id: params[:id], reviewable_type: "Movie", user: current_user) %>
       <% if user_review.empty? %>
-      <%= render "reviews/review_form",  reviewable: @reviewable, review: @review %>
+        <%= render "reviews/review_form",  reviewable: @reviewable, review: @review %>
       <% else %>
-      <p>You already reviewed this movie</p>
-      <%#= render "shared/review", review: user_review.first %>
+       <p>You already reviewed this movie</p>
       <% end %>
-
       <% if @movie.reviews.empty? %>
         <div data-insert-in-list-target="first">
           <small><em class="text-muted">Be the first one to review this movie</em></small>
@@ -40,5 +38,4 @@
     </div>
     <%= render "reviews/review_list", reviewable: @movie %>
   </div>
-
 </div>

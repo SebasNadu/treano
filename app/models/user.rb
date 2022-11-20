@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates :username, presence: true, uniqueness: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
   has_many :lists
   has_many :saved_lists
   has_many :lists, through: :saved_lists
@@ -15,4 +19,6 @@ class User < ApplicationRecord
 
   has_many :movies, through: :reviews, source: :reviewable, source_type: 'Movie'
   has_many :tvs, through: :reviews, source: :reviewable, source_type: 'Tv'
+
+  has_one_attached :avatar
 end

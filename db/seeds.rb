@@ -11,8 +11,8 @@ require 'rest-client'
 require 'json'
 
 movies_file = File.read("t_full_movies_1.json")
-tvs_file = File.read("watchmode_tvs.json")
-providers_file = File.read("t_providers.json")
+tvs_file = File.read("t_full_tvs_1.json")
+providers_file = File.read("t_providers_US.json")
 movies = JSON.parse(movies_file)
 tvs = JSON.parse(tvs_file)
 providers = JSON.parse(providers_file)
@@ -71,10 +71,48 @@ Movie.destroy_all
 Tv.destroy_all
 User.destroy_all
 Provider.destroy_all
+MediaProvider.destroy_all
 puts "Db cleaned"
 
+User.create(
+  email: "sebas@treano.com",
+  password: "123456",
+  username: "Sebs",
+  first_name: "Sebastian",
+  last_name: "Navarro",
+  country: "Colombia",
+  bio: "Movies are my passion",
+  reputation_score: 0
+)
+User.create(
+  email: "meerim@treano.com",
+  password: "123456",
+  username: "Meer",
+  first_name: "Meerim",
+  last_name: "Asylbekova",
+  country: "Kyrgyzstan",
+  bio: "Movies are my passion",
+  reputation_score: 0
+)
+
+puts "Users created"
+
+providers.each do |provider|
+  Provider.create(
+    name: provider["name"],
+    type: provider["type"],
+    regions: provider["regions"],
+    logo_url: provider["logo_100px"],
+    ios_appstore_url: provider["ios_appstore_url"],
+    android_playstore_url: provider["android_playstore_url"],
+    watchmode_id: provider["id"]
+  )
+end
+
+puts "Providers created"
+
 movies.each do |movie|
-  Movie.create(
+  this_movie = Movie.create(
     title: movie[1]["title"],
     homepage: movie[0]["homepage"],
     poster_url: "https://image.tmdb.org/t/p/w342#{movie[0]["poster_path"]}",
@@ -100,6 +138,24 @@ movies.each do |movie|
     watchmode_id: movie[1]["id"],
     imdb_id: movie[0]["imdb_id"]
   )
+  puts "movie created"
+  movie[1]["sources"].each do |source|
+    MediaProvider.create(
+      name: source["name"],
+      type: source["type"],
+      region: source["region"],
+      ios_url: source["ios_url"],
+      android_url: source["android_url"],
+      web_url: source["web_url"],
+      format: source["format"],
+      price: source["price"],
+      seasons: source["seasons"],
+      episodes: source["episodes"],
+      provider_id: Provider.find_by(watchmode_id: source["source_id"])
+      providable_id: this_movie.id
+    )
+  end
+  puts "media providers created"
 end
 
 puts "Movies Created"
@@ -108,14 +164,14 @@ tvs["results"].each do |tv|
   Tv.create(
     title: tv[0]["name"],
     overview: tv[0]["overview"],
-    homepage: tv[0]["homepage"]
-    first_air_date: tv[0]["first_air_date"]
-    last_air_date: tv[0]["last_air_date"]
+    homepage: tv[0]["homepage"],
+    first_air_date: tv[0]["first_air_date"],
+    last_air_date: tv[0]["last_air_date"],
     poster_url: "https://image.tmdb.org/t/p/w342#{tv[0]["poster_path"]}",
     backdrop_url: "https://image.tmdb.org/t/p/w1280#{tv[0]["backdrop_path"]}",
     trailer: tv[1]["trailer"],
-    number_of_episodes: tv[0]["number_of_episodes"]
-    number_of_seasons: tv[0]["number_of_seasons"]
+    number_of_episodes: tv[0]["number_of_episodes"],
+    number_of_seasons: tv[0]["number_of_seasons"],
     runtime: tv[1]["runtime_minutes"],
     original_language: tv[1]["original_language"],
     popularity: tv[0]["popularity"],
@@ -135,38 +191,3 @@ tvs["results"].each do |tv|
 end
 
 puts "Tvs Created"
-
-#providers.each do |provider|
-  #Provider.create(
-    #provider_name: provider["name"],
-    #logo_path: provider["logo_100px"],
-    #ios_appstore_url: provider["ios_appstore_url"],
-    #android_playstore_url: provider["android_playstore_url"],
-  #)
-#end
-
-#puts "Providers created"
-
-#User.create(
-  #email: "sebas@treano.com",
-  #password: "123456",
-  #username: "Sebs",
-  #first_name: "Sebastian",
-  #last_name: "Navarro",
-  #country: "Colombia",
-  #bio: "Movies are my passion",
-  #reputation_score: 0
-#)
-#User.create(
-  #email: "meerim@treano.com",
-  #password: "123456",
-  #username: "Meer",
-  #first_name: "Meerim",
-  #last_name: "Asylbekova",
-  #country: "Kyrgyzstan",
-  #bio: "Movies are my passion",
-  #reputation_score: 0
-#)
-
-#puts "Users created"
-

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_20_164914) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_21_123626) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,6 +80,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_20_164914) do
     t.string "ios_url"
     t.string "android_url"
     t.string "web_url"
+    t.string "name"
+    t.string "type"
+    t.string "region"
+    t.string "format"
+    t.float "price"
+    t.integer "seasons"
+    t.integer "episodes"
     t.index ["providable_type", "providable_id"], name: "index_media_providers_on_providable"
     t.index ["provider_id"], name: "index_media_providers_on_provider_id"
   end
@@ -96,15 +103,34 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_20_164914) do
     t.string "backdrop_url"
     t.string "trailer_url"
     t.string "tagline"
+    t.string "homepage"
+    t.string "trailer"
+    t.integer "year"
+    t.integer "runtime"
+    t.integer "revenue"
+    t.integer "budget"
+    t.string "status"
+    t.string "original_language"
+    t.integer "critic_score"
+    t.text "genre_names", array: true
+    t.text "similar_titles_watchmode", array: true
+    t.text "recommendations_tmdb", array: true
+    t.string "us_rating"
+    t.float "popularity"
+    t.integer "watchmode_id"
+    t.string "imdb_id"
   end
 
   create_table "providers", force: :cascade do |t|
-    t.string "provider_name"
-    t.string "logo_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "ios_appstore_url"
     t.string "android_playstore_url"
+    t.string "name"
+    t.string "type"
+    t.string "logo_url"
+    t.text "regions", array: true
+    t.integer "watchmode_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -132,7 +158,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_20_164914) do
   create_table "tvs", force: :cascade do |t|
     t.string "title"
     t.text "overview"
-    t.string "country"
     t.date "first_air_date"
     t.integer "tmdb_id"
     t.string "backdrop_url"
@@ -140,6 +165,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_20_164914) do
     t.float "rating_average"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "homepage"
+    t.date "last_air_date"
+    t.string "trailer"
+    t.integer "number_of_episodes"
+    t.integer "number_of_seasons"
+    t.integer "runtime"
+    t.string "original_language"
+    t.float "popularity"
+    t.integer "critic_score"
+    t.string "us_rating"
+    t.integer "year"
+    t.string "status"
+    t.string "tagline"
+    t.integer "watchmode_id"
+    t.string "imdb_id"
+    t.string "recommendations_tmdb", array: true
+    t.string "similar_titles_watchmode", array: true
+    t.string "genre_names", array: true
   end
 
   create_table "user_challenges", force: :cascade do |t|

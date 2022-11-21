@@ -10,15 +10,19 @@ require 'open-uri'
 require 'rest-client'
 require 'json'
 
-movies_file = File.read("t_full_movies_1.json")
-tvs_file = File.read("t_full_tvs_1.json")
+movies_file_1 = File.read("t_full_movies_1.json")
+movies_file_2 = File.read("t_full_movies_2.json")
+movies_1 = JSON.parse(movies_file_1)
+movies_2 = JSON.parse(movies_file_2)
+tvs_file_1 = File.read("t_full_tvs_1.json")
+tvs_file_2 = File.read("t_full_tvs_2.json")
+tvs_1 = JSON.parse(tvs_file_1)
+tvs_2 = JSON.parse(tvs_file_2)
 providers_file = File.read("t_providers_US.json")
-movies = JSON.parse(movies_file)
-tvs = JSON.parse(tvs_file)
 providers = JSON.parse(providers_file)
 
 
-#PLEASE DO NOT UNCOMMENT this method is for create a json with all the info related to movies
+#PLEASE DO NOT UNCOMMENT!! this method is for create a json with all the info related to movies
 #movies_group = movies["titles"][125..249]
 #full_movies = []
 #movies_group.each_with_index do |movie, i|
@@ -41,7 +45,7 @@ providers = JSON.parse(providers_file)
 #puts "JSON created"
 
 
-#PLEASE DO NOT UNCOMMENT this method is for create a json with all the info related to tvs
+#PLEASE DO NOT UNCOMMENT!! this method is for create a json with all the info related to tvs
 #tvs_group = tvs["titles"][125..249]
 #full_tvs = []
 #tvs_group.each_with_index do |tv, i|
@@ -69,9 +73,10 @@ providers = JSON.parse(providers_file)
 puts "Cleaning up db"
 Movie.destroy_all
 Tv.destroy_all
+Review.destroy_all
 User.destroy_all
-Provider.destroy_all
 MediaProvider.destroy_all
+Provider.destroy_all
 puts "Db cleaned"
 
 User.create(
@@ -100,7 +105,7 @@ puts "Users created"
 providers.each do |provider|
   Provider.create(
     name: provider["name"],
-    type: provider["type"],
+    service: provider["type"],
     regions: provider["regions"],
     logo_url: provider["logo_100px"],
     ios_appstore_url: provider["ios_appstore_url"],
@@ -111,83 +116,107 @@ end
 
 puts "Providers created"
 
-movies.each do |movie|
-  this_movie = Movie.create(
-    title: movie[1]["title"],
-    homepage: movie[0]["homepage"],
-    poster_url: "https://image.tmdb.org/t/p/w342#{movie[0]["poster_path"]}",
-    backdrop_url: "https://image.tmdb.org/t/p/w1280#{movie[0]["backdrop_path"]}",
-    trailer: movie[1]["trailer"],
-    overview: movie[1]["plot_overview"],
-    tagline: movie[0]["tagline"],
-    runtime: movie[1]["runtime_minutes"],
-    budget: movie[0]["budget"],
-    revenue: movie[0]["revenue"],
-    status: movie[0]["status"],
-    original_language: movie[1]["original_language"],
-    year: movie[1]["year"],
-    release_date: movie[1]["release_date"],
-    rating_average: movie[1]["user_rating"],
-    critic_score: movie[1]["critic_score"],
-    popularity: movie[0]["popularity"],
-    genre_names: movie[1]["genre_names"],
-    similar_titles_watchmode: movie[1]["similar_titles"],
-    recommendations_tmdb: movie[0]["recommendations"]["results"].map { |each| each["id"] },
-    us_rating: movie[1]["us_rating"],
-    tmdb_id: movie[0]["id"],
-    watchmode_id: movie[1]["id"],
-    imdb_id: movie[0]["imdb_id"]
-  )
-  puts "movie created"
-  movie[1]["sources"].each do |source|
-    MediaProvider.create(
-      name: source["name"],
-      type: source["type"],
-      region: source["region"],
-      ios_url: source["ios_url"],
-      android_url: source["android_url"],
-      web_url: source["web_url"],
-      format: source["format"],
-      price: source["price"],
-      seasons: source["seasons"],
-      episodes: source["episodes"],
-      provider_id: Provider.find_by(watchmode_id: source["source_id"])
-      providable_id: this_movie.id
+
+def movies_seeds(movies)
+  movies.each_with_index do |movie, i|
+    this_movie = Movie.create(
+      title: movie[1]["title"],
+      homepage: movie[0]["homepage"],
+      poster_url: "https://image.tmdb.org/t/p/w342#{movie[0]["poster_path"]}",
+      backdrop_url: "https://image.tmdb.org/t/p/w1280#{movie[0]["backdrop_path"]}",
+      trailer: movie[1]["trailer"],
+      overview: movie[1]["plot_overview"],
+      tagline: movie[0]["tagline"],
+      runtime: movie[1]["runtime_minutes"],
+      budget: movie[0]["budget"],
+      revenue: movie[0]["revenue"],
+      status: movie[0]["status"],
+      original_language: movie[1]["original_language"],
+      year: movie[1]["year"],
+      release_date: movie[1]["release_date"],
+      rating_average: movie[1]["user_rating"],
+      critic_score: movie[1]["critic_score"],
+      popularity: movie[0]["popularity"],
+      genre_names: movie[1]["genre_names"],
+      similar_titles_watchmode: movie[1]["similar_titles"],
+      recommendations_tmdb: movie[0]["recommendations"]["results"].map { |each| each["id"] },
+      us_rating: movie[1]["us_rating"],
+      tmdb_id: movie[0]["id"],
+      watchmode_id: movie[1]["id"],
+      imdb_id: movie[0]["imdb_id"]
     )
+    puts "movie created #{i}"
+    movie[1]["sources"].each do |source|
+      MediaProvider.create(
+        name: source["name"],
+        region: source["region"],
+        ios_url: source["ios_url"],
+        android_url: source["android_url"],
+        web_url: source["web_url"],
+        format: source["format"],
+        price: source["price"],
+        seasons: source["seasons"],
+        episodes: source["episodes"],
+        provider_id: Provider.find_by(watchmode_id: source["source_id"]).id,
+        providable: this_movie
+      )
+    end
+    puts "media providers created #{i}"
   end
-  puts "media providers created"
+  puts "Movies Created"
 end
 
-puts "Movies Created"
-
-tvs["results"].each do |tv|
-  Tv.create(
-    title: tv[0]["name"],
-    overview: tv[0]["overview"],
-    homepage: tv[0]["homepage"],
-    first_air_date: tv[0]["first_air_date"],
-    last_air_date: tv[0]["last_air_date"],
-    poster_url: "https://image.tmdb.org/t/p/w342#{tv[0]["poster_path"]}",
-    backdrop_url: "https://image.tmdb.org/t/p/w1280#{tv[0]["backdrop_path"]}",
-    trailer: tv[1]["trailer"],
-    number_of_episodes: tv[0]["number_of_episodes"],
-    number_of_seasons: tv[0]["number_of_seasons"],
-    runtime: tv[1]["runtime_minutes"],
-    original_language: tv[1]["original_language"],
-    popularity: tv[0]["popularity"],
-    rating_average: tv[1]["user_rating"],
-    critic_score: tv[1]["critic_score"],
-    us_rating: tv[1]["us_rating"],
-    year: tv[1]["year"],
-    status: tv[0]["status"],
-    tagline: tv[0]["tagline"],
-    recommendations_tmdb: tv[0]["recommendations"]["results"].map { |each| each["id"] },
-    similar_titles_watchmode: tv[1]["similar_titles"],
-    genre_names: tv[1]["genre_names"],
-    tmdb_id: tv[0]["id"],
-    watchmode_id: tv[1]["id"],
-    imdb_id: tv[1]["imdb_id"]
-  )
+def tvs_seeds(tvs)
+  tvs.each_with_index do |tv, i|
+    this_tv = Tv.create(
+      title: tv[0]["name"],
+      overview: tv[0]["overview"],
+      homepage: tv[0]["homepage"],
+      first_air_date: tv[0]["first_air_date"],
+      last_air_date: tv[0]["last_air_date"],
+      poster_url: "https://image.tmdb.org/t/p/w342#{tv[0]["poster_path"]}",
+      backdrop_url: "https://image.tmdb.org/t/p/w1280#{tv[0]["backdrop_path"]}",
+      trailer: tv[1]["trailer"],
+      number_of_episodes: tv[0]["number_of_episodes"],
+      number_of_seasons: tv[0]["number_of_seasons"],
+      runtime: tv[1]["runtime_minutes"],
+      original_language: tv[1]["original_language"],
+      popularity: tv[0]["popularity"],
+      rating_average: tv[1]["user_rating"],
+      critic_score: tv[1]["critic_score"],
+      us_rating: tv[1]["us_rating"],
+      year: tv[1]["year"],
+      status: tv[0]["status"],
+      tagline: tv[0]["tagline"],
+      recommendations_tmdb: tv[0]["recommendations"]["results"].map { |each| each["id"] },
+      similar_titles_watchmode: tv[1]["similar_titles"],
+      genre_names: tv[1]["genre_names"],
+      tmdb_id: tv[0]["id"],
+      watchmode_id: tv[1]["id"],
+      imdb_id: tv[1]["imdb_id"]
+    )
+    puts "Tv Created #{i}"
+    tv[1]["sources"].each do |source|
+      MediaProvider.create(
+        name: source["name"],
+        region: source["region"],
+        ios_url: source["ios_url"],
+        android_url: source["android_url"],
+        web_url: source["web_url"],
+        format: source["format"],
+        price: source["price"],
+        seasons: source["seasons"],
+        episodes: source["episodes"],
+        provider_id: Provider.find_by(watchmode_id: source["source_id"]).id,
+        providable: this_tv
+      )
+    end
+    puts "media providers created #{i}"
+  end
+  puts "tvs created"
 end
 
-puts "Tvs Created"
+movies_seeds(movies_1)
+movies_seeds(movies_2)
+tvs_seeds(tvs_1)
+tvs_seeds(tvs_2)

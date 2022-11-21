@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_21_123626) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_21_144707) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,7 +81,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_123626) do
     t.string "android_url"
     t.string "web_url"
     t.string "name"
-    t.string "type"
     t.string "region"
     t.string "format"
     t.float "price"
@@ -97,18 +96,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_123626) do
     t.date "release_date"
     t.string "poster_url"
     t.float "rating_average"
-    t.integer "tmdb_id"
+    t.bigint "tmdb_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "backdrop_url"
-    t.string "trailer_url"
     t.string "tagline"
     t.string "homepage"
     t.string "trailer"
     t.integer "year"
     t.integer "runtime"
-    t.integer "revenue"
-    t.integer "budget"
+    t.bigint "revenue"
+    t.bigint "budget"
     t.string "status"
     t.string "original_language"
     t.integer "critic_score"
@@ -117,7 +115,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_123626) do
     t.text "recommendations_tmdb", array: true
     t.string "us_rating"
     t.float "popularity"
-    t.integer "watchmode_id"
+    t.bigint "watchmode_id"
     t.string "imdb_id"
   end
 
@@ -127,10 +125,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_123626) do
     t.string "ios_appstore_url"
     t.string "android_playstore_url"
     t.string "name"
-    t.string "type"
     t.string "logo_url"
     t.text "regions", array: true
     t.integer "watchmode_id"
+    t.string "service"
   end
 
   create_table "reviews", force: :cascade do |t|

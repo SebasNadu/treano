@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -20,5 +20,5 @@ Rails.application.routes.draw do
 
   resources :lists
   get '/dashboard', to: "dashboard#index"
-  get '/dashboard/:id/', to: "dashboard#show", as: :users
+  get '/dashboard/:id/', to: "dashboard#show"
 end

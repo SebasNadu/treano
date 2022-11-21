@@ -10,43 +10,58 @@ require 'open-uri'
 require 'rest-client'
 require 'json'
 
-movies_file = File.read("watchmode_movies.json")
+movies_file = File.read("t_full_movies_2.json")
 tvs_file = File.read("watchmode_tvs.json")
 providers_file = File.read("t_providers.json")
 movies = JSON.parse(movies_file)
 tvs = JSON.parse(tvs_file)
 providers = JSON.parse(providers_file)
 
-#puts movies["1"]
 
-movies_1 = movies["titles"][125..249]
-full_movies = []
-movies_1.each_with_index do |movie, i|
+#PLEASE DO NOT UNCOMMENT this method is for create a json with all the info related to movies
+#movies_group = movies["titles"][125..249]
+#full_movies = []
+#movies_group.each_with_index do |movie, i|
+  #uri_tmdb = URI("https://api.themoviedb.org/3/movie/#{movie["tmdb_id"].to_s}?api_key=43f195cad08ed475966231cae7ae844e&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
+  #response_tmdb = Net::HTTP.get(uri_tmdb)
+  #result_tmdb = JSON.parse(response_tmdb)
+  #puts "#{i} tmdb responsed"
 
-  uri_tmdb = URI("https://api.themoviedb.org/3/movie/#{movie["tmdb_id"].to_s}?api_key=43f195cad08ed475966231cae7ae844e&language=en-US&append_to_response=videos,images,reviews")
-  response_tmdb = Net::HTTP.get(uri_tmdb)
-  result_tmdb = JSON.parse(response_tmdb)
-  puts "#{i} tmdb responsed"
-
-  uri_watchmode = URI("https://api.watchmode.com/v1/title/#{movie["id"].to_s}/details/?apiKey=Cr5gip77ClZJLYijZe8xdg2JLdishE3AmHc3E88K&append_to_response=sources")
-  response_watchmode = Net::HTTP.get(uri_watchmode)
-  result_watchmode = JSON.parse(response_watchmode)
-  puts "#{i} watchmode responsed"
+  #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{movie["id"].to_s}/details/?apiKey=Cr5gip77ClZJLYijZe8xdg2JLdishE3AmHc3E88K&append_to_response=sources")
+  #response_watchmode = Net::HTTP.get(uri_watchmode)
+  #result_watchmode = JSON.parse(response_watchmode)
+  #puts "#{i} watchmode responsed"
   
-  puts "#{i} array pushed"
-  full_movies << [result_tmdb, result_watchmode]
-
-end
-
-movies_h = { movies: full_movies }
-File.open("t_250_movies.json", "wb") do |file|
-  file.write(JSON.generate(full_movies))
-end
-puts " array saved"
+  #full_movies << [result_tmdb, result_watchmode]
+  #puts "#{i} array pushed"
+#end
+#File.open("t_full_movies_1.json", "wb") do |file|
+  #file.write(JSON.generate(full_movies))
+#end
+#puts "JSON created"
 
 
+#PLEASE DO NOT UNCOMMENT this method is for create a json with all the info related to tvs
+#tvs_group = tvs["titles"][125..249]
+#full_tvs = []
+#tvs_group.each_with_index do |tv, i|
+  #uri_tmdb = URI("https://api.themoviedb.org/3/tv/#{tv["tmdb_id"].to_s}?api_key=43f195cad08ed475966231cae7ae844e&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
+  #response_tmdb = Net::HTTP.get(uri_tmdb)
+  #result_tmdb = JSON.parse(response_tmdb)
+  #puts "#{i} tmdb responsed"
 
-
+  #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{tv["id"].to_s}/details/?apiKey=Cr5gip77ClZJLYijZe8xdg2JLdishE3AmHc3E88K&append_to_response=sources")
+  #response_watchmode = Net::HTTP.get(uri_watchmode)
+  #result_watchmode = JSON.parse(response_watchmode)
+  #puts "#{i} watchmode responsed"
+  
+  #full_tvs << [result_tmdb, result_watchmode]
+  #puts "#{i} array pushed"
+#end
+#File.open("t_full_tvs_2.json", "wb") do |file|
+  #file.write(JSON.generate(full_tvs))
+#end
+#puts "JSON created"
 
 
 

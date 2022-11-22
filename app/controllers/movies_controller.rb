@@ -1,5 +1,5 @@
 require 'net/http'
-require 'uri'
+require 'open-uri'
 require 'json'
 
 class MoviesController < ApplicationController
@@ -11,10 +11,10 @@ class MoviesController < ApplicationController
   end
 
   def show
-    # watchmode_info = api_call("https://api.watchmode.com/v1/search/?apiKey=#{ENV['WATCHMODE_API_KEY']}&search_field=tmdb_movie_id&search_value=#{@movie.tmdb_id.to_s}")
+     #watchmode_info = api_call("https://api.watchmode.com/v1/search/?apiKey=#{ENV['WATCHMODE_API_KEY']}&search_field=tmdb_movie_id&search_value=#{@movie.tmdb_id.to_s}")
 
-    # imdb_id = watchmode_info["title_results"][0]["imdb_id"]
-    # watchmode_id = watchmode_info["title_results"][0]["id"]
+     #imdb_id = watchmode_info["title_results"][0]["imdb_id"]
+     #watchmode_id = watchmode_info["title_results"][0]["id"]
     @review = Review.new
     @reviewable = @movie
     @list_item = ListItem.new

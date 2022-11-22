@@ -1,11 +1,17 @@
 <div class="container-fluid m-0 px-3 ps-sm-4 py-4">
+<%= render "shared/flashes", notice: notice %>
   <h1>User dashboard</h1>
   <div class="container-cards m-0 py-0 py-sm-1 mb-4">
     <div class="row m-0">
       <div class="header">
       <h3 class="title m-0">My profile</h3>
         <p><%= @user.first_name %></p>
+        <% if @user.avatar.present? %>
         <%= cl_image_tag @user.avatar.key, height: 300, width: 400, crop: :fill %>
+        <% end %>
+        <p>Member since <%= @user.created_at.strftime("%B %Y") %></p>
+        <p>Bio</p>
+        <p><%= @user.bio %></p>
       </div>
     </div>
   </div>
@@ -13,7 +19,22 @@
     <div class="row m-0">
       <div class="header">
       <h3 class="title m-0">My stats</h3>
-        <p><%= @user.first_name %></p>
+        <p>Reviews</p>
+        <p><%= @reviews %></p>
+        <p>Lists</p>
+        <p><%= @lists.count %></p>
+        <p>Score</p>
+        <p><%= @user.reputation_score %></p>
+        <p>Badges - completed challenges </p>
+      </div>
+    </div>
+  </div>
+  <div class="container-cards m-0 py-0 py-sm-1 mb-4">
+    <div class="row m-0">
+      <div class="header">
+        <h3 class="title m-0">My lists</h3>
+        <%= render "lists/list_form", list: @new_list %>
+        <%= render(@lists) || "You have no lists" %>
       </div>
     </div>
   </div>

@@ -1,0 +1,23 @@
+<% if service_providers.present? %>
+  <div class="btn-toolbar m-2" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group" role="group" aria-label="Second group">
+      <div class="h-100 h-provider d-flex align-items-center justify-content-center">
+        <h3 class="px-2"><%= service_providers.first.service.capitalize %></h3>
+      </div>
+      <% service_providers.each do |service_provider| %>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-providers dropdown-toggle p-1 m-0" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="<%= service_provider.logo_url %>" class="d-block" alt="...">
+        </button>
+        <ul class="dropdown-menu">
+        <% media_providers.each do |media_provider| %>
+          <% if media_provider.provider_id == service_provider.id %>
+            <li><a class="dropdown-item" href="<%= media_provider.web_url %>"><%= media_provider.name %><%= media_provider.region %><%= media_provider.format %> <%= media_provider.price %></a></li>
+          <% end %>
+        <% end %>
+        </ul>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

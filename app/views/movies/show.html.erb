@@ -1,25 +1,51 @@
-<div class="media-banner mt-n5 d-flex align-items-end justify-content-end" style="background-image: linear-gradient(165deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 35%, rgba(0,0,0,1) 75%), url('<%= @movie.backdrop_url %>')">
-  <div class="p-3 media-info bg-tran justify-content-center align-items-center text-end">
-    <h1><%= @movie.title %></h1>
-    <div class="info-small">
-      <small>&#11088; <%= @movie.rating_average %></small>
-      <small class="mb-1">&#x1F4C5; <%= @movie.release_date.strftime("%Y") %></small>
+<div class="media-banner mt-n5" style="background-image: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(255,255,255,0.1) 40%, rgba(0,0,0,1) 80%), url('<%= @movie.backdrop_url %>')">
+  <div class="row h-100 w-100 pt-5 m-0">
+    <div class="col-12 col-md-8 d-flex flex-column align-items-center justify-content-center">
+      <% if @movie.trailer.present? %>
+        <% trailer =  @movie.trailer %>
+        <% trailer["https://www.youtube.com/watch?v="] = "https://www.youtube.com/embed/" %>
+        <iframe class="" width="450px" height="260px" src="<%= trailer %>">
+        </iframe>
+      <% end %>
+      <% if @movie.tagline.present? %>
+      <div class="my-4 w-50 text-center">
+        <h2 class="fw-bold px-2 trans-text">“ <%= @movie.tagline %> „</h2>
+      </div>
+    <% end %>
+
     </div>
-    <p><%= @movie.overview %></p>
+    <div class="col-12 col-md-4 d-flex flex-column align-items-center justify-content-end px-5">
+      <div class="info-small mt-2 mb-n1 fw-semibold">
+        <small class="mb-2"><span class="trans-text px-1">User score</span> <span class="fw-bolder text-info"><%= @movie.rating_average %></span> </small>
+        <small class="mb-2"><span class="trans-text px-1">Critic score</span> <span class="fw-bolder text-info"><%= @movie.critic_score %>%</span>  </small>
+        <small class="mb-2"><span class="trans-text px-1">∆ <%= @movie.popularity %></span></small>
+      </div>
+      <h1 class="fs-1 fw-bold"><%= @movie.title %></h1>
+      <div class="info-small pb-2">
+        <small class="mb-2"><%= @movie.year %> •</small>
+        <small class="mb-2"><%= @movie.runtime %> min •</small>
+        <% @movie.genre_names[0..-2].each do |genre| %>
+          <small class="mb-2"><%= genre %>,</small>
+        <% end %>
+        <small class="mb-2"><%= @movie.genre_names[-1] %> •</small>
+        <% if @movie.us_rating.present? %>
+          <small class="mb-2 trans-text px-1 fw-semibold"><%= @movie.us_rating %></small>
+        <% end %>
+        <small class="mb-2">• <%= @movie.status %></small>
+      </div>
+      <p class="text-center"><%= @movie.overview %></p>
+      <div class="d-flex align-items-center justify-content-center flex-wrap">
+        <%= render "movies/providers", service_providers: @free_providers, media_providers: @media_providers %>
+        <%= render "movies/providers", service_providers: @sub_providers, media_providers: @media_providers %>
+        <%= render "movies/providers", service_providers: @purchase_providers, media_providers: @media_providers %>
+        <%= render "movies/providers", service_providers: @tve_providers, media_providers: @media_providers %>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="container">
-  <h4 class="py-3">This is a movie show</h4>
-
-  <div>
-    <p><%= @movie.title %></p>
-    <p><%= @movie.release_date %></p>
-    <p><%= @movie.overview %></p>
-    <p><%= @movie.tagline %></p>
-    <p><%= @movie.rating_average %></p>
-    <p><%= link_to "Home", root_path %>
-  </div>
+  <p><%= link_to "Home", root_path %>
 
   <%= render "list_items/new_list_item", listable: @listable, list_item: @list_item, lists: @lists %>
  <div data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin">

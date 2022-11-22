@@ -11,27 +11,24 @@ class MoviesController < ApplicationController
   end
 
   def show
-     #watchmode_info = api_call("https://api.watchmode.com/v1/search/?apiKey=#{ENV['WATCHMODE_API_KEY']}&search_field=tmdb_movie_id&search_value=#{@movie.tmdb_id.to_s}")
-
-     #imdb_id = watchmode_info["title_results"][0]["imdb_id"]
-     #watchmode_id = watchmode_info["title_results"][0]["id"]
     @review = Review.new
     @reviewable = @movie
     @list_item = ListItem.new
     @listable = @movie
     @lists = List.where(["user_id = :user_id", { user_id: current_user.id }])
-    @providers
+    @providers = @movie.providers
+    @media_providers = @movie.media_providers
+    @free_providers = @providers.where(service: "free").uniq
+    @sub_providers = @providers.where(service: "sub").uniq
+    @purchase_providers = @providers.where(service: "purchase").uniq
+    @tve_providers = @providers.where(service: "tve").uniq
+    #raise
   end
 
   private
 
   def set_movie
-    @movie = Movie.find(params[:id])
+    @movie = Movie.includes(:media_providers).find(params[:id])
   end
 
-  def api_call(url)
-    uri = URI(url)
-    json = Net::HTTP.get(uri)
-    result = JSON(json)
-  end
 end

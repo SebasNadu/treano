@@ -16,13 +16,19 @@ class MoviesController < ApplicationController
     @list_item = ListItem.new
     @listable = @movie
     @lists = List.where(["user_id = :user_id", { user_id: current_user.id }])
+    @providers = @movie.providers
+    @media_providers = @movie.media_providers
+    @free_providers = @providers.where(service: "free").uniq
+    @sub_providers = @providers.where(service: "sub").uniq
+    @purchase_providers = @providers.where(service: "purchase").uniq
+    @tve_providers = @providers.where(service: "tve").uniq
     #raise
   end
 
   private
 
   def set_movie
-    @movie = Movie.find(params[:id])
+    @movie = Movie.includes(:media_providers).find(params[:id])
   end
 
 end

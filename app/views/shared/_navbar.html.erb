@@ -1,18 +1,18 @@
 <div class="navbar navbar-top py-0 py-sm-1 ms-auto sticky-top">
   <div class="container-fluid d-flex d-row justify-content-end align-items-start">
     <div class="flex-grow-1 hello">
-      <div class="d-flex flex-column flex-sm-row">
+      <div class="d-flex h-100 flex-column align-items-center flex-sm-row">
       <% if user_signed_in? %>
         <% t = Time.now %>
         <% if t.hour < 12 %>
-            <p class="fs-4 fw-light text-light m-0 p-0">Good morning</p>
-            <p class="fs-4 fw-light text-light m-0 p-0 ps-2"><%= current_user.username %></p>
+            <p class="fs-5 fw-normal text-light m-0 p-0">Good morning</p>
+            <p class="fs-5 fw-normal text-light m-0 p-0 ps-2"><%= current_user.username %></p>
         <% elsif t.hour >= 12 %>
-            <p class="fs-4 fw-light text-light m-0 p-0">Good afternoon</p>
-            <p class="fs-4 fw-light text-light m-0 p-0 ps-2"><%= current_user.username %></p>
+            <p class="fs-5 fw-normal text-light m-0 p-0">Good afternoon</p>
+            <p class="fs-5 fw-normal text-light m-0 p-0 ps-2"><%= current_user.username %></p>
         <% elsif t.hour > 18 %>
-            <p class="fs-4 fw-light text-light m-0 p-0">Good night</p>
-            <p class="fs-4 fw-light text-light m-0 p-0 ps-2"><%= current_user.username %></p>
+            <p class="fs-5 fw-normal text-light m-0 p-0">Good night</p>
+            <p class="fs-5 fw-normal text-light m-0 p-0 ps-2"><%= current_user.username %></p>
         <% end %>
       <% else %>
         <p class="fs-4 fw-light text-light my-0">Join to us!</p>

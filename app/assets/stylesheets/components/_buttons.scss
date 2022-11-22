@@ -48,3 +48,26 @@
   width: 2rem;
   height: 2rem;
 }
+
+.btn-providers {
+  overflow: hidden;
+  //padding: 0rem .3rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  img {
+    width: 2rem;
+    min-width: 2rem;
+  }
+}
+
+.dropdown-toggle::after {
+  margin: 0;
+}
+.h-provider {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 0px solid rgba(255, 255, 255, 0.6);
+  border-radius: 1rem 0 0 1rem;
+}

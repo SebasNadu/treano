@@ -21,6 +21,18 @@ class PagesController < ApplicationController
     end
   end
 
+  def dashboard
+    @user = current_user
+    @list = List.new
+    @lists = List.where(["user_id = :user_id", { user_id: @user }])
+  end
+
+  def profile
+    if params[:user_id].present?
+      @user = User.find(params[:user_id])
+    end
+  end
+
   private
 
   def set_movies(movies)

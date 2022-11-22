@@ -1,5 +1,6 @@
 <div>
-  <p><%= link_to review.user.username, users_path(review.user) %>
+  <p><%#= link_to review.user.username, users_path(review.user) %>
+  <p><%= review.user.username %>
     <small>
       <em class="text-muted"><%= distance_of_time_in_words_to_now(review.created_at) %> ago</em>
     </small>

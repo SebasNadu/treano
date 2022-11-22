@@ -1,0 +1,39 @@
+<div class="container-fluid m-0 px-3 ps-sm-4 py-4">
+  <h1>User dashboard</h1>
+  <div class="container-cards m-0 py-0 py-sm-1 mb-4">
+    <div class="row m-0">
+      <div class="header">
+      <h3 class="title m-0">My profile</h3>
+        <p><%= @user.first_name %></p>
+        <%= cl_image_tag @user.avatar.key, height: 300, width: 400, crop: :fill %>
+      </div>
+    </div>
+  </div>
+  <div class="container-cards m-0 py-0 py-sm-1 mb-4">
+    <div class="row m-0">
+      <div class="header">
+      <h3 class="title m-0">My stats</h3>
+        <p><%= @user.first_name %></p>
+      </div>
+    </div>
+  </div>
+  <div class="container-cards m-0 py-0 py-sm-1 mb-4">
+    <div class="row m-0">
+      <div class="header">
+        <h3 class="title m-0">My reviews</h3>
+          <% user_reviews = current_user.reviews %>
+          <% user_reviews.each do |review| %>
+            <%= render "reviews/review", review: review %>
+            <button aria-label="Edit movie">
+              <i class="fa-solid fa-pen fa-xs ml-2" data-action="click->insert-in-list#displayForm"></i>
+            </button>
+            <%= render "reviews/edit_review", class: "d-none", review: review %>
+            <p><%= link_to "Delete",
+                    review_path(review),
+                    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %></p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

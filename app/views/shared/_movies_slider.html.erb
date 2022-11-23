@@ -16,25 +16,11 @@
             <% this_movie = Movie.find_by(tmdb_id: movie[:tmdb_id]) %>
             <% if this_movie %>
               <%= link_to movie_path(this_movie) do%>
-            <div class="info p-2 d-flex flex-column align-items-center justify-content-between">
-              <div class="d-flex align-items-center flex-column justify-content-between inside-info">
-                <p class="line-clamp-s mb-2"><%= movie[:title] %></p>
-                <small>&#11088; <%= movie[:rating_average] %></small>
-                <small class="mb-1">&#x1F4C5; <%= movie[:release_date] %></small>
-                <small class="line-clamp mb-1"><%= movie[:overview] %></small>
-              </div>
-            </div>
+                <%= render 'shared/movie_slider_info', movie: movie %>
+              <% end %>
+            <% else %>
+              <%= render 'shared/movie_slider_info', movie: movie %>
             <% end %>
-          <% else %>
-            <div class="info p-2 d-flex flex-column align-items-center justify-content-between">
-              <div class="d-flex align-items-center flex-column justify-content-between inside-info">
-                <p class="line-clamp-s mb-1"><%= movie[:title] %></p>
-                <small>&#11088; <%= movie[:rating_average] %></small>
-                <small class="mb-1">&#x1F4C5; <%= movie[:release_date] %></small>
-                <small class="line-clamp mb-1"><%= movie[:overview] %></small>
-              </div>
-            </div>
-          <% end %>
           </div>
         <% end %>
       </div>

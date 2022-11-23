@@ -44,14 +44,31 @@ class PagesController < ApplicationController
         backdrop_url: "https://image.tmdb.org/t/p/w1280#{movie["backdrop_path"]}",
         rating_average: movie["vote_average"],
         tmdb_id: movie["id"],
-        release_date: movie["release_date"]
+        release_date: movie["release_date"],
+        homepage: "",
+        trailer: "",
+        tagline: "",
+        runtime: "",
+        budget: "",
+        revenue: "",
+        status: "",
+        original_language: "",
+        year: "",
+        critic_score: "",
+        popularity: "",
+        genre_names: "",
+        similar_titles_watchmode: [],
+        recommendations_tmdb: [],
+        us_rating: "",
+        watchmode_id: "",
+        imdb_id: ""
       }
     end
   end
 
   def set_tvs(tvs)
     tvs.map do |tv|
-      movie = {
+      tv = {
         title: tv["name"],
         overview: tv["overview"],
         poster_url: "https://image.tmdb.org/t/p/w342#{tv["poster_path"]}",

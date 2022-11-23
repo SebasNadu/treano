@@ -26,3 +26,12 @@ body::-webkit-scrollbar-thumb {
 	background: $primary;
 	border-radius: 16px;
 }
+
+@media (max-width: 576px) {
+	p {
+		font-size: 80%;
+	}
+	small {
+		font-size: 70%;
+	}
+}

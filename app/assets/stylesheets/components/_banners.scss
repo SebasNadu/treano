@@ -1,25 +1,30 @@
 .media-banner {
+  z-index: -100;
   width: 100%;
-  height: 90vh;
+  left: 0;
+  height: 100vh;
   background-size: cover;
   background-position: center;
 }
 
 .carousel {
   z-index: 0;
+
+  height: 80vh;
+  width: 100vw;
 }
 
-//.media-info {
-  //width: 50%;
-  //height: 50%;
-//}
-
 .carousel-inner {
-  height: 85vh;
+  height: 100%;
+  width: 100%;
+  //aspect-ratio: 16 / 9;
 }
 
 .carousel-item > img {
   object-fit: cover;
+  //width: 100%;
+  //height: 100%;
+  //object-position: center;
 }
 
 .img-gradient{
@@ -33,8 +38,47 @@
   left:0; top:0;
   width:100%; height:100%;
   display:inline-block;
-  background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%,rgba(225,225,225,0.1) 45%, rgba(13,13,13,1) 85%) /* W3C */
+  background: linear-gradient(180deg, rgba(13,13,13,0.9) 0%,rgba(225,225,225,0) 40%, rgba(13,13,13,1) 75%) /* W3C */
 }
+
 .img-gradient img{
   display:block;
+}
+
+.banner-info {
+  z-index: 1000;
+  width: 30vw;
+  top: 20%;
+  left: 10%;
+  //background: rgba(12, 12, 12, .2);
+  //box-shadow: 2px 8px 10px rgba(12, 12, 12, .1);
+  border-radius: 1rem;
+}
+
+.fs-res {
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+.mt-n5 {
+  margin-top: -4rem !important;
+}
+
+@media (max-width: 991px) {
+  .fs-res {
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+}
+
+@media (max-width: 576px) {
+  .fs-res {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .banner-info {
+    width: 50vw;
+    top: 25%;
+    left: 25%;
+  }
 }

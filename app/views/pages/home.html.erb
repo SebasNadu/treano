@@ -13,12 +13,38 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item img-gradient active">
-      <img src="<%= @trends_media[0][:backdrop_url] %>" class="d-block w-100" alt="...">
+      <img src="<%= @trends_media[0][:backdrop_url] %>" class="d-block position-relative" alt="...">
+      <div class="position-absolute banner-info">
+        <%= render 'shared/movie_banner_info', movie: @trends_media[0] %>
+        <% this_movie = Movie.find_by(tmdb_id: @trends_media[0][:tmdb_id]) %>
+        <% if this_movie %>
+          <%= link_to movie_path(this_movie), class: "btn btn-primary" %>
+        <% end %>
+      </div>
     </div>
     <% @trends_media[1..9].each do |media| %>
-      <div class="carousel-item img-gradient">
-        <img src="<%= media[:backdrop_url] %>" class="d-block w-100" alt="...">
+    <div class="carousel-item img-gradient">
+      <img src="<%= media[:backdrop_url] %>" class="d-block" alt="...">
+      <div class="position-absolute banner-info p-2">
+        <% if media[:release_date] %>
+          <%= render 'shared/movie_banner_info', movie: media %>
+          <% this_movie = Movie.find_by(tmdb_id: media[:tmdb_id]) %>
+          <% if this_movie %>
+            <div class="d-flex align-items-start justify-content-center mt-n0">
+              <%= link_to 'More info', movie_path(this_movie), class: "btn btn-success fw-semibold btn-banner" %>
+            </div>
+          <% end %>
+        <% else %>
+          <%= render 'shared/tv_banner_info', tv: media %>
+          <% this_tv = Tv.find_by(tmdb_id: media[:tmdb_id]) %>
+          <% if this_tv %>
+            <div class="d-flex align-items-start justify-content-center mt-n">
+              <%= link_to 'More info', tv_path(this_tv), class: "btn btn-success fw-semibold btn-banner" %>
+            </div>
+          <% end %>
+        <% end %>
       </div>
+    </div>
     <% end %>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselBanner" data-bs-slide="prev">
@@ -32,7 +58,7 @@
 </div>
 
 
-<div class="container-fluid m-0 px-3 ps-sm-4 mt-n3 pb-4">
+<div class="container-fluid m-0 px-3 ps-sm-4 mt-n0 pb-4">
   <%= render 'shared/movies_slider', movies: @popular_movies, slider_title: 'Popular movies' %>
   <%= render 'shared/tvs_slider', tvs: @popular_tvs, slider_title: 'Popular Tv shows' %>
   <%= render 'shared/movies_slider', movies: @toprated_movies, slider_title: 'Top rated movies' %>

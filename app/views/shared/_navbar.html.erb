@@ -1,7 +1,7 @@
 <div class="navbar navbar-top py-0 py-sm-1 ms-auto sticky-top">
   <div class="container-fluid d-flex d-row justify-content-end align-items-start">
     <div class="flex-grow-1 hello">
-      <div class="d-flex h-100 flex-column align-items-center flex-sm-row">
+      <div class="d-flex h-100 align-items-center flex-row d-none d-md-flex">
       <% if user_signed_in? %>
         <% t = Time.now %>
         <% if t.hour < 12 %>

@@ -1,0 +1,34 @@
+<div class="px-1 py-2 d-flex flex-column align-items-center justify-content-between">
+  <div class="d-flex align-items-center flex-column justify-content-between inside-info">
+    <h1 class="fs-res mb-2 text-center"><%= tv[:title] %></h1>
+    <% if tv[:year].present? %>
+    <div class="d-flex flex-row flex-wrap justify-content-center align-items-center my-2">
+      <small class=""><span class="pe-1"><%= tv[:year] %></span>•</small>
+      <small class=""><span class="ps-1"><%= tv[:runtime] %> min</span>•</small>
+      <% tv[:genre_names][0..-2].each do |genre| %>
+        <small class=""><span class="ps-1"><%= genre %>,</small>
+      <% end %>
+      <small class=""><span class="ps-1"><%= tv[:genre_names][-1] %> •</small>
+      <% if tv[:us_rating].present? %>
+        <small class=""><span class="trans-text px-1 mx-1 fw-semibold"><%= tv[:us_rating] %></span></small>
+      <% end %>
+      <small class="">•<span class="ps-1"><%= tv[:status] %></small>
+    </div>
+    <% if tv[:tagline].present? %>
+      <p class="my-2 fw-semibold text-center">“<%= tv[:tagline] %>„</p>
+    <% end %>
+    <div class="d-flex flex-row flex-wrap justify-content-center align-items-center my-2">
+      <small class="square-score-inv px-1 fw-semibold me-1"><%= tv[:rating_average] %> </small>
+      <small class="square-score-inv px-1 fw-semibold me-1"><%= tv[:critic_score] %>% </small>
+      <small class="square-score-inv fw-semibold px-1 me-1">∆ <%= tv[:popularity].round %></small>
+    </div>
+  <% else %>
+    <div class="d-flex flex-row flex-wrap align-items-center justify-content-center my-2">
+      <small class="square-score-inv fw-semibold px-1 mx-1"><%= tv[:first_air_date][0..3] %></small>
+      •
+      <small class="square-score-inv mx-1 px-1 fw-semibold"><%= tv[:rating_average] %> </small>
+    </div>
+   <p class="text-center mt-2 d-none d-md-block line-clamp"><%= tv[:overview] %></p>
+  <% end %>
+  </div>
+</div>

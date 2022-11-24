@@ -1,67 +1,96 @@
-<div class="media-banner mt-n5" style="background-image: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(255,255,255,0.1) 40%, rgba(0,0,0,1) 80%), url('<%= @movie.backdrop_url %>')">
-  <div class="row h-100 w-100 pt-5 m-0">
-    <div class="col-12 col-md-8 d-flex flex-column align-items-center justify-content-center">
-      <% if @movie.trailer.present? %>
-        <% trailer =  @movie.trailer %>
-        <% trailer["https://www.youtube.com/watch?v="] = "https://www.youtube.com/embed/" %>
-        <iframe class="" width="450px" height="260px" src="<%= trailer %>">
-        </iframe>
-      <% end %>
-      <% if @movie.tagline.present? %>
-      <div class="my-4 w-50 text-center">
-        <h2 class="fw-bold px-2 trans-text">“ <%= @movie.tagline %> „</h2>
-      </div>
-    <% end %>
+<div class="media-banner mt-n5 position-absolute" style="background-image: linear-gradient(180deg, rgba(12,12,12,0.5) 0%, rgba(255,255,255,0) 40%, rgba(12,12,12,1) 90%), url('<%= @movie.backdrop_url %>')">
+</div>
 
+<div class="row h-100 w-100 pt-5 m-0">
+  <div class="col-12 col-md-6 col-lg-7 order-5 order-sm-1 d-flex flex-column align-items-center justify-content-start justify-content-md-center">
+    <% if @movie.trailer.present? %>
+      <% trailer =  @movie.trailer %>
+      <% trailer["https://www.youtube.com/watch?v="] = "https://www.youtube.com/embed/" %>
+      <iframe class="" style="aspect-ratio: 16/9;" width="85%" height="" src="<%= trailer %>">
+      </iframe>
+    <% end %>
+    <% if @movie.tagline.present? %>
+    <div class="my-4 w-50 text-center">
+      <h2 class="fw-bold px-2 trans-text m-0">“ <%= @movie.tagline %> „</h2>
     </div>
-    <div class="col-12 col-md-4 d-flex flex-column align-items-center justify-content-end px-5">
-      <div class="info-small mt-2 mb-n1 fw-semibold">
-        <small class="mb-2"><span class="trans-text px-1">User score</span> <span class="fw-bolder text-info"><%= @movie.rating_average %></span> </small>
-        <small class="mb-2"><span class="trans-text px-1">Critic score</span> <span class="fw-bolder text-info"><%= @movie.critic_score %>%</span>  </small>
-        <small class="mb-2"><span class="trans-text px-1">∆ <%= @movie.popularity %></span></small>
+    <% end %>
+    <div class="d-flex align-items-center justify-content-center">
+      <%= link_to "#scrollspyReview", class: "btn btn-info avatar d-flex align-items-center justify-content-center m-2" do %>
+        <%= render 'svg/star' %>   
+      <% end %>
+      <div class="dropdown-center down-none m-2">
+        <button type="button" class="btn btn-info avatar dropdown-toggle d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+          <%= render 'svg/list' %>
+        </button>
+        <form class="dropdown-menu dropdown-menu-end p-2 bg-trans border-0">
+          <%= render "list_items/new_list_item", listable: @listable, list_item: @list_item, lists: @lists %>
+        </form>
       </div>
-      <h1 class="fs-1 fw-bold"><%= @movie.title %></h1>
-      <div class="info-small pb-2">
-        <small class="mb-2"><%= @movie.year %> •</small>
-        <small class="mb-2"><%= @movie.runtime %> min •</small>
-        <% @movie.genre_names[0..-2].each do |genre| %>
-          <small class="mb-2"><%= genre %>,</small>
-        <% end %>
-        <small class="mb-2"><%= @movie.genre_names[-1] %> •</small>
-        <% if @movie.us_rating.present? %>
-          <small class="mb-2 trans-text px-1 fw-semibold"><%= @movie.us_rating %></small>
-        <% end %>
-        <small class="mb-2">• <%= @movie.status %></small>
-      </div>
-      <p class="text-center"><%= @movie.overview %></p>
-      <div class="d-flex align-items-center justify-content-center flex-wrap">
-        <%= render "movies/providers", service_providers: @free_providers, media_providers: @media_providers %>
-        <%= render "movies/providers", service_providers: @sub_providers, media_providers: @media_providers %>
-        <%= render "movies/providers", service_providers: @purchase_providers, media_providers: @media_providers %>
-        <%= render "movies/providers", service_providers: @tve_providers, media_providers: @media_providers %>
-      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-lg-5 order-1 order-sm-5 d-flex flex-column align-items-center justify-content-center px-4">
+    <div class="info-small mt-2 mb-n0 fw-normal">
+      <small class="mb-2"><span class="trans-text px-1">User score</span> <span class="fw-semibold text-info"><%= @movie.rating_average %></span> </small>
+      <small class="mb-2"><span class="trans-text px-1">Critic score</span> <span class="fw-semibold text-info"><%= @movie.critic_score %>%</span>  </small>
+      <small class="mb-2"><span class="trans-text px-1">∆ <%= @movie.popularity.round %></span></small>
+    </div>
+    <h1 class="fs-1 fw-bold"><%= @movie.title %></h1>
+    <div class="info-small pb-2 text-center">
+      <small class="mb-2"><%= @movie.year %> •</small>
+      <small class="mb-2"><%= @movie.runtime %> min •</small>
+      <% @movie.genre_names[0..-2].each do |genre| %>
+        <small class="mb-2"><%= genre %>,</small>
+      <% end %>
+      <small class="mb-2"><%= @movie.genre_names[-1] %> •</small>
+      <% if @movie.us_rating.present? %>
+        <small class="mb-2 trans-text px-1 fw-semibold"><%= @movie.us_rating %></small>
+      <% end %>
+      <small class="mb-2">• <%= @movie.status %></small>
+    </div>
+    <p class="text-center"><%= @movie.overview %></p>
+    <div class="d-flex align-items-center justify-content-center flex-wrap">
+      <%= render "movies/providers", service_providers: @free_providers, media_providers: @media_providers %>
+      <%= render "movies/providers", service_providers: @sub_providers, media_providers: @media_providers %>
+      <%= render "movies/providers", service_providers: @purchase_providers, media_providers: @media_providers %>
+      <%= render "movies/providers", service_providers: @tve_providers, media_providers: @media_providers %>
     </div>
   </div>
 </div>
 
-<div class="container">
-  <p><%= link_to "Home", root_path %>
+<div class="container-fluid m-0 px-3 ps-sm-4 p-4">
+  <% if @similars.present?  %>
+    <%= render 'shared/movies_slider', movies: @similars, slider_title: 'Similar titles' %>
+  <% end %>
+  <% if @recommendations.present?  %>
+    <%= render 'shared/movies_slider', movies: @recommendations, slider_title: 'Recommendations' %>
+  <% end %>
+</div>
 
-  <%= render "list_items/new_list_item", listable: @listable, list_item: @list_item, lists: @lists %>
- <div data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin">
-    <div data-insert-in-list-target="infos">
-      <% user_review = Review.where(reviewable_id: params[:id], reviewable_type: "Movie", user: current_user) %>
-      <% if user_review.empty? %>
-        <%= render "reviews/review_form",  reviewable: @reviewable, review: @review %>
-      <% else %>
-       <p>You already reviewed this movie</p>
-      <% end %>
+<div class="container mb-5">
+  <div data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin" class="row">
+    <div id="review" data-insert-in-list-target="infos" class="col-6 col-md-5 mt-5 p-2 pe-md-5 position-sticky">
+      <div class="bg-trans p-3 mx-5 rounded">
+        <% user_review = Review.where(reviewable_id: params[:id], reviewable_type: "Movie", user: current_user) %>
+        <% if user_review.empty? %>
+          <%= render "reviews/review_form",  reviewable: @reviewable, review: @review %>
+        <% else %>
+         <h5 class="m-0 text-center fst-italic">Thank you for your review!</h5>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-6 col-md-7">
       <% if @movie.reviews.empty? %>
-        <div data-insert-in-list-target="first">
+        <div data-insert-in-list-target="first" class="">
           <small><em class="text-muted">Be the first one to review this movie</em></small>
         </div>
       <% end %>
+      <%= render "reviews/review_list", reviewable: @movie %>
     </div>
-    <%= render "reviews/review_list", reviewable: @movie %>
   </div>
 </div>
+
+<%= link_to 'javascript:history.back()' do %>
+<div class="fw-bold fs-1 position-absolute btn btn-back my-3 mx-2 py-3 px-2 mx-md-5 my-md-4 py-md-4">
+  <%= render 'svg/arrow-left-circle' %>
+</div>
+<% end %>

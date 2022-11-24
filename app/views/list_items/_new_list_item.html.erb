@@ -1,4 +1,4 @@
   <%= simple_form_for [listable, list_item] do |f| %>
-    <%= f.association :list, collection: lists, label_method: :list_name, value_method: :id %>
+    <%= f.association :list, collection: lists.order(:updated_at), label_method: :list_name, value_method: :id, prompt: "Your lists" %>
     <%= f.submit "Add to list", class: "btn btn-primary" %>
   <% end %>

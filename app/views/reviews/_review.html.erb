@@ -1,13 +1,18 @@
 <div>
-<%= render "shared/flashes" %>
-  <p><%#= link_to review.user.username, users_path(review.user) %>
-  <p><%= review.user.username %>
-    <small>
+  <div class="d-flex mb-1">
+    <%#= link_to review.user.username, users_path(review.user) %>
+    <% if current_user.avatar.key.nil? %>
+      <%= image_tag "user.svg", class: "avatar-s dropdown-toggle bg-secondary p-1", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+    <% else %>
+      <%= cl_image_tag current_user.avatar.key, class: "avatar", :gravity=>"face", :height=>36, :width=>36, :crop=>"thumb", :zoom=>"0.5" %>
+    <% end %>
+    <p class="ps-2 m-0"><%= review.user.username %></p>
+    <small class="ps-2">
       <em class="text-muted"><%= distance_of_time_in_words_to_now(review.created_at) %> ago</em>
     </small>
-  </p>
+  </div>
   <% review.rating.times do %>
-    <i class="fa-solid fa-star"></i>
+    <i class="fa-solid fa-star mb-1"></i>
   <% end %>
   <p class="mb-0"><%= review.content %></p>
   <hr>

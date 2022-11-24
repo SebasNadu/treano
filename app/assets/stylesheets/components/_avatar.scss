@@ -1,8 +1,21 @@
 .avatar {
   width: 40px;
+  height: 40px;
   border-radius: 50%;
 }
-.avatar-large {
+.down-none {
+  .dropdown-toggle::after {
+    display: none !important;
+  }
+  label {
+    display: none;
+  }
+}
+.avatar-s {
+  width: 26px;
+  border-radius: 50%;
+}
+.avatar-l {
   width: 56px;
   border-radius: 50%;
 }

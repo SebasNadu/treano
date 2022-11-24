@@ -13,7 +13,6 @@ class TvsController < ApplicationController
     @list_item = ListItem.new
     @listable = @tv
     @lists = List.where(["user_id = :user_id", { user_id: current_user.id }])
-
     @providers = @tv.providers
     @media_providers = @tv.media_providers
     @free_providers = @providers.where(service: "free").uniq

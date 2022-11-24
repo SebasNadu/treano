@@ -6,14 +6,27 @@
     <% if @movie.trailer.present? %>
       <% trailer =  @movie.trailer %>
       <% trailer["https://www.youtube.com/watch?v="] = "https://www.youtube.com/embed/" %>
-      <iframe class="" style="aspect-ratio: 16/9;" width="90%" height="" src="<%= trailer %>">
+      <iframe class="" style="aspect-ratio: 16/9;" width="85%" height="" src="<%= trailer %>">
       </iframe>
     <% end %>
     <% if @movie.tagline.present? %>
     <div class="my-4 w-50 text-center">
-      <h2 class="fw-bold px-2 trans-text">“ <%= @movie.tagline %> „</h2>
+      <h2 class="fw-bold px-2 trans-text m-0">“ <%= @movie.tagline %> „</h2>
     </div>
     <% end %>
+    <div class="d-flex align-items-center justify-content-center">
+      <%= link_to "#scrollspyReview", class: "btn btn-info avatar d-flex align-items-center justify-content-center m-2" do %>
+        <%= render 'svg/star' %>   
+      <% end %>
+      <div class="dropdown-center down-none m-2">
+        <button type="button" class="btn btn-info avatar dropdown-toggle d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+          <%= render 'svg/list' %>
+        </button>
+        <form class="dropdown-menu dropdown-menu-end p-2 bg-trans border-0">
+          <%= render "list_items/new_list_item", listable: @listable, list_item: @list_item, lists: @lists %>
+        </form>
+      </div>
+    </div>
   </div>
   <div class="col-12 col-md-6 col-lg-5 order-1 order-sm-5 d-flex flex-column align-items-center justify-content-center px-4">
     <div class="info-small mt-2 mb-n0 fw-normal">
@@ -53,25 +66,31 @@
   <% end %>
 </div>
 
-
-<div class="container">
-  <p><%= link_to "Home", root_path %>
-
-  <%= render "list_items/new_list_item", listable: @listable, list_item: @list_item, lists: @lists %>
- <div data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin">
-    <div data-insert-in-list-target="infos">
-      <% user_review = Review.where(reviewable_id: params[:id], reviewable_type: "Movie", user: current_user) %>
-      <% if user_review.empty? %>
-        <%= render "reviews/review_form",  reviewable: @reviewable, review: @review %>
-      <% else %>
-       <p>You already reviewed this movie</p>
-      <% end %>
+<div class="container mb-5">
+  <div data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin" class="row">
+    <div id="review" data-insert-in-list-target="infos" class="col-6 col-md-5 mt-5 p-2 pe-md-5 position-sticky">
+      <div class="bg-trans p-3 mx-5 rounded">
+        <% user_review = Review.where(reviewable_id: params[:id], reviewable_type: "Movie", user: current_user) %>
+        <% if user_review.empty? %>
+          <%= render "reviews/review_form",  reviewable: @reviewable, review: @review %>
+        <% else %>
+         <h5 class="m-0 text-center fst-italic">Thank you for your review!</h5>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-6 col-md-7">
       <% if @movie.reviews.empty? %>
-        <div data-insert-in-list-target="first">
+        <div data-insert-in-list-target="first" class="">
           <small><em class="text-muted">Be the first one to review this movie</em></small>
         </div>
       <% end %>
+      <%= render "reviews/review_list", reviewable: @movie %>
     </div>
-    <%= render "reviews/review_list", reviewable: @movie %>
   </div>
 </div>
+
+<%= link_to 'javascript:history.back()' do %>
+<div class="fw-bold fs-1 position-absolute btn btn-back my-3 mx-2 py-3 px-2 mx-md-5 my-md-4 py-md-4">
+  <%= render 'svg/arrow-left-circle' %>
+</div>
+<% end %>

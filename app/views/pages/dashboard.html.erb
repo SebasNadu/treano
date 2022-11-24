@@ -5,7 +5,11 @@
       <div class="header">
       <h3 class="title m-0">My profile</h3>
         <p><%= @user.first_name %></p>
-        <%= cl_image_tag @user.avatar.key, height: 300, width: 400, crop: :fill %>
+        <% if @user.avatar.key.nil? %>
+          <%= image_tag "user.svg", class: "avatar-l dropdown-toggle bg-secondary p-1", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+        <% else %>
+          <%= cl_image_tag @user.avatar.key, class: "avatar", :gravity=>"face", :height=>36, :width=>36, :crop=>"thumb", :zoom=>"0.5" %>
+        <% end %>
       </div>
     </div>
   </div>

@@ -60,8 +60,16 @@
   font-weight: 900;
 }
 
-.mt-n5 {
-  margin-top: -4rem !important;
+//.mt-n5 {
+  //margin-top: -4rem !important;
+//}
+
+.dashboard-banner {
+  z-index: -100;
+  width: 100%;
+  height: 100vh;
+  background: rgb(131,58,180);
+  background: linear-gradient(180deg, hsla(263, 67, 5, 0) 0%, hsla(0, 63, 31, 1) 20%, hsla(0, 63, 31, 1) 20%, hsla(32, 95, 44, 1) 40%, hsla(161, 94, 30, 1) 60%, hsla(202, 80, 24, 1) 80%, hsla(263, 67, 5, 0) 100%);
 }
 
 @media (max-width: 991px) {

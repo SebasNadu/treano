@@ -39,8 +39,7 @@ class ReviewsController < ApplicationController
     @review.destroy
 
     respond_to do |format|
-      format.html { render "movies/show", status: :see_other }
-      format.json { head :no_content }
+   
     end
   end
 

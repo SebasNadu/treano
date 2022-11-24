@@ -35,7 +35,7 @@ providers = JSON.parse(providers_file)
   #response_watchmode = Net::HTTP.get(uri_watchmode)
   #result_watchmode = JSON.parse(response_watchmode)
   #puts "#{i} watchmode responsed"
-  
+
   #full_movies << [result_tmdb, result_watchmode]
   #puts "#{i} array pushed"
 #end
@@ -58,7 +58,7 @@ providers = JSON.parse(providers_file)
   #response_watchmode = Net::HTTP.get(uri_watchmode)
   #result_watchmode = JSON.parse(response_watchmode)
   #puts "#{i} watchmode responsed"
-  
+
   #full_tvs << [result_tmdb, result_watchmode]
   #puts "#{i} array pushed"
 #end
@@ -71,10 +71,11 @@ providers = JSON.parse(providers_file)
 
 
 puts "Cleaning up db"
+List.destroy_all
+User.destroy_all
 Movie.destroy_all
 Tv.destroy_all
 Review.destroy_all
-User.destroy_all
 MediaProvider.destroy_all
 Provider.destroy_all
 puts "Db cleaned"

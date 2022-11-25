@@ -73,10 +73,10 @@ genres = JSON.parse(genres_file)
 puts "Cleaning up db"
 List.destroy_all
 Review.destroy_all
+MediaProvider.destroy_all
 User.destroy_all
 Movie.destroy_all
 Tv.destroy_all
-MediaProvider.destroy_all
 Provider.destroy_all
 puts "Db cleaned"
 
@@ -149,6 +149,15 @@ end
 
 puts "Providers created"
 
+genres.each do |genre|
+  Genre.create(
+    genre_name: genre["name"],
+    tmdb_genre_id: genre["tmdb_id"],
+    watchmode_id: genre["id"]
+  )
+end
+
+puts "Genres created"
 
 def movies_seeds(movies)
   movies.each_with_index do |movie, i|
@@ -206,6 +215,13 @@ def movies_seeds(movies)
       )
     end
     puts "Review created #{i}"
+    movie[0]["genres"].each do |genre|
+      GenreItem.create(
+        genre_id: Genre.find_by(tmdb_genre_id: genre["id"]).id,
+        genreable: this_movie
+      )
+    end
+    puts "Genre created #{i}"
   end
   puts "Movies Created"
 end
@@ -267,6 +283,13 @@ def tvs_seeds(tvs)
       )
     end
     puts "Review created #{i}"
+    tv[0]["genres"].each do |genre|
+      GenreItem.create(
+        genre_id: Genre.find_by(tmdb_genre_id: genre["id"]).id,
+        genreable: this_tv
+      )
+    end
+    puts "Genre created #{i}"
   end
   puts "tvs created"
 end

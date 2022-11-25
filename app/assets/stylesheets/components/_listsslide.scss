@@ -1,0 +1,50 @@
+/* media scroller */
+
+.lists-container {
+  //position: relative;
+  height: 75vh;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 15%, $gray-900 50%, rgba(0,0,0,0) 85%);
+  //background: linear-gradient(180deg, $gray-900 0%, rgba(0,0,0,0) 50%, $gray-900 100%);
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.lists-scroller,
+.lists-group {
+  width: 90%;
+  border-radius: 1rem;
+  display: grid;
+  gap: 0.5rem;
+  grid-auto-flow: column;
+}
+
+.lists-scroller {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  grid-auto-columns: 100%;
+  //padding: 0 3rem;
+  scroll-padding-inline: 3rem;
+  //position: relative;
+  //border: solid limegreen 3px;
+}
+
+.lists-group {
+  grid-auto-columns: 1fr;
+  //border: solid limegreen 3px;
+  //position: relative;
+}
+
+.lists-element {
+  width: 300px;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.lists-element > img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+

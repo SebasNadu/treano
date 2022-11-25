@@ -1,11 +1,12 @@
-<div class="dashboard-banner m-0 p-0 mt-n5 position-fixed w-100" style="">
+<div class="dashboard-banner m-0 p-0 mt-n5 position-fixed" style="">
 </div>
 
-<div class="container-fluid m-0 px-2 ps-sm-3 py-4">
+<div class="container-fluid m-0 px-2 ps-sm-3 pt-4">
   <h1 class="fs-1 fw-bold px-2"><%= @user.username %></h1>
-  <div class="row mb-2">
-    <div class="col-12 col-md-6 pb-3">
-      <div class="info-box p-3 info-h">
+  <div class="info-box p-2 p-sm-4">
+  <div class="row row-cols-1 row-cols-sm-2">
+    <div class="col">
+      <div class="p-3 info-h">
         <div class="row">
           <div class="col-6 text-center">
             <h3 class="fw-bolder mb-3 trans-text">Info</h3>
@@ -15,7 +16,7 @@
               <%= cl_image_tag @user.avatar.key, class: "avatar-xl", :gravity=>"face", :height=>36, :width=>36, :crop=>"thumb", :zoom=>"0.5" %>
             <% end %>
           </div>
-          <div class="col-6">
+          <div class="col">
             <h5 class="m-0 mt-2"><%= @user.first_name %> <%= @user.last_name %></h5>
             <small>Member since</small>
             <small class=""><%= @user.created_at.strftime("%B %Y") %></small>
@@ -26,8 +27,8 @@
         </div>
       </div>
     </div>
-    <div class="col-12 col-md-6 pb-3">
-      <div class="info-box p-3 info-h">
+    <div class="col">
+      <div class="p-3 info-h">
         <h3 class="m-0 trans-text fw-bolder text-center">Stats</h3>
         <div class="d-flex justify-content-center align-items-center mb-2">
           <p class="trans-text m-1 px-2 fw-bolder bg-secondary"><%= @reviews %></p>
@@ -40,7 +41,72 @@
         <h5>Badges - completed challenges </h5>
       </div>
     </div>
+    </div>
   </div>
+</div>
+
+  <div class="lists-container">
+    <div class="d-flex align-items-center justify-content-between mx-2">
+      <h2 class="section-title">My lists</h2>
+      <%= link_to "Show more", "#" %>
+    </div>
+    <div class="lists-scroller">
+      <div class="lists-group">
+        <div class="lists-element">
+          <img
+            src="https://images.unsplash.com/photo-1641353989082-9b15fa661805?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0MzM5ODcyOA&ixlib=rb-1.2.1&q=80&w=400"
+            alt="">
+        </div>
+        <div class="lists-element">
+          <img
+            src="https://images.unsplash.com/photo-1642190672487-22bde32965f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0MzM5ODcyOA&ixlib=rb-1.2.1&q=80&w=400"
+            alt="">
+        </div>
+        <div class="lists-element">
+          <img
+            src="https://images.unsplash.com/photo-1641841344411-49dbd02896f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0MzM5ODcyOA&ixlib=rb-1.2.1&q=80&w=400"
+            alt="">
+        </div>
+        <div class="lists-element">
+          <img
+            src="https://images.unsplash.com/photo-1643223723262-7ce785730cf6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0MzM5ODcyOA&ixlib=rb-1.2.1&q=80&w=400"
+            alt="">
+        </div>
+        <div class="lists-element">
+          <img
+            src="https://images.unsplash.com/photo-1640938776314-4d303f8a1380?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0MzM5ODc2Mw&ixlib=rb-1.2.1&q=80&w=400"
+            alt="">
+        </div>
+        <div class="lists-element">
+          <img
+            src="https://images.unsplash.com/photo-1641259041823-e09935369105?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0MzM5ODc2Mw&ixlib=rb-1.2.1&q=80&w=400"
+            alt="">
+        </div>
+        <div class="lists-element">
+          <img
+            src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0MzM5ODc2Mw&ixlib=rb-1.2.1&q=80&w=400"
+            alt="">
+        </div>
+        <div class="lists-element">
+          <img
+            src="https://images.unsplash.com/photo-1641118961077-440391095cdc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0MzM5ODc2Mw&ixlib=rb-1.2.1&q=80&w=400"
+            alt="">
+        </div>
+        <div class="lists-element">
+          <img
+            src="https://images.unsplash.com/photo-1640767014413-b7d27c58b058?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0MzM5ODc5NQ&ixlib=rb-1.2.1&q=80&w=400"
+            alt="">
+        </div>
+        <div class="lists-element">
+          <img
+            src="https://images.unsplash.com/photo-1640948612546-3b9e29c23e98?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTY0MzM5ODc5NQ&ixlib=rb-1.2.1&q=80&w=400"
+            alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="container-fluid m-0 px-2 ps-sm-3 pb-4">
 
   <div class="info-box p-2 p-sm-4">
     <h3 class="m-0 trans-text fw-bolder text-center mb-3">My reviews</h3>
@@ -73,4 +139,5 @@
       <%= render(@lists) || "You have no lists" %>
     </div>
   </div>
+
 </div>

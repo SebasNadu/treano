@@ -11,3 +11,9 @@
   color: $dark !important;
   mix-blend-mode: screen;
 }
+
+.trans-text-i {
+  background: $dark;
+  color: $white !important;
+  mix-blend-mode: multiply;
+}

@@ -1,65 +1,76 @@
-<div class="dashboard-banner mt-n5 position-absolute w-100" style="">
+<div class="dashboard-banner m-0 p-0 mt-n5 position-fixed w-100" style="">
 </div>
 
-<div class="container-fluid m-0 px-3 ps-sm-4 py-4">
-<%= render "shared/flashes", notice: notice %>
-  <h1>User dashboard</h1>
-  <div class="container-cards m-0 py-0 py-sm-1 mb-4">
-    <div class="row m-0">
-      <div class="header">
-      <h3 class="title m-0">My profile</h3>
-        <p><%= @user.first_name %></p>
-        <% if @user.avatar.key.nil? %>
-          <%= image_tag "user.svg", class: "avatar-l dropdown-toggle bg-secondary p-1", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-        <% else %>
-          <%= cl_image_tag @user.avatar.key, class: "avatar", :gravity=>"face", :height=>36, :width=>36, :crop=>"thumb", :zoom=>"0.5" %>
-        <% end %>
-        <p>Member since <%= @user.created_at.strftime("%B %Y") %></p>
-        <p>Bio</p>
-        <p><%= @user.bio %></p>
-      </div>
-    </div>
-  </div>
-  <div class="container-cards m-0 py-0 py-sm-1 mb-4">
-    <div class="row m-0">
-      <div class="header">
-      <h3 class="title m-0">My stats</h3>
-        <p>Reviews</p>
-        <p><%= @reviews %></p>
-        <p>Lists</p>
-        <p><%= @lists.count %></p>
-        <p>Score</p>
-        <p><%= @user.reputation_score %></p>
-        <p>Badges - completed challenges </p>
-      </div>
-    </div>
-  </div>
-  <div class="container-cards m-0 py-0 py-sm-1 mb-4">
-    <div class="row m-0">
-      <div class="header">
-        <h3 class="title m-0">My lists</h3>
-        <%= render "lists/list_form", list: @new_list %>
-        <%= render(@lists) || "You have no lists" %>
-      </div>
-    </div>
-  </div>
-  <div class="container-cards m-0 py-0 py-sm-1 mb-4">
-    <div class="row m-0">
-      <div class="header">
-        <h3 class="title m-0">My reviews</h3>
-          <% user_reviews = current_user.reviews %>
-          <% user_reviews.each do |review| %>
-            <%= render "reviews/review", review: review %>
-            <button aria-label="Edit movie">
-              <i class="fa-solid fa-pen fa-xs ml-2" data-action="click->insert-in-list#displayForm"></i>
-            </button>
-            <%= render "reviews/edit_review", class: "d-none", review: review %>
-            <p><%= link_to "Delete",
-                    review_path(review),
-                    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %></p>
-          <% end %>
+<div class="container-fluid m-0 px-2 ps-sm-3 py-4">
+  <h1 class="fs-1 fw-bold px-2"><%= @user.username %></h1>
+  <div class="row mb-2">
+    <div class="col-12 col-md-6 pb-3">
+      <div class="info-box p-3 info-h">
+        <div class="row">
+          <div class="col-6 text-center">
+            <h3 class="fw-bolder mb-3 trans-text">Info</h3>
+            <% if @user.avatar.key.nil? %>
+              <%= image_tag "user.svg", class: "avatar-xl dropdown-toggle bg-secondary p-1", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <% else %>
+              <%= cl_image_tag @user.avatar.key, class: "avatar-xl", :gravity=>"face", :height=>36, :width=>36, :crop=>"thumb", :zoom=>"0.5" %>
+            <% end %>
+          </div>
+          <div class="col-6">
+            <h5 class="m-0 mt-2"><%= @user.first_name %> <%= @user.last_name %></h5>
+            <small>Member since</small>
+            <small class=""><%= @user.created_at.strftime("%B %Y") %></small>
+            <hr>
+            <h5 class="m-0">Bio</h5>
+            <small class="m-0"><%= @user.bio %></small>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="col-12 col-md-6 pb-3">
+      <div class="info-box p-3 info-h">
+        <h3 class="m-0 trans-text fw-bolder text-center">Stats</h3>
+        <div class="d-flex justify-content-center align-items-center mb-2">
+          <p class="trans-text m-1 px-2 fw-bolder bg-secondary"><%= @reviews %></p>
+          <p class="m-1">Reviews</p>
+          <p class="trans-text m-1 px-2 fw-bolder bg-secondary"><%= @lists.count %></p>
+          <p class="m-1">Lists</p>
+          <p class="trans-text m-1 px-2 fw-bolder bg-secondary"><%= @user.reputation_score %></p>
+          <p class="m-1">Rank</p>
+        </div>
+        <h5>Badges - completed challenges </h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box p-2 p-sm-4">
+    <h3 class="m-0 trans-text fw-bolder text-center mb-3">My reviews</h3>
+    <div class="row row-cols-1 row-cols-sm-2">
+      <% user_reviews = current_user.reviews %>
+      <% user_reviews.each do |review| %>
+        <div class="col d-flex justify-content-center">
+          <div class="">
+            <%= render "reviews/review", review: review %>
+          </div>
+          <div class="d-flex flex-column align-items-center justify-content-start ps-0">
+            <button class="btn btn-ghost" aria-label="Edit movie" data-action="click->insert-in-list#displayForm">
+              <%= render "svg/edit" %>
+            </button>
+            <%= render "reviews/edit_review", class: "d-none", review: review %>
+            <%= link_to review_path(review), class: "btn btn-ghost",
+              data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+              <%= render "svg/trash" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <div class="header">
+      <h3 class="title m-0">My lists</h3>
+      <%= render "lists/list_form", list: @new_list %>
+      <%= render(@lists) || "You have no lists" %>
     </div>
   </div>
 </div>

@@ -68,8 +68,10 @@
   z-index: -100;
   width: 100%;
   height: 100vh;
-  background: rgb(131,58,180);
-  background: linear-gradient(180deg, hsla(263, 67, 5, 0) 0%, hsla(0, 63, 31, 1) 20%, hsla(0, 63, 31, 1) 20%, hsla(32, 95, 44, 1) 40%, hsla(161, 94, 30, 1) 60%, hsla(202, 80, 24, 1) 80%, hsla(263, 67, 5, 0) 100%);
+  background: $primary;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%, $gray-800 50%, rgba(0, 0, 0, 0) 90%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 @media (max-width: 991px) {

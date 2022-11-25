@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_21_144707) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_24_203125) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,6 +46,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_144707) do
     t.string "challenge_name"
     t.integer "treanos"
     t.boolean "completed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "genre_items", force: :cascade do |t|
+    t.bigint "genre_id", null: false
+    t.string "genreable_type", null: false
+    t.bigint "genreable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["genre_id"], name: "index_genre_items_on_genre_id"
+    t.index ["genreable_type", "genreable_id"], name: "index_genre_items_on_genreable"
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "genre_name"
+    t.integer "tmdb_genre_id"
+    t.integer "watchmode_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -132,12 +150,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_144707) do
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.integer "rating"
+    t.float "rating"
     t.text "content"
     t.bigint "user_id", null: false
     t.string "reviewable_type", null: false
     t.bigint "reviewable_id", null: false
-    t.integer "tmdb_review_id"
+    t.string "tmdb_review_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable"
@@ -221,6 +239,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_144707) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "genre_items", "genres"
   add_foreign_key "list_items", "lists"
   add_foreign_key "lists", "users"
   add_foreign_key "media_providers", "providers"

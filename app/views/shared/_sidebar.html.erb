@@ -2,12 +2,12 @@
   <ul class="sidebar-nav">
     <li class="logo py-3">
       <h2 class="logo-text my-0">Treano</h2>
-      <%= render 'svg/treano'%>     
+      <%= render 'svg/treano'%>
     </li>
     <li class="side-item">
 
       <%= link_to root_path, class: "side-link" do %>
-        <%= render 'svg/home' %>   
+        <%= render 'svg/home' %>
         <span class="link-text">Home</span>
       <% end %>
     </li>
@@ -20,7 +20,7 @@
     </li>
     <li class="side-item">
       <%= link_to lists_path, class: "side-link" do %>
-        <%= render 'svg/list' %>   
+        <%= render 'svg/list' %>
         <span class="link-text">Lists</span>
       <% end %>
     </li>
@@ -30,15 +30,24 @@
         <span class="link-text">Leaderboard</span>
       <% end %>
     </li>
+    <% if user_signed_in? %>
     <li class="side-item">
       <%= link_to destroy_user_session_path, data: {turbo_method: :delete}, class: "side-link" do %>
-        <%= render 'svg/log-out' %>   
+        <%= render 'svg/log-out' %>
         <span class="link-text">Log out</span>
       <% end %>
     </li>
+    <% else %>
+    <li class="side-item">
+      <%= link_to new_user_session_path, class: "side-link" do %>
+        <%= render 'svg/log-in' %>
+        <span class="link-text">Log in</span>
+      <% end %>
+    </li>
+    <% end %>
     <li class="side-item">
       <%= link_to "#", class: "side-link" do %>
-        <%= render 'svg/help-circle' %>   
+        <%= render 'svg/help-circle' %>
         <span class="link-text">Credits</span>
       <% end %>
     </li>

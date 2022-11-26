@@ -26,6 +26,7 @@ class PagesController < ApplicationController
     @reviews = Review.count(current_user.id)
     @new_list = List.new
     @lists = List.where(["user_id = :user_id", { user_id: @user }])
+    #raise
   end
 
   def profile

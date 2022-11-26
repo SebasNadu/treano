@@ -113,9 +113,9 @@ genres = JSON.parse(genres_file)
      bio: Faker::Hipster.paragraph(sentence_count: 3, supplemental: true),
      reputation_score: 0
    )
-   avatar = URI.open("https://source.unsplash.com/random/300x300/?avatar-female")
-   user.avatar.attach(io: avatar, filename: "image.png", content_type: "image/png")
-   user.save
+   #avatar = URI.open("https://source.unsplash.com/random/300x300/?avatar-female")
+   #user.avatar.attach(io: avatar, filename: "image.png", content_type: "image/png")
+   #user.save
  end
 
  puts "50 female users created"
@@ -130,9 +130,9 @@ genres = JSON.parse(genres_file)
      bio: Faker::Hipster.paragraph(sentence_count: 3, supplemental: true),
      reputation_score: 0
    )
-   avatar = URI.open("https://source.unsplash.com/random/300x300/?avatar-man")
-   user.avatar.attach(io: avatar, filename: "image.png", content_type: "image/png")
-   user.save
+   #avatar = URI.open("https://source.unsplash.com/random/300x300/?avatar-man")
+   #user.avatar.attach(io: avatar, filename: "image.png", content_type: "image/png")
+   #user.save
  end
 
  puts "50 male users created"

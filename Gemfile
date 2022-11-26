@@ -27,6 +27,8 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem 'faker'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
@@ -56,8 +58,6 @@ gem 'json', '~> 2.6', '>= 2.6.2'
 gem 'open-uri', '~> 0.2.0'
 #nokogiri
 gem 'nokogiri', '~> 1.6', '>= 1.6.7.2'
-#rest client
-gem 'rest-client', '~> 1.8'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"

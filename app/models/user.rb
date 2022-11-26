@@ -20,4 +20,7 @@ class User < ApplicationRecord
 
   has_many :movies, through: :reviews, source: :reviewable, source_type: 'Movie'
   has_many :tvs, through: :reviews, source: :reviewable, source_type: 'Tv'
+
+  acts_as_favoritable
+  acts_as_favoritor
 end

@@ -1,7 +1,8 @@
 <div>
-  <p><%= list.list_name %></p>
+  <h2><%= list.list_name %></h2>
   <p><%= list.description %></p>
   <p><%= list.votes %></p>
+  <p><%= link_to "See more", list_path(list) %></p>
   <% if list.user.id == current_user.id %>
   <p><%= link_to "Edit list", edit_list_path(list) %></p>
   <%= link_to "Delete",

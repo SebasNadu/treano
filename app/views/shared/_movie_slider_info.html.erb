@@ -20,13 +20,13 @@
     <div class="d-flex flex-row flex-wrap justify-content-center">
       <small class="square-score-inv px-1 fw-semibold me-1"><%= movie[:rating_average] %> </small>
       <small class="square-score-inv px-1 fw-semibold me-1"><%= movie[:critic_score] %>% </small>
-      <small class="square-score-inv fw-semibold px-1">∆ <%= movie[:popularity].round %></small>
+      <small class="square-score-inv fw-semibold px-1">∆ <%= movie[:popularity].round(1) %></small>
     </div>
   <% else %>
     <div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
       <small class="square-score-inv fw-semibold px-1 mx-1"><%= movie[:release_date][0..3] %></small>
       •
-      <small class="square-score-inv mx-1 px-1 fw-semibold"><%= movie[:rating_average] %> </small>
+      <small class="square-score-inv mx-1 px-1 fw-semibold"><%= movie[:rating_average].round(1) %> </small>
     </div>
    <small class="line-clamp mt-1"><%= movie[:overview] %></small>
   <% end %>

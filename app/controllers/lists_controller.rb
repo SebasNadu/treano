@@ -33,6 +33,11 @@ class ListsController < ApplicationController
     redirect_to dashboard_path, status: :see_other
   end
 
+  def toggle_favorite
+    @list = List.find(params[:id])
+    current_user.favorited?(@list) ? current_user.unfavorite(@list) : current_user.favorite(@list)
+  end
+
   private
 
   def set_user

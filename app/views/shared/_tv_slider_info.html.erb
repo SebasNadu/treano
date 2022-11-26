@@ -20,13 +20,13 @@
     <div class="d-flex flex-row flex-wrap justify-content-center">
       <small class="square-score-inv px-1 fw-semibold me-1"><%= tv[:rating_average] %> </small>
       <small class="square-score-inv px-1 fw-semibold me-1"><%= tv[:critic_score] %>% </small>
-      <small class="square-score-inv fw-semibold px-1">∆ <%= tv[:popularity].round %></small>
+      <small class="square-score-inv fw-semibold px-1">∆ <%= tv[:popularity].round(1) %></small>
     </div>
   <% else %>
     <div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
       <small class="square-score-inv fw-semibold px-1 mx-1"><%= tv[:first_air_date][0..3] %></small>
       •
-      <small class="square-score-inv mx-1 px-1 fw-semibold"><%= tv[:rating_average] %> </small>
+      <small class="square-score-inv mx-1 px-1 fw-semibold"><%= tv[:rating_average].round(1) %> </small>
     </div>
    <small class="line-clamp mt-1"><%= tv[:overview] %></small>
   <% end %>

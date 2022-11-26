@@ -28,12 +28,12 @@ genres = JSON.parse(genres_file)
 # #movies_group = movies["titles"][125..249]
 # #full_movies = []
 # #movies_group.each_with_index do |movie, i|
-#   #uri_tmdb = URI("https://api.themoviedb.org/3/movie/#{movie["tmdb_id"].to_s}?api_key=43f195cad08ed475966231cae7ae844e&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
+#   #uri_tmdb = URI("https://api.themoviedb.org/3/movie/#{movie["tmdb_id"].to_s}?api_key=&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
 #   #response_tmdb = Net::HTTP.get(uri_tmdb)
 #   #result_tmdb = JSON.parse(response_tmdb)
 #   #puts "#{i} tmdb responsed"
 
-#   #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{movie["id"].to_s}/details/?apiKey=Cr5gip77ClZJLYijZe8xdg2JLdishE3AmHc3E88K&append_to_response=sources")
+#   #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{movie["id"].to_s}/details/?apiKey=&append_to_response=sources")
 #   #response_watchmode = Net::HTTP.get(uri_watchmode)
 #   #result_watchmode = JSON.parse(response_watchmode)
 #   #puts "#{i} watchmode responsed"
@@ -51,12 +51,12 @@ genres = JSON.parse(genres_file)
 # #tvs_group = tvs["titles"][125..249]
 # #full_tvs = []
 # #tvs_group.each_with_index do |tv, i|
-#   #uri_tmdb = URI("https://api.themoviedb.org/3/tv/#{tv["tmdb_id"].to_s}?api_key=43f195cad08ed475966231cae7ae844e&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
+#   #uri_tmdb = URI("https://api.themoviedb.org/3/tv/#{tv["tmdb_id"].to_s}?api_key=&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
 #   #response_tmdb = Net::HTTP.get(uri_tmdb)
 #   #result_tmdb = JSON.parse(response_tmdb)
 #   #puts "#{i} tmdb responsed"
 
-#   #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{tv["id"].to_s}/details/?apiKey=Cr5gip77ClZJLYijZe8xdg2JLdishE3AmHc3E88K&append_to_response=sources")
+#   #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{tv["id"].to_s}/details/?apiKey=&append_to_response=sources")
 #   #response_watchmode = Net::HTTP.get(uri_watchmode)
 #   #result_watchmode = JSON.parse(response_watchmode)
 #   #puts "#{i} watchmode responsed"

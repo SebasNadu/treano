@@ -1,4 +1,5 @@
 class List < ApplicationRecord
+  acts_as_favoritable
   belongs_to :user
   has_many :saved_lists
   has_many :users, through: :saved_lists

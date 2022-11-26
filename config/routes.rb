@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   resources :movies, only: %i[index show] do
+    member do
+      post 'toggle_favorite', to: "movies#toggle_favorite"
+    end
     resources :list_items, only: %i[create]
     resources :reviews, only: %i[create]
   end
@@ -14,10 +17,17 @@ Rails.application.routes.draw do
   resources :list_items, only: %i[destroy]
 
   resources :tvs, only: %i[index show] do
+    member do
+      post 'toggle_favorite', to: "tvs#toggle_favorite"
+    end
     resources :list_items, only: %i[create]
     resources :reviews, only: %i[create]
   end
 
-  resources :lists
+  resources :lists do
+    member do
+      post 'toggle_favorite', to: "lists#toggle_favorite"
+    end
+  end
   get '/dashboard', to: "pages#dashboard"
 end

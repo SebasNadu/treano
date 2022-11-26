@@ -29,6 +29,8 @@ gem "jbuilder"
 
 gem 'faker'
 
+gem 'acts_as_favoritor'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

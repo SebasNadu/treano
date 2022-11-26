@@ -13,5 +13,8 @@ application.register("hello", HelloController)
 import InsertInListController from "./insert_in_list_controller"
 application.register("insert-in-list", InsertInListController)
 
+import MarkFavoriteController from "./mark_favorite_controller"
+application.register("mark-favorite", MarkFavoriteController)
+
 import TreanoCarouselController from "./treano_carousel_controller"
 application.register("treano-carousel", TreanoCarouselController)

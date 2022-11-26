@@ -27,6 +27,11 @@ class MoviesController < ApplicationController
     #raise
   end
 
+  def toggle_favorite
+    @movie = Movie.find(params[:id])
+    current_user.favorited?(@movie) ? current_user.unfavorite(@movie) : current_user.favorite(@movie)
+  end
+
   private
 
   def set_movie
@@ -35,14 +40,14 @@ class MoviesController < ApplicationController
 
   def create_similars(movie)
     @similars = movie.similar_titles_watchmode.map { |similar|
-      Movie.find_by(watchmode_id: similar.to_i)  
+      Movie.find_by(watchmode_id: similar.to_i)
     }
     @similars.compact!
   end
 
   def create_recommendations(movie)
     @recommendations = movie.recommendations_tmdb.map { |reco|
-      Movie.find_by(tmdb_id: reco.to_i)  
+      Movie.find_by(tmdb_id: reco.to_i)
     }
     @recommendations.compact!
   end

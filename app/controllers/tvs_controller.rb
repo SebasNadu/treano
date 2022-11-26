@@ -21,6 +21,11 @@ class TvsController < ApplicationController
     @tve_providers = @providers.where(service: "tve").uniq
   end
 
+  def toggle_favorite
+    @tv = Tv.find(params[:id])
+    current_user.favorited?(@tv) ? current_user.unfavorite(@tv) : current_user.favorite(@tv)
+  end
+
   private
 
   def set_tv
@@ -29,14 +34,14 @@ class TvsController < ApplicationController
 
   def create_similars(tv)
     @similars = tv.similar_titles_watchmode.map { |similar|
-      Tv.find_by(watchmode_id: similar.to_i)  
+      Tv.find_by(watchmode_id: similar.to_i)
     }
     @similars.compact!
   end
 
   def create_recommendations(tv)
     @recommendations = tv.recommendations_tmdb.map { |reco|
-      Tv.find_by(tmdb_id: reco.to_i)  
+      Tv.find_by(tmdb_id: reco.to_i)
     }
     @recommendations.compact!
   end

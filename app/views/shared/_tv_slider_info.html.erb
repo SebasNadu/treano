@@ -20,7 +20,7 @@
     <div class="d-flex flex-row flex-wrap justify-content-center">
       <small class="square-score-inv px-1 fw-semibold me-1"><%= tv[:rating_average] %> </small>
       <small class="square-score-inv px-1 fw-semibold me-1"><%= tv[:critic_score] %>% </small>
-      <small class="square-score-inv fw-semibold px-1">∆ <%= tv[:popularity].round %></small>
+      <small class="square-score-inv fw-semibold px-1">∆ <%= tv[:popularity].round(1) %></small>
     </div>
   <% else %>
     <div class="d-flex flex-row flex-wrap align-items-center justify-content-center">

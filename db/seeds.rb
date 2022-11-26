@@ -7,8 +7,7 @@
 # #   Character.create(name: "Luke", movie: movies.first)
 # require 'net/http'
 require 'open-uri'
-# require 'rest-client'
-# require 'json'
+require 'json'
 require 'faker'
 
 movies_file_1 = File.read("t_full_movies_1.json")
@@ -71,6 +70,7 @@ genres = JSON.parse(genres_file)
 # #puts "JSON created"
 
 puts "Cleaning up db"
+Review.destroy_all
 List.destroy_all
 Review.destroy_all
 MediaProvider.destroy_all

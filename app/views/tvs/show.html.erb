@@ -57,7 +57,7 @@
   </div>
 </div>
 
-<div class="container-fluid m-0 px-3 ps-sm-4 p-4">
+<div class="container-fluid m-0 px-3 ps-sm-4 p-2">
   <% if @similars.present?  %>
     <%= render 'shared/tvs_slider', tvs: @similars, slider_title: 'Similar titles' %>
   <% end %>
@@ -68,17 +68,17 @@
 
 <div class="container mb-5">
   <div data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin" class="row">
-    <div id="scrollspyReview" data-insert-in-list-target="infos" class="col-6 col-md-5 mt-5 p-2 pe-md-5 position-sticky">
-      <div class="bg-trans p-3 mx-0 mx-md-5 rounded">
+    <div id="scrollspyReview" data-insert-in-list-target="infos" class="col-12 col-md-4 mt-2 p-2 position-sticky">
         <% user_review = Review.where(reviewable_id: params[:id], reviewable_type: "Tv", user: current_user) %>
         <% if user_review.empty? %>
+          <div class="bg-trans p-2 mx-0 rounded">
           <%= render "reviews/review_form",  reviewable: @reviewable, review: @review %>
+          </div>
         <% else %>
-         <h5 class="m-0 text-center fst-italic">Thank you for your review!</h5>
+         <h5 class="fs-6 fs-md-2 m-0 text-center">Thank you for your review!</h5>
         <% end %>
-      </div>
     </div>
-    <div class="col-6 col-md-7">
+    <div class="col-12 col-md-8">
       <% if @tv.reviews.empty? %>
         <div data-insert-in-list-target="first" class="">
           <small><em class="text-muted">Be the first one to review this movie</em></small>

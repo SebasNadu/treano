@@ -5,17 +5,17 @@
       <% if user_signed_in? %>
         <% t = Time.now %>
         <% if t.hour < 12 %>
-            <p class="fs-5 fw-normal text-light m-1 p-0">Good morning</p>
+            <p class="fs-5 fw-normal text-light m-1 p-0">Good morning,</p>
             <p class="fs-5 fw-normal text-light m-1 p-0"><%= current_user.username %></p>
         <% elsif t.hour >= 12 %>
-            <p class="fs-5 fw-normal text-light m-1 p-0">Good afternoon</p>
+            <p class="fs-5 fw-normal text-light m-1 p-0">Good afternoon,</p>
             <p class="fs-5 fw-normal text-light m-1 p-0"><%= current_user.username %></p>
         <% elsif t.hour > 18 %>
-            <p class="fs-5 fw-normal text-light m-1 p-0">Good night</p>
+            <p class="fs-5 fw-normal text-light m-1 p-0">Good evening,</p>
             <p class="fs-5 fw-normal text-light m-1 p-0"><%= current_user.username %></p>
         <% end %>
       <% else %>
-        <p class="fs-4 fw-light text-light my-0">Join to us!</p>
+        <p class="fs-4 fw-light text-light my-0">Join us!</p>
       <% end %>
         </div>
     </div>
@@ -74,7 +74,7 @@
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to new_user_session_path, class: "nav-link" do %>
+            <%= link_to new_user_registration_path, class: "nav-link" do %>
               <%= render 'svg/log-in' %>
             <% end %>
           </li>

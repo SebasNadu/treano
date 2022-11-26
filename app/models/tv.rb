@@ -5,4 +5,6 @@ class Tv < ApplicationRecord
   has_many :providers, through: :media_providers
   has_many :reviews, as: :reviewable
   has_many :users, through: :reviews
+  has_many :genre_items, as: :genreable
+  has_many :genres, through: :genre_items
 end

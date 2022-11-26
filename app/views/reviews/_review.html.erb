@@ -15,9 +15,8 @@
         <em class="text-muted"><%= distance_of_time_in_words_to_now(review.created_at) %> ago</em>
       </small>
     </div>
-    <% review.rating.times do %>
+    <% review.rating.to_i.times do %>
       <i class="fa-solid fa-star mb-1"></i>
     <% end %>
     <p class="mb-0"><%= review.content %></p>
   </div>
-</div>

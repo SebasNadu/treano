@@ -4,10 +4,11 @@
 # Examples:
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
-require 'net/http'
+# #   Character.create(name: "Luke", movie: movies.first)
+# require 'net/http'
 require 'open-uri'
 require 'json'
+require 'faker'
 
 movies_file_1 = File.read("t_full_movies_1.json")
 movies_file_2 = File.read("t_full_movies_2.json")
@@ -19,88 +20,120 @@ tvs_1 = JSON.parse(tvs_file_1)
 tvs_2 = JSON.parse(tvs_file_2)
 providers_file = File.read("t_providers_US.json")
 providers = JSON.parse(providers_file)
+genres_file = File.read("t_genres.json")
+genres = JSON.parse(genres_file)
 
 
-#PLEASE DO NOT UNCOMMENT!! this method is for create a json with all the info related to movies
-#movies_group = movies["titles"][125..249]
-#full_movies = []
-#movies_group.each_with_index do |movie, i|
-  #uri_tmdb = URI("https://api.themoviedb.org/3/movie/#{movie["tmdb_id"].to_s}?api_key=43f195cad08ed475966231cae7ae844e&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
-  #response_tmdb = Net::HTTP.get(uri_tmdb)
-  #result_tmdb = JSON.parse(response_tmdb)
-  #puts "#{i} tmdb responsed"
+# #PLEASE DO NOT UNCOMMENT!! this method is for create a json with all the info related to movies
+# #movies_group = movies["titles"][125..249]
+# #full_movies = []
+# #movies_group.each_with_index do |movie, i|
+#   #uri_tmdb = URI("https://api.themoviedb.org/3/movie/#{movie["tmdb_id"].to_s}?api_key=43f195cad08ed475966231cae7ae844e&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
+#   #response_tmdb = Net::HTTP.get(uri_tmdb)
+#   #result_tmdb = JSON.parse(response_tmdb)
+#   #puts "#{i} tmdb responsed"
 
-  #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{movie["id"].to_s}/details/?apiKey=Cr5gip77ClZJLYijZe8xdg2JLdishE3AmHc3E88K&append_to_response=sources")
-  #response_watchmode = Net::HTTP.get(uri_watchmode)
-  #result_watchmode = JSON.parse(response_watchmode)
-  #puts "#{i} watchmode responsed"
+#   #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{movie["id"].to_s}/details/?apiKey=Cr5gip77ClZJLYijZe8xdg2JLdishE3AmHc3E88K&append_to_response=sources")
+#   #response_watchmode = Net::HTTP.get(uri_watchmode)
+#   #result_watchmode = JSON.parse(response_watchmode)
+#   #puts "#{i} watchmode responsed"
 
-  #full_movies << [result_tmdb, result_watchmode]
-  #puts "#{i} array pushed"
-#end
-#File.open("t_full_movies_1.json", "wb") do |file|
-  #file.write(JSON.generate(full_movies))
-#end
-#puts "JSON created"
-
-
-#PLEASE DO NOT UNCOMMENT!! this method is for create a json with all the info related to tvs
-#tvs_group = tvs["titles"][125..249]
-#full_tvs = []
-#tvs_group.each_with_index do |tv, i|
-  #uri_tmdb = URI("https://api.themoviedb.org/3/tv/#{tv["tmdb_id"].to_s}?api_key=43f195cad08ed475966231cae7ae844e&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
-  #response_tmdb = Net::HTTP.get(uri_tmdb)
-  #result_tmdb = JSON.parse(response_tmdb)
-  #puts "#{i} tmdb responsed"
-
-  #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{tv["id"].to_s}/details/?apiKey=Cr5gip77ClZJLYijZe8xdg2JLdishE3AmHc3E88K&append_to_response=sources")
-  #response_watchmode = Net::HTTP.get(uri_watchmode)
-  #result_watchmode = JSON.parse(response_watchmode)
-  #puts "#{i} watchmode responsed"
-
-  #full_tvs << [result_tmdb, result_watchmode]
-  #puts "#{i} array pushed"
-#end
-#File.open("t_full_tvs_2.json", "wb") do |file|
-  #file.write(JSON.generate(full_tvs))
-#end
-#puts "JSON created"
+#   #full_movies << [result_tmdb, result_watchmode]
+#   #puts "#{i} array pushed"
+# #end
+# #File.open("t_full_movies_1.json", "wb") do |file|
+#   #file.write(JSON.generate(full_movies))
+# #end
+# #puts "JSON created"
 
 
+# #PLEASE DO NOT UNCOMMENT!! this method is for create a json with all the info related to tvs
+# #tvs_group = tvs["titles"][125..249]
+# #full_tvs = []
+# #tvs_group.each_with_index do |tv, i|
+#   #uri_tmdb = URI("https://api.themoviedb.org/3/tv/#{tv["tmdb_id"].to_s}?api_key=43f195cad08ed475966231cae7ae844e&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
+#   #response_tmdb = Net::HTTP.get(uri_tmdb)
+#   #result_tmdb = JSON.parse(response_tmdb)
+#   #puts "#{i} tmdb responsed"
 
+#   #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{tv["id"].to_s}/details/?apiKey=Cr5gip77ClZJLYijZe8xdg2JLdishE3AmHc3E88K&append_to_response=sources")
+#   #response_watchmode = Net::HTTP.get(uri_watchmode)
+#   #result_watchmode = JSON.parse(response_watchmode)
+#   #puts "#{i} watchmode responsed"
+
+#   #full_tvs << [result_tmdb, result_watchmode]
+#   #puts "#{i} array pushed"
+# #end
+# #File.open("t_full_tvs_2.json", "wb") do |file|
+#   #file.write(JSON.generate(full_tvs))
+# #end
+# #puts "JSON created"
 
 puts "Cleaning up db"
 Review.destroy_all
 List.destroy_all
+Review.destroy_all
+MediaProvider.destroy_all
 User.destroy_all
 Movie.destroy_all
 Tv.destroy_all
-MediaProvider.destroy_all
 Provider.destroy_all
 puts "Db cleaned"
 
 User.create(
-  email: "sebas@treano.com",
+  email: "sebas@treano.co",
   password: "123456",
   username: "Sebs",
   first_name: "Sebastian",
   last_name: "Navarro",
-  country: "Colombia",
   bio: "Movies are my passion",
   reputation_score: 0
 )
 User.create(
-  email: "meerim@treano.com",
+  email: "meerim@treano.co",
   password: "123456",
   username: "Meer",
   first_name: "Meerim",
   last_name: "Asylbekova",
-  country: "Kyrgyzstan",
   bio: "Movies are my passion",
   reputation_score: 0
 )
 
-puts "Users created"
+puts "Sebas and Meerim created"
+
+50.times do
+  user = User.create(
+    email: Faker::Internet.unique.email,
+    password: "123456",
+    username: Faker::Internet.username,
+    first_name: Faker::Name.unique.female_first_name,
+    last_name: Faker::Name.unique.last_name,
+    bio: Faker::Hipster.paragraph(sentence_count: 3, supplemental: true),
+    reputation_score: 0
+  )
+  avatar = URI.open("https://source.unsplash.com/random/300x300/?avatar-female")
+  user.avatar.attach(io: avatar, filename: "image.png", content_type: "image/png")
+  user.save
+end
+
+puts "50 female users created"
+
+50.times do
+  user = User.create(
+    email: Faker::Internet.unique.email,
+    password: "123456",
+    username: Faker::Internet.username,
+    first_name: Faker::Name.unique.male_first_name,
+    last_name: Faker::Name.unique.last_name,
+    bio: Faker::Hipster.paragraph(sentence_count: 3, supplemental: true),
+    reputation_score: 0
+  )
+  avatar = URI.open("https://source.unsplash.com/random/300x300/?avatar-man")
+  user.avatar.attach(io: avatar, filename: "image.png", content_type: "image/png")
+  user.save
+end
+
+puts "50 male users created"
 
 providers.each do |provider|
   Provider.create(
@@ -116,6 +149,15 @@ end
 
 puts "Providers created"
 
+genres.each do |genre|
+  Genre.create(
+    genre_name: genre["name"],
+    tmdb_genre_id: genre["tmdb_id"],
+    watchmode_id: genre["id"]
+  )
+end
+
+puts "Genres created"
 
 def movies_seeds(movies)
   movies.each_with_index do |movie, i|
@@ -162,6 +204,24 @@ def movies_seeds(movies)
       )
     end
     puts "media providers created #{i}"
+    movie[0]["reviews"]["results"].each do |review|
+      Review.create(
+        user_id: User.order(Arel.sql('RANDOM()')).first.id,
+        reviewable_id: this_movie.id,
+        reviewable: this_movie,
+        content: review["content"],
+        rating: rand(2..10),
+        tmdb_review_id: review["id"]
+      )
+    end
+    puts "Review created #{i}"
+    movie[0]["genres"].each do |genre|
+      GenreItem.create(
+        genre_id: Genre.find_by(tmdb_genre_id: genre["id"]).id,
+        genreable: this_movie
+      )
+    end
+    puts "Genre created #{i}"
   end
   puts "Movies Created"
 end
@@ -212,6 +272,24 @@ def tvs_seeds(tvs)
       )
     end
     puts "media providers created #{i}"
+    tv[0]["reviews"]["results"].each do |review|
+      Review.create(
+        user_id: User.order(Arel.sql('RANDOM()')).first.id,
+        reviewable_id: this_tv.id,
+        reviewable: this_tv,
+        content: review["content"],
+        rating: rand(2..10),
+        tmdb_review_id: review["id"]
+      )
+    end
+    puts "Review created #{i}"
+    tv[0]["genres"].each do |genre|
+      GenreItem.create(
+        genre_id: Genre.find_by(tmdb_genre_id: genre["id"]).id,
+        genreable: this_tv
+      )
+    end
+    puts "Genre created #{i}"
   end
   puts "tvs created"
 end

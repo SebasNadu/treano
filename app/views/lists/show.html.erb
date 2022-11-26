@@ -1,17 +1,57 @@
-<div>
-  <h2><%= @list.list_name %></h2>
-  <p><%= @list.description %></p>
-  <p><%= @list.votes %></p>
-  <p><%= link_to "See more", list_path(@list) %></p>
-  <% if @list.user.id == current_user.id %>
-  <p><%= link_to "Edit list", edit_list_path(@list) %></p>
-  <%= link_to "Delete",
-  list_path(@list),
-  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
-  %>
+<%# render "lists/list", list: @list %>
+
+<% if @list.cover_picture.present? %>
+  <div class="media-banner mt-n5 position-absolute" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path(@list.photo.key) %>')">
+  </div>
+<% else %>
+  <% if @list.list_items.present? %>
+  <div class="media-banner mt-n5 position-absolute" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= @list.list_items.first.listable.backdrop_url %>')">
+  </div>
+  <% else %>
+  <div class="media-banner mt-n5 position-absolute" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= image_path "list-banner" %>')">
+  </div>
+  <% end %>
+<% end %>
+
+
+
+<div class="container my-5">
+  <div class="w-100 text-center py-5">
+    <h1 class="fs-1 fw-bold"><%= @list.list_name %></h1>
+    <div>
+      <span class="btn btn-outline-info"><%= pluralize(@list.list_items.size, "Item") %></span>
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#new_list_item_modal">
+        Add some content
+      </button>
+      <%= link_to "delete this list", list_path(@list), class: "btn btn-outline-danger", data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this list?" } %>
+    </div>
+  </div>
+  <% if @list.description.present? %>
+    <div class="d-flex bg-trans p-3 m-2 w-50 mx-auto">
+      <h4>Description</h4>
+      <p class=""><%= @list.description %></p>
+    </div>
   <% end %>
 
-  <% @list.list_items.each do |item| %>
-  <%= item.listable.title %>
-  <% end %>
-</div>
+  <div class="d-flex justify-content-between align-items-center my-5">
+    <span class="mb-2 d-block"><small><em class="text-muted"><%= "You haven't saved any items yet!" if @list.list_items.empty? %></em></small></span>
+  </div>
+
+  <div class="row">
+    <% @list.list_items.each do |item| %>
+      <div class="col-12 col-sm-6 mb-4" >
+          <div class="media-element">
+            <%= image_tag item.listable.poster_url %>
+            <% this_movie = Movie.find_by(tmdb_id: item.listable.tmdb_id) %>
+            <% if this_movie %>
+              <%= link_to movie_path(this_movie) do%>
+                <%= render 'shared/movie_slider_info', movie: this_movie %>
+              <% end %>
+            <% else %>
+              <%= render 'shared/movie_slider_info', movie: item.listable %>
+            <% end %>
+          </div>
+          <small><%= link_to "delete", list_item_path(item), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{item.listable.title} from your #{@list.list_name} list"}, class: 'text-decoration-none btn btn-outline-danger' %></small>
+      </div>
+    <% end %>
+  </div>

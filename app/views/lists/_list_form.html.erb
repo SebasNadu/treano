@@ -1,7 +1,25 @@
- <%= simple_form_for list do |f| %>
-    <%= f.input :list_name %>
-    <%= f.input :description %>
-    <%= f.input :cover_picture, as: :file %>
-    <%= f.input :public, as: :boolean, checked_value: 'public', unchecked_value: 'private' %>
-    <%= f.submit "Create a list", class: "btn btn-primary" %>
-  <% end %>
+<div class="bg-trans-0 rounded modal fade" id="new_list_modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="bg-trans modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Create a list</h4>
+        <button type="button" class="close btn fs-2" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <%= simple_form_for list do |f| %>
+        <div class="modal-body">
+          <%= f.input :list_name %>
+          <%= f.input :description %>
+          <%= f.input :cover_picture, as: :file %>
+          <%= f.input :public, as: :boolean, checked_value: 'public', unchecked_value: 'private' %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Create a list", class: "btn btn-primary" %>
+          <button type="button" class="btn btn-flat" data-bs-dismiss="modal">Back</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

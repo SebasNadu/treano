@@ -2,7 +2,7 @@
   <%= link_to review.reviewable_type == "Movie" ? movie_path(review.reviewable) : tv_path(review.reviewable) do %>
     <%= image_tag review.reviewable.poster_url %>
   <% end %>
-  <div class="card-review-infos">
+  <div class="card-review-infos py-2">
     <div class="d-flex mb-1">
       <%#= link_to review.user.username, users_path(review.user) %>
       <% if current_user.avatar.key.nil? %>
@@ -20,3 +20,4 @@
     <% end %>
     <p class="mb-0"><%= review.content %></p>
   </div>
+</div>

@@ -36,12 +36,10 @@
         <%= render 'svg/star' %>
       <% end %>
       <div class="dropdown-center down-none m-2">
-        <button type="button" class="btn btn-info avatar dropdown-toggle d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+        <button type="button" class="btn btn-info avatar dropdown-toggle d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#new_list_modal">
           <%= render 'svg/list' %>
         </button>
-        <%# <form class="dropdown-menu dropdown-menu-end p-2 bg-trans border-0"> %>
-          <%= render "list_items/new_list_item", listable: @listable, list_item: @list_item, lists: @lists %>
-        <%# </form> %>
+        <%= render "list_items/new_list_item", listable: @listable, list_item: @list_item, lists: @lists %>
       </div>
     </div>
   </div>

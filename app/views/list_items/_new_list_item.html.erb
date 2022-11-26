@@ -1,4 +1,22 @@
-  <%= simple_form_for [listable, list_item] do |f| %>
-    <%= f.association :list, collection: lists, label_method: :list_name, value_method: :id, prompt: "Choose a list" %>
-    <%= f.submit "Add to list", class: "btn btn-primary" %>
-  <% end %>
+<div class="bg-trans-0 rounded modal fade" id="new_list_modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="bg-trans modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add to your list</h4>
+        <button type="button" class="close btn fs-2" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <%= simple_form_for [listable, list_item] do |f| %>
+      <div class="modal-body">
+          <%= f.association :list, collection: lists.order(:updated_at), label_method: :list_name, value_method: :id, prompt: "Your lists" %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Add to list", class: "btn btn-outline-primary" %>
+          <button type="button" class="btn btn-flat" data-bs-dismiss="modal">Back</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<div class="media-banner mt-n5 position-absolute" style="background-image: linear-gradient(180deg, rgba(12,12,12,0.6) 0%, rgba(42,42,42,0.3) 40%, rgba(12,12,12,1) 90%), url('<%= @movie.backdrop_url %>')">
+<div class="media-banner mt-n5 position-absolute" style="background-image: linear-gradient(180deg, rgba(13,13,13,0.6) 0%, rgba(33,33,33,0.3) 40%, rgba(13,13,13,1) 90%), url('<%= @movie.backdrop_url %>')">
 </div>
 
 <div class="row h-100 w-100 pt-5 m-0">
@@ -6,7 +6,7 @@
     <% if @movie.trailer.present? %>
       <% trailer =  @movie.trailer %>
       <% trailer["https://www.youtube.com/watch?v="] = "https://www.youtube.com/embed/" %>
-      <iframe class="" style="aspect-ratio: 16/9;" width="85%" height="" src="<%= trailer %>">
+      <iframe class="rounded" style="aspect-ratio: 16/9;" width="85%" height="" src="<%= trailer %>">
       </iframe>
     <% end %>
     <% if @movie.tagline.present? %>

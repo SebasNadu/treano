@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_26_091714) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_28_145434) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -82,6 +82,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_26_091714) do
     t.string "genre_name"
     t.integer "tmdb_genre_id"
     t.integer "watchmode_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "keyword_items", force: :cascade do |t|
+    t.bigint "keyword_id", null: false
+    t.string "keywordable_type", null: false
+    t.bigint "keywordable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["keyword_id"], name: "index_keyword_items_on_keyword_id"
+    t.index ["keywordable_type", "keywordable_id"], name: "index_keyword_items_on_keywordable"
+  end
+
+  create_table "keywords", force: :cascade do |t|
+    t.string "name"
+    t.integer "tmdb_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -189,6 +206,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_26_091714) do
     t.index ["user_id"], name: "index_saved_lists_on_user_id"
   end
 
+  create_table "seasons", force: :cascade do |t|
+    t.date "air_date"
+    t.integer "episode_count"
+    t.integer "tmdb_id"
+    t.string "name"
+    t.string "overview"
+    t.string "poster_path"
+    t.integer "season_number"
+    t.bigint "tv_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tv_id"], name: "index_seasons_on_tv_id"
+  end
+
   create_table "tvs", force: :cascade do |t|
     t.string "title"
     t.text "overview"
@@ -258,12 +289,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_26_091714) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "genre_items", "genres"
+  add_foreign_key "keyword_items", "keywords"
   add_foreign_key "list_items", "lists"
   add_foreign_key "lists", "users"
   add_foreign_key "media_providers", "providers"
   add_foreign_key "reviews", "users"
   add_foreign_key "saved_lists", "lists"
   add_foreign_key "saved_lists", "users"
+  add_foreign_key "seasons", "tvs"
   add_foreign_key "user_challenges", "challenges"
   add_foreign_key "user_challenges", "users"
   add_foreign_key "user_providers", "providers"

@@ -1,3 +1,3 @@
 class Season < ApplicationRecord
-  belongs_to :tv_id
+  belongs_to :tv
 end

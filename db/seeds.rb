@@ -64,12 +64,12 @@ genres = JSON.parse(genres_file)
  #tvs_group = tvs_0["titles"][125..249]
  #full_tvs = []
  #tvs_group.each_with_index do |tv, i|
-   #uri_tmdb = URI("https://api.themoviedb.org/3/tv/#{tv["tmdb_id"].to_s}?api_key=43f195cad08ed475966231cae7ae844e&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
+   #uri_tmdb = URI("https://api.themoviedb.org/3/tv/#{tv["tmdb_id"].to_s}?api_key=&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
    #response_tmdb = Net::HTTP.get(uri_tmdb)
    #result_tmdb = JSON.parse(response_tmdb)
    #puts "#{i} tmdb responsed"
 
-   #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{tv["id"].to_s}/details/?apiKey=jSx2Tm1tPYac0T7d44jouONASssc50Ezp5iWq2Rp&append_to_response=sources")
+   #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{tv["id"].to_s}/details/?apiKey=&append_to_response=sources")
    #response_watchmode = Net::HTTP.get(uri_watchmode)
    #result_watchmode = JSON.parse(response_watchmode)
    #puts "#{i} watchmode responsed"
@@ -177,15 +177,6 @@ genres = JSON.parse(genres_file)
 
  puts "Genres created"
 
- keywords.each do |genre|
-   Keyword.create(
-     name: genre["name"],
-     tmdb_id: genre["id"],
-   )
- end
-
- puts "Keywords created"
-
  def movies_seeds(movies)
    movies.each_with_index do |movie, i|
      this_movie = Movie.create(
@@ -215,58 +206,66 @@ genres = JSON.parse(genres_file)
        imdb_id: movie[0]["imdb_id"]
      )
      puts "movie created #{i}"
-     movie[1]["sources"].each do |source|
-       MediaProvider.create(
-         name: source["name"],
-         region: source["region"],
-         ios_url: source["ios_url"],
-         android_url: source["android_url"],
-         web_url: source["web_url"],
-         format: source["format"],
-         price: source["price"],
-         seasons: source["seasons"],
-         episodes: source["episodes"],
-         provider_id: Provider.find_by(watchmode_id: source["source_id"]).id,
-         providable: this_movie
-       )
-     end
-     puts "media providers created #{i}"
-     movie[0]["reviews"]["results"].each do |review|
-       Review.create(
-         user_id: User.order(Arel.sql('RANDOM()')).first.id,
-         reviewable_id: this_movie.id,
-         reviewable: this_movie,
-         content: review["content"],
-         rating: rand(2..10),
-         tmdb_review_id: review["id"]
-       )
-     end
-     puts "Review created #{i}"
-     movie[1]["genres"].each do |genre|
-       GenreItem.create(
-         genre_id: Genre.find_by(watchmode_id: genre,
-         genreable: this_movie
-       )
-     end
-     puts "Genre created #{i}"
-     movie[0]["keywords"]["keywords"].each do |keyword|
-       if Keyword.find_by(tmdb_id: keyword["id"]).present?
-         KeywordItem.create(
-           keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
-           keywordable: this_movie
-         )
-       else
-         Keyword.create(
-           name: keyword["name"],
-           tmdb_id: keyword["id"]
-         )
-         KeywordItem.create(
-           keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
-           keywordable: this_movie
+     if movie[1]["sources"].present?
+       movie[1]["sources"].each do |source|
+         MediaProvider.create(
+           name: source["name"],
+           region: source["region"],
+           ios_url: source["ios_url"],
+           android_url: source["android_url"],
+           web_url: source["web_url"],
+           format: source["format"],
+           price: source["price"],
+           seasons: source["seasons"],
+           episodes: source["episodes"],
+           provider_id: Provider.find_by(watchmode_id: source["source_id"]).id,
+           providable: this_movie
          )
        end
+       puts "media providers created #{i}"
      end
-     puts "keyword created #{i}"
+     if movie[0]["reviews"]["results"].present?
+       movie[0]["reviews"]["results"].each do |review|
+         Review.create(
+           user_id: User.order(Arel.sql('RANDOM()')).first.id,
+           reviewable_id: this_movie.id,
+           reviewable: this_movie,
+           content: review["content"],
+           rating: rand(2..10),
+           tmdb_review_id: review["id"]
+         )
+       end
+       puts "Review created #{i}"
+     end
+     if movie[1]["genres"].present?
+       movie[1]["genres"].each do |genre|
+         GenreItem.create(
+           genre_id: Genre.find_by(watchmode_id: genre).id,
+           genreable: this_movie
+         )
+       end
+       puts "Genre created #{i}"
+     end
+     if movie[0]["keywords"]["keywords"].present?
+       movie[0]["keywords"]["keywords"].each do |keyword|
+         if Keyword.find_by(tmdb_id: keyword["id"]).present?
+           KeywordItem.create(
+             keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
+             keywordable: this_movie
+           )
+         else
+           Keyword.create(
+             name: keyword["name"],
+             tmdb_id: keyword["id"]
+           )
+           KeywordItem.create(
+             keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
+             keywordable: this_movie
+           )
+         end
+       end
+       puts "keyword created #{i}"
+     end
    end
    puts "Movies Created"
  end
@@ -301,85 +300,93 @@ genres = JSON.parse(genres_file)
        imdb_id: tv[1]["imdb_id"]
      )
      puts "Tv Created #{i}"
-     tv[1]["sources"].each do |source|
-       MediaProvider.create(
-         name: source["name"],
-         region: source["region"],
-         ios_url: source["ios_url"],
-         android_url: source["android_url"],
-         web_url: source["web_url"],
-         format: source["format"],
-         price: source["price"],
-         seasons: source["seasons"],
-         episodes: source["episodes"],
-         provider_id: Provider.find_by(watchmode_id: source["source_id"]).id,
-         providable: this_tv
-       )
-     end
-     puts "media providers created #{i}"
-     tv[0]["reviews"]["results"].each do |review|
-       Review.create(
-         user_id: User.order(Arel.sql('RANDOM()')).first.id,
-         reviewable_id: this_tv.id,
-         reviewable: this_tv,
-         content: review["content"],
-         rating: rand(2..10),
-         tmdb_review_id: review["id"]
-       )
-     end
-     puts "Review created #{i}"
-     tv[1]["genres"].each do |genre|
-       GenreItem.create(
-         genre_id: Genre.find_by(watchmode_id: genre,
-         genreable: this_tv
-       )
-     end
-     puts "Genre created #{i}"
-     tv[0]["keywords"]["keywords"].each do |keyword|
-       if Keyword.find_by(tmdb_id: keyword["id"]).present?
-         KeywordItem.create(
-           keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
-           keywordable: this_tv
-         )
-       else
-         Keyword.create(
-           name: keyword["name"],
-           tmdb_id: keyword["id"]
-         )
-         KeywordItem.create(
-           keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
-           keywordable: this_tv
+     if tv[1]["sources"].present?
+       tv[1]["sources"].each do |source|
+         MediaProvider.create(
+           name: source["name"],
+           region: source["region"],
+           ios_url: source["ios_url"],
+           android_url: source["android_url"],
+           web_url: source["web_url"],
+           format: source["format"],
+           price: source["price"],
+           seasons: source["seasons"],
+           episodes: source["episodes"],
+           provider_id: Provider.find_by(watchmode_id: source["source_id"]).id,
+           providable: this_tv
          )
        end
+       puts "media providers created #{i}"
      end
-     puts "Keyword created #{i}"
-     tv[0]["seasons"].each do |season|
-       Season.create(
-         air_date: season["air_date"],
-         episode_count: season["episode_count"],
-         tmdb_id: season["id"],
-         name: season["name"],
-         overview: season["overview"],
-         poster_path: "https://image.tmdb.org/t/p/w342#{season["poster_path"]}",
-         season_number: season["season_number"]
-         tv_id: this_tv.id
-       )
+     if tv[0]["reviews"]["results"].present?
+       tv[0]["reviews"]["results"].each do |review|
+         Review.create(
+           user_id: User.order(Arel.sql('RANDOM()')).first.id,
+           reviewable_id: this_tv.id,
+           reviewable: this_tv,
+           content: review["content"],
+           rating: rand(2..10),
+           tmdb_review_id: review["id"]
+         )
+       end
+       puts "Review created #{i}"
      end
-     puts "Season created #{i}"
+     if tv[1]["genres"].present?
+       tv[1]["genres"].each do |genre|
+         GenreItem.create(
+           genre_id: Genre.find_by(watchmode_id: genre).id,
+           genreable: this_tv
+         )
+       end
+       puts "Genre created #{i}"
+     end
+     if tv[0]["keywords"]["keywords"].present?
+       tv[0]["keywords"]["keywords"].each do |keyword|
+         if Keyword.find_by(tmdb_id: keyword["id"]).present?
+           KeywordItem.create(
+             keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
+             keywordable: this_tv
+           )
+         else
+           Keyword.create(
+             name: keyword["name"],
+             tmdb_id: keyword["id"]
+           )
+           KeywordItem.create(
+             keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
+             keywordable: this_tv
+           )
+         end
+       end
+       puts "Keyword created #{i}"
+     end
+     if tv[0]["seasons"].present?
+       tv[0]["seasons"].each do |season|
+         Season.create(
+           air_date: season["air_date"],
+           episode_count: season["episode_count"],
+           tmdb_id: season["id"],
+           name: season["name"],
+           overview: season["overview"],
+           poster_path: "https://image.tmdb.org/t/p/w342#{season["poster_path"]}",
+           season_number: season["season_number"],
+           tv_id: this_tv.id
+         )
+       end
+       puts "Season created #{i}"
+     end
    end
    puts "tvs created"
  end
 
- movies_seeds(movies_1)
- movies_seeds(movies_2)
- movies_seeds(movies_3)
- movies_seeds(movies_4)
  tvs_seeds(tvs_1)
  tvs_seeds(tvs_2)
  tvs_seeds(tvs_3)
  tvs_seeds(tvs_4)
-
-
+ movies_seeds(movies_1)
+ movies_seeds(movies_2)
+ movies_seeds(movies_3)
+ movies_seeds(movies_4)
 
 200.times do
   list = List.create(

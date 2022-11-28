@@ -11,21 +11,58 @@
 @import "components/index";
 @import "pages/index";
 
+$warning-900: $purple-900;
+$primary-600: $teal-600;
+$primary-400: $teal-400;
+// Create your own map
+$custom-colors: (
+  "success-900": $warning-900,
+  "primary-600": $primary-600,
+  "primary-400": $primary-400,
+);
+// Merge the maps
+$theme-colors: map-merge($theme-colors, $custom-colors);
 
 body::-webkit-scrollbar {
 	width: 0.4rem;
 	height: 0.4rem;
 }
+
 body::-webkit-scrollbar-track {
 	background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(50px);
   -webkit-backdrop-filter: blur(50px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 body::-webkit-scrollbar-thumb {
 	background: $primary;
 	border-radius: 16px;
 }
+
+.svg-stop-body {
+	stop-color: $primary-600;
+}
+.svg-stop-dark {
+	stop-color: $warning-900;
+}
+.svg-stop-light {
+	stop-color: $primary-400;
+}
+
+.bg-svg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: -200;
+	width: 100%;
+}
+//body {
+	//background-image: url("bookmarkgradient.svg");
+	//background-repeat: no-repeat;
+	//background-position: top center;
+//}
 
 @media (max-width: 576px) {
 	p {

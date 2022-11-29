@@ -9,6 +9,7 @@ require 'net/http'
 require 'open-uri'
 require 'json'
 require 'faker'
+require 'cloudinary'
 
 #movies_file_0 = File.read("t_movies_2.json")
 movies_file_1 = File.read("t_full_movies_1.json")
@@ -35,6 +36,9 @@ providers_file = File.read("t_providers_US.json")
 providers = JSON.parse(providers_file)
 genres_file = File.read("t_genres.json")
 genres = JSON.parse(genres_file)
+male_avatars = Cloudinary::Api.resources_by_tag('male_avatar')
+female_avatars = Cloudinary::Api.resources_by_tag('female_avatar')
+
 
 
  #PLEASE DO NOT UNCOMMENT!! this method is for create a json with all the info related to movies
@@ -82,6 +86,7 @@ genres = JSON.parse(genres_file)
  #end
  #puts "JSON created"
 
+
  puts "Cleaning up db"
  Review.destroy_all
  MediaProvider.destroy_all
@@ -117,41 +122,42 @@ genres = JSON.parse(genres_file)
    reputation_score: 0
  )
 
- puts "Sebas and Meerim created"
+puts "Sebas and Meerim created"
 
- 50.times do
-   user = User.create(
-     email: Faker::Internet.unique.email,
-     password: "123456",
-     username: Faker::Internet.username,
-     first_name: Faker::Name.unique.female_first_name,
-     last_name: Faker::Name.unique.last_name,
-     bio: Faker::Hipster.paragraph(sentence_count: 3, supplemental: true),
-     reputation_score: 0
-   )
-   #avatar = URI.open("https://source.unsplash.com/random/300x300/?avatar-female")
-   #user.avatar.attach(io: avatar, filename: "image.png", content_type: "image/png")
-   #user.save
- end
+i = 0
 
- puts "50 female users created"
+50.times do
+  user = User.create(
+    email: Faker::Internet.unique.email,
+    password: "123456",
+    username: Faker::Internet.username,
+    first_name: Faker::Name.unique.female_first_name,
+    last_name: Faker::Name.unique.last_name,
+    bio: Faker::Hipster.paragraph(sentence_count: 3, supplemental: true),
+    reputation_score: 0,
+    avatar_url: female_avatars["resources"][i]["url"]
+    )
+  i += 1
+end
 
- 50.times do
-   user = User.create(
-     email: Faker::Internet.unique.email,
-     password: "123456",
-     username: Faker::Internet.username,
-     first_name: Faker::Name.unique.male_first_name,
-     last_name: Faker::Name.unique.last_name,
-     bio: Faker::Hipster.paragraph(sentence_count: 3, supplemental: true),
-     reputation_score: 0
-   )
-   #avatar = URI.open("https://source.unsplash.com/random/300x300/?avatar-man")
-   #user.avatar.attach(io: avatar, filename: "image.png", content_type: "image/png")
-   #user.save
- end
+puts "50 male users created"
 
- puts "50 male users created"
+i = 0
+
+50.times do
+  user = User.create(
+    email: Faker::Internet.unique.email,
+    password: "123456",
+    username: Faker::Internet.username,
+    first_name: Faker::Name.unique.male_first_name,
+    last_name: Faker::Name.unique.last_name,
+    bio: Faker::Hipster.paragraph(sentence_count: 3, supplemental: true),
+    reputation_score: 0,
+    avatar_url: male_avatars["resources"][i]["url"]
+  )
+end
+
+puts "50 male users created"
 
  providers.each do |provider|
    Provider.create(
@@ -388,17 +394,17 @@ genres = JSON.parse(genres_file)
  movies_seeds(movies_3)
  movies_seeds(movies_4)
 
-200.times do
-  list = List.create(
-    user_id: User.order(Arel.sql('RANDOM()')).first.id,
-    list_name: Genre.order(Arel.sql('RANDOM()')).first.genre_name,
-    description: Faker::Quote.famous_last_words
-  )
-  rand(5..10).times do
-    ListItem.create(
-      list_id: list.id,
-      listable: Movie.order(Arel.sql('RANDOM()')).first
-    )
-  end
-end
-puts "Lists created"
+# 200.times do
+#   list = List.create(
+#     user_id: User.order(Arel.sql('RANDOM()')).first.id,
+#     list_name: Genre.order(Arel.sql('RANDOM()')).first.genre_name,
+#     description: Faker::Quote.famous_last_words
+#   )
+#   rand(5..10).times do
+#     ListItem.create(
+#       list_id: list.id,
+#       listable: Movie.order(Arel.sql('RANDOM()')).first
+#     )
+#   end
+# end
+# puts "Lists created"

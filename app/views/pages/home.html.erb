@@ -59,6 +59,11 @@
   </button>
 </div>
 
+<% if user_signed_in? %>
+  <div class="row m-0 px-2 ps-sm-3">
+    <%= render "shared/mylists", lists: @lists, user: current_user, transform: "" %>
+  </div>
+<% end %>
 
 <div class="container-fluid m-0 px-3 ps-sm-4 mt-n0 pb-4">
   <%= render 'shared/movies_slider', movies: @popular_movies, slider_title: 'Popular movies' %>

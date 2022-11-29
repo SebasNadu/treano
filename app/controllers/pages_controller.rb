@@ -6,6 +6,7 @@ class PagesController < ApplicationController
   before_action :set_user, only: %i[dashboard my_lists]
 
   def home
+    @lists = List.where(["user_id = :user_id", { user_id: current_user }])
     @airly_tvs = set_tvs(@t_airly_tvs)
     @popular_tvs = set_tvs(@t_popular_tvs)
     @toprated_tvs = set_tvs(@t_toprated_tvs)

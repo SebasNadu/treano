@@ -3,6 +3,7 @@ require "json"
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :home ]
   before_action :set_parses, only: %i[home]
+  before_action :set_user, only: %i[dashboard my_lists]
 
   def home
     @airly_tvs = set_tvs(@t_airly_tvs)
@@ -22,11 +23,14 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    @user = current_user
     @reviews = Review.where(["user_id = :user_id", { user_id: @user }])
     @new_list = List.new
     @lists = List.where(["user_id = :user_id", { user_id: @user }])
     #raise
+  end
+
+  def my_lists
+    @lists = List.where(["user_id = :user_id", { user_id: @user }])
   end
 
   def profile
@@ -36,6 +40,10 @@ class PagesController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 
   def set_movies(movies)
     movies.map do |movie|

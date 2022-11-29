@@ -13,7 +13,7 @@
     </li>
     <li class="side-item">
 
-      <%= link_to dashboard_path, class: "side-link" do %>
+      <%= link_to user_dashboard_path(current_user), class: "side-link" do %>
         <%= render 'svg/box' %>
         <span class="link-text">Dashboard</span>
       <% end %>

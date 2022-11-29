@@ -49,9 +49,9 @@
       -webkit-backdrop-filter: blur(8px);
       .inside-info {
         display: flex;
-        small {
-          display: flex;
-        }
+      }
+      .small-inside-card {
+        display: flex;
       }
     }
     img {
@@ -91,10 +91,13 @@
   align-items: center;
   height: 100%;
   small {
-    display: none;
     font-weight: 200;
   }
 }
+.small-inside-card {
+    display: none;
+    font-weight: 200;
+  }
 
 .line-clamp-s {
   display: -webkit-box;

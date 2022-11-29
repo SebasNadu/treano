@@ -58,11 +58,11 @@ body::-webkit-scrollbar-thumb {
 	z-index: -200;
 	width: 100%;
 }
-//body {
-	//background-image: url("bookmarkgradient.svg");
-	//background-repeat: no-repeat;
-	//background-position: top center;
-//}
+
+a {
+	text-decoration: none;
+	color: $body-color;
+}
 
 @media (max-width: 576px) {
 	p {

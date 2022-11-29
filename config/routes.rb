@@ -29,5 +29,10 @@ Rails.application.routes.draw do
       post 'toggle_favorite', to: "lists#toggle_favorite"
     end
   end
-  get '/dashboard', to: "pages#dashboard"
+
+  resources :users do
+    get '/dashboard', to: "pages#dashboard"
+    get '/my_lists', to: "pages#my_lists"
+  end
+
 end

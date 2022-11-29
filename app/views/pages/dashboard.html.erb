@@ -50,7 +50,7 @@
       <button type="button" class="btn btn-outline-info w-50" data-bs-toggle="modal" data-bs-target="#new_list_modal">
         Create one
       </button>
-      <%= link_to "All lists", "#", class: "btn btn-outline-primary w-50" %>
+      <%= link_to "All lists", user_my_lists_path(@user), class: "btn btn-outline-primary w-50" %>
     </div>
     <div class="lists-scroller">
       <div class="lists-group">
@@ -59,24 +59,34 @@
           <div class="lists-element">
             <% if list.cover_picture.present? %>
             <div class="list-card d-flex align-items-end justify-content-center" style="background-image: url('<%= list.cover_picture.key %>');">
-              <div class="flex-column list-h text-center bg-trans-0 mt-auto">
-                <h4 class=""><%= list.list_name %></h4>
-                <div class="btn btn-outline-info">
-                  <span class=""><%= pluralize(list.list_items.size, "Item") %></span>
+                <div class="flex-column list-h text-center bg-trans-0 align-items-center justify-content-center">
+                  <h4 class=""><%= list.list_name %></h4>
+                  <div class="d-flex w-100 flex-row align-items-center justify-content-center">
+                    <div class="btn btn-info mx-1">
+                      <span class=""><%= pluralize(list.list_items.size, "Item") %></span>
+                    </div>
+                    <%= link_to "Open it", list_path(list), class: "btn btn-outline-success mx-1" %>
+                    <% if list.user.id == current_user.id %>
+                      <%= link_to "Edit list", edit_list_path(list), class: "btn btn-outline-success mx-1"%>
+                      <%= link_to "Delete", list_path(list), class: "btn btn-outline-danger mx-1" %>
+                    <% end %>
+                  </div>
                 </div>
-                <%= link_to list_path(list), class: "btn btn-outline-success" %>
-              </div>
             </div>
             <% else %>
               <% if list.list_items.present? %>
               <div class="list-card d-flex align-items-end justify-content-center" style="background-image: url('<%= list.list_items.first.listable.backdrop_url %>');">
                 <div class="flex-column list-h text-center bg-trans-0 align-items-center justify-content-center">
                   <h4 class=""><%= list.list_name %></h4>
-                  <div class="d-flex w-100 flex-row align-items-center justify-content-evenly">
-                    <div class="btn btn-outline-info">
+                  <div class="d-flex w-100 flex-row align-items-center justify-content-center">
+                    <div class="btn btn-info mx-1">
                       <span class=""><%= pluralize(list.list_items.size, "Item") %></span>
                     </div>
-                    <%= link_to "Open it", list_path(list), class: "btn btn-outline-success" %>
+                    <%= link_to "Open it", list_path(list), class: "btn btn-outline-success mx-1" %>
+                    <% if list.user.id == current_user.id %>
+                      <%= link_to "Edit list", edit_list_path(list), class: "btn btn-outline-success mx-1"%>
+                      <%= link_to "Delete", list_path(list), class: "btn btn-outline-danger mx-1" %>
+                    <% end %>
                   </div>
                 </div>
               </div>
@@ -84,11 +94,15 @@
               <div class="list-card d-flex align-items-end justify-content-center" style="background-image: url('<%= image_path "list-banner" %>');">
                 <div class="flex-column list-h text-center bg-trans-0 align-items-center justify-content-center">
                   <h4 class=""><%= list.list_name %></h4>
-                  <div class="d-flex w-100 flex-row align-items-center justify-content-evenly">
-                    <div class="btn btn-outline-info">
+                  <div class="d-flex w-100 flex-row align-items-center justify-content-center">
+                    <div class="btn btn-info mx-1">
                       <span class=""><%= pluralize(list.list_items.size, "Item") %></span>
                     </div>
-                    <%= link_to "Open it", list_path(list), class: "btn btn-outline-success" %>
+                    <%= link_to "Open it", list_path(list), class: "btn btn-outline-success mx-1" %>
+                    <% if list.user.id == current_user.id %>
+                      <%= link_to "Edit list", edit_list_path(list), class: "btn btn-outline-success mx-1"%>
+                      <%= link_to "Delete", list_path(list), class: "btn btn-outline-danger mx-1" %>
+                    <% end %>
                   </div>
                 </div>
               </div>
@@ -98,7 +112,7 @@
           <% end %>
         <% else %>
           <div class="lists-element">
-            <div class="list-card d-flex align-items-end justify-content-center" style="background-image: url('<%= image_path "list-banner" %>');">
+            <div class="list-card d-flex align-items-end justify-content-center" style="background-image: url('<%= image_path "list-banner" %>');" data-bs-toggle="modal" data-bs-target="#new_list_modal">
               <div class="row w-100 h-25 text-center bg-trans-0 align-items-center justify-content-center">
                 <h4 class="">Create your first list</h4>
               </div>
@@ -115,8 +129,7 @@
   <div class="info-box p-2 p-sm-4">
     <h3 class="m-0 trans-text fw-bolder text-center mb-3">My reviews</h3>
     <div class="row row-cols-1 row-cols-sm-2">
-      <% user_reviews = current_user.reviews %>
-      <% user_reviews.each do |review| %>
+      <% @reviews.each do |review| %>
         <div class="col">
           <div class="row">
             <div class="col-11">

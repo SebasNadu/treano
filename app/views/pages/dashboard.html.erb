@@ -1,8 +1,5 @@
-<div class="dashboard-banner m-0 p-0 mt-n5 position-fixed" style="">
-</div>
-
 <div class="container-fluid m-0 px-2 ps-sm-3 pt-4">
-  <h1 class="fs-1 fw-bold px-2"><%= @user.username %></h1>
+  <h1 class="fs-1 fw-bold px-2 mb-4"><%= @user.username %> dashboard</h1>
   <div class="info-box p-2 p-sm-4">
     <div class="row row-cols-1 row-cols-sm-2">
       <div class="col">
@@ -29,13 +26,13 @@
       </div>
       <div class="col">
         <div class="p-3 info-h">
-          <h3 class="m-0 trans-text fw-bolder text-center">Stats</h3>
+          <h3 class="mb-3 trans-text fw-bolder text-center">Stats</h3>
           <div class="d-flex justify-content-center align-items-center mb-2">
-            <p class="trans-text m-1 px-2 fw-bolder bg-secondary"><%= @reviews %></p>
+            <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= @reviews %></p>
             <p class="m-1">Reviews</p>
-            <p class="trans-text m-1 px-2 fw-bolder bg-secondary"><%= @lists.count %></p>
+            <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= @lists.count %></p>
             <p class="m-1">Lists</p>
-            <p class="trans-text m-1 px-2 fw-bolder bg-secondary"><%= @user.reputation_score %></p>
+            <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= @user.reputation_score %></p>
             <p class="m-1">Rank</p>
           </div>
           <h5>Badges - completed challenges </h5>
@@ -46,14 +43,14 @@
 </div>
 
 
-<div class="row m-0 px-2 ps-sm-3 pb-4">
+<div class="row m-0 px-2 ps-sm-3">
   <div class="lists-container d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3">
-    <div class="section-titel w-75 gap-3 d-flex flex-row flex-sm-column align-items-center justify-content-around">
-      <h2 class="">My lists</h2>
-      <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#new_list_modal">
+    <div class="section-titel w-25 gap-3 d-flex flex-row flex-sm-column align-items-center justify-content-around">
+      <h3 class="trans-text w-75 fw-bolder text-center">My lists</h3>
+      <button type="button" class="btn btn-outline-info w-50" data-bs-toggle="modal" data-bs-target="#new_list_modal">
         Create one
       </button>
-      <%= link_to "All lists", "#", class: "btn btn-outline-primary" %>
+      <%= link_to "All lists", "#", class: "btn btn-outline-primary w-50" %>
     </div>
     <div class="lists-scroller">
       <div class="lists-group">
@@ -114,29 +111,31 @@
 </div>
 <%= render "lists/list_form", list: @new_list %>
 
-<div class="info-box p-2 p-sm-4">
-  <h3 class="m-0 trans-text fw-bolder text-center mb-3">My reviews</h3>
-  <div class="row row-cols-1 row-cols-sm-2">
-    <% user_reviews = current_user.reviews %>
-    <% user_reviews.each do |review| %>
-      <div class="col">
-        <div class="row">
-          <div class="col-11">
-            <%= render "reviews/review", review: review %>
-          </div>
-          <div class="col-1 d-flex flex-column align-items-center justify-content-center ps-0">
-            <button class="btn btn-ghost" aria-label="Edit movie" data-action="click->insert-in-list#displayForm">
-              <%= render "svg/edit" %>
-            </button>
-            <%= render "reviews/edit_review", class: "d-none", review: review %>
-            <%= link_to review_path(review), class: "btn btn-ghost",
-              data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
-              <%= render "svg/trash" %>
-            <% end %>
+<div class="row m-0 px-2 ps-sm-3">
+  <div class="info-box p-2 p-sm-4">
+    <h3 class="m-0 trans-text fw-bolder text-center mb-3">My reviews</h3>
+    <div class="row row-cols-1 row-cols-sm-2">
+      <% user_reviews = current_user.reviews %>
+      <% user_reviews.each do |review| %>
+        <div class="col">
+          <div class="row">
+            <div class="col-11">
+              <%= render "reviews/review", review: review %>
+            </div>
+            <div class="col-1 d-flex flex-column align-items-center justify-content-center ps-0">
+              <button class="btn btn-ghost" aria-label="Edit movie" data-action="click->insert-in-list#displayForm">
+                <%= render "svg/edit" %>
+              </button>
+              <%= render "reviews/edit_review", class: "d-none", review: review %>
+              <%= link_to review_path(review), class: "btn btn-ghost",
+                data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+                <%= render "svg/trash" %>
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
 

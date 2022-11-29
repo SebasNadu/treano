@@ -1,12 +1,8 @@
 .lists-container {
   //position: relative;
-  height: 75vh;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 15%, $gray-900 50%, rgba(0,0,0,0) 85%);
+  height: 50vh;
+  //background: linear-gradient(180deg, rgba(13,13,13,0) 0%, rgba(13, 13, 13, 0.5) 10%, rgba(13, 13, 13, 0.8) 20%, rgba(13, 13, 13, 0.8) 80%, rgba(13, 13, 13, 0.4) 90%, rgba(13,13,13,0) 100%);
   //background: linear-gradient(180deg, $gray-900 0%, rgba(0,0,0,0) 50%, $gray-900 100%);
-  //display: flex;
-  //flex-flow: column;
-  //align-items: center;
-  //justify-content: center;
 }
 
 .lists-scroller,
@@ -35,7 +31,7 @@
 }
 
 .lists-element {
-  width: 350px;
+  width: 40vw;
   aspect-ratio: 16 / 9;
   border-radius: 0.25rem;
   overflow: hidden;

@@ -69,7 +69,7 @@
     border-radius: 1rem 1rem 0rem 0rem;
     width: 100%;
     height: 26%;
-    font-size: 0.8rem;
+    //font-size: 0.8rem;
     font-weight: 600;
     background: rgba(0, 0, 0, 0);
     overflow: hidden;
@@ -79,7 +79,7 @@
     small {
       display: none;
       font-weight: 200;
-      font-size: .6rem;
+      //font-size: .8rem;
     }
   }
 }
@@ -100,7 +100,7 @@
 
 .line-clamp {
   display: -webkit-box !important;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -203,7 +203,7 @@
     --handle-size: 2rem;
   }
   .info {
-    font-size: .7rem;
+    font-size: .8rem;
 
   }
   .inside-info {
@@ -232,7 +232,7 @@
     --handle-size: 2rem;
   }
   .info {
-    font-size: .65rem;
+    font-size: .7rem;
   }
   .line-clamp {
     display: -webkit-box;

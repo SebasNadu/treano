@@ -8,4 +8,5 @@ class Tv < ApplicationRecord
   has_many :users, through: :reviews
   has_many :genre_items, as: :genreable
   has_many :genres, through: :genre_items
+  has_many :seasons
 end

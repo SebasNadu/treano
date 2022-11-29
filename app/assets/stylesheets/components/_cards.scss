@@ -41,13 +41,17 @@
   &:hover {
     .info {
       height: 70%;
+      bottom: -7%;
       border-radius: 0 0 1rem 1rem;
       background-blend-mode: overlay;
       background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(15, 15, 15, 0.8) 75%, rgba(15, 15, 15, 1) 100%);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      small {
-        display: block;
+      .inside-info {
+        display: flex;
+        small {
+          display: flex;
+        }
       }
     }
     img {
@@ -63,24 +67,32 @@
     position: relative;
     transition: padding 100ms ease;
   }
-  .info {
-    position: absolute;
-    bottom: -20%;
-    border-radius: 1rem 1rem 0rem 0rem;
-    width: 100%;
-    height: 26%;
-    //font-size: 0.8rem;
-    font-weight: 600;
-    background: rgba(0, 0, 0, 0);
-    overflow: hidden;
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
-    transition: all 100ms ease;
-    small {
-      display: none;
-      font-weight: 200;
-      //font-size: .8rem;
-    }
+}
+
+.info {
+  position: absolute;
+  bottom: -22%;
+  border-radius: 1rem 1rem 0rem 0rem;
+  width: 100%;
+  height: 26%;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0);
+  overflow: hidden;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  transition: all 100ms ease;
+}
+
+.inside-info {
+  display: hidden;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  small {
+    display: none;
+    font-weight: 200;
   }
 }
 
@@ -232,7 +244,7 @@
     --handle-size: 2rem;
   }
   .info {
-    font-size: .7rem;
+    font-size: .75rem;
   }
   .line-clamp {
     display: -webkit-box;

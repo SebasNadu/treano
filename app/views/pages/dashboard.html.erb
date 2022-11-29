@@ -28,7 +28,7 @@
         <div class="p-3 info-h">
           <h3 class="mb-3 trans-text fw-bolder text-center">Stats</h3>
           <div class="d-flex justify-content-center align-items-center mb-2">
-            <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= @reviews %></p>
+            <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= @reviews.count %></p>
             <p class="m-1">Reviews</p>
             <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= @lists.count %></p>
             <p class="m-1">Lists</p>
@@ -111,7 +111,7 @@
 </div>
 <%= render "lists/list_form", list: @new_list %>
 
-<div class="row m-0 px-2 ps-sm-3">
+<div class="row m-0 px-2 ps-sm-3 mb-5">
   <div class="info-box p-2 p-sm-4">
     <h3 class="m-0 trans-text fw-bolder text-center mb-3">My reviews</h3>
     <div class="row row-cols-1 row-cols-sm-2">

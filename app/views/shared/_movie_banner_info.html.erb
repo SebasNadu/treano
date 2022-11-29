@@ -12,7 +12,6 @@
       <% if movie[:us_rating].present? %>
         <small class=""><span class="trans-text px-1 mx-1 fw-semibold"><%= movie[:us_rating] %></span></small>
       <% end %>
-      <small class="">•<span class="ps-1"><%= movie[:status] %></small>
     </div>
     <% if movie[:tagline].present? %>
       <p class="my-2 fw-semibold text-center">“<%= movie[:tagline] %>„</p>
@@ -20,7 +19,7 @@
     <div class="d-flex flex-row flex-wrap justify-content-center align-items-center my-2">
       <small class="square-score-inv px-1 fw-semibold me-1"><%= movie[:rating_average] %> </small>
       <small class="square-score-inv px-1 fw-semibold me-1"><%= movie[:critic_score] %>% </small>
-      <small class="square-score-inv fw-semibold px-1 me-1">∆ <%= movie[:popularity].round(1) %></small>
+      <small class="square-score-inv fw-semibold px-1 me-1"><%= render 'svg/trending-up' %> <%= movie[:popularity].round(1) %></small>
     </div>
   <% else %>
     <div class="d-flex flex-row flex-wrap align-items-center justify-content-center my-2">

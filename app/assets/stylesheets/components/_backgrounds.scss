@@ -25,3 +25,11 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
+
+.shadow-b {
+  box-shadow: 0 70px 63px -60px #000000;
+}
+
+.shadow-w {
+  box-shadow: 0 70px 63px -60px #fff;
+}

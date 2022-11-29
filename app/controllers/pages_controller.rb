@@ -23,7 +23,7 @@ class PagesController < ApplicationController
 
   def dashboard
     @user = current_user
-    @reviews = Review.count(current_user.id)
+    @reviews = Review.where(["user_id = :user_id", { user_id: @user }])
     @new_list = List.new
     @lists = List.where(["user_id = :user_id", { user_id: @user }])
     #raise

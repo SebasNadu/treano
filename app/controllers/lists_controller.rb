@@ -10,7 +10,7 @@ class ListsController < ApplicationController
     @list = List.new(list_params)
     @list.user = @user
     if @list.save
-      redirect_to dashboard_path
+      redirect_to user_dashboard_path(current_user)
     else
       render 'pages/dashboard', status: :unprocessable_entity
     end

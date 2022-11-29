@@ -42,86 +42,8 @@
   </div>
 </div>
 
-
 <div class="row m-0 px-2 ps-sm-3">
-  <div class="lists-container d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3">
-    <div class="section-titel w-25 gap-3 d-flex flex-row flex-sm-column align-items-center justify-content-around">
-      <h3 class="trans-text w-75 fw-bolder text-center">My lists</h3>
-      <button type="button" class="btn btn-outline-info w-50" data-bs-toggle="modal" data-bs-target="#new_list_modal">
-        Create one
-      </button>
-      <%= link_to "All lists", user_my_lists_path(@user), class: "btn btn-outline-primary w-50" %>
-    </div>
-    <div class="lists-scroller">
-      <div class="lists-group">
-      <% if @lists.present? %>
-        <% @lists.each do |list| %>
-          <div class="lists-element">
-            <% if list.cover_picture.present? %>
-            <div class="list-card d-flex align-items-end justify-content-center" style="background-image: url('<%= list.cover_picture.key %>');">
-                <div class="flex-column list-h text-center bg-trans-0 align-items-center justify-content-center">
-                  <h4 class=""><%= list.list_name %></h4>
-                  <div class="d-flex w-100 flex-row align-items-center justify-content-center">
-                    <div class="btn btn-info mx-1">
-                      <span class=""><%= pluralize(list.list_items.size, "Item") %></span>
-                    </div>
-                    <%= link_to "Open it", list_path(list), class: "btn btn-outline-success mx-1" %>
-                    <% if list.user.id == current_user.id %>
-                      <%= link_to "Edit list", edit_list_path(list), class: "btn btn-outline-success mx-1"%>
-                      <%= link_to "Delete", list_path(list), class: "btn btn-outline-danger mx-1" %>
-                    <% end %>
-                  </div>
-                </div>
-            </div>
-            <% else %>
-              <% if list.list_items.present? %>
-              <div class="list-card d-flex align-items-end justify-content-center" style="background-image: url('<%= list.list_items.first.listable.backdrop_url %>');">
-                <div class="flex-column list-h text-center bg-trans-0 align-items-center justify-content-center">
-                  <h4 class=""><%= list.list_name %></h4>
-                  <div class="d-flex w-100 flex-row align-items-center justify-content-center">
-                    <div class="btn btn-info mx-1">
-                      <span class=""><%= pluralize(list.list_items.size, "Item") %></span>
-                    </div>
-                    <%= link_to "Open it", list_path(list), class: "btn btn-outline-success mx-1" %>
-                    <% if list.user.id == current_user.id %>
-                      <%= link_to "Edit list", edit_list_path(list), class: "btn btn-outline-success mx-1"%>
-                      <%= link_to "Delete", list_path(list), class: "btn btn-outline-danger mx-1" %>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-              <% else %>
-              <div class="list-card d-flex align-items-end justify-content-center" style="background-image: url('<%= image_path "list-banner" %>');">
-                <div class="flex-column list-h text-center bg-trans-0 align-items-center justify-content-center">
-                  <h4 class=""><%= list.list_name %></h4>
-                  <div class="d-flex w-100 flex-row align-items-center justify-content-center">
-                    <div class="btn btn-info mx-1">
-                      <span class=""><%= pluralize(list.list_items.size, "Item") %></span>
-                    </div>
-                    <%= link_to "Open it", list_path(list), class: "btn btn-outline-success mx-1" %>
-                    <% if list.user.id == current_user.id %>
-                      <%= link_to "Edit list", edit_list_path(list), class: "btn btn-outline-success mx-1"%>
-                      <%= link_to "Delete", list_path(list), class: "btn btn-outline-danger mx-1" %>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-              <% end %>
-            <% end %>
-          </div>
-          <% end %>
-        <% else %>
-          <div class="lists-element">
-            <div class="list-card d-flex align-items-end justify-content-center" style="background-image: url('<%= image_path "list-banner" %>');" data-bs-toggle="modal" data-bs-target="#new_list_modal">
-              <div class="row w-100 h-25 text-center bg-trans-0 align-items-center justify-content-center">
-                <h4 class="">Create your first list</h4>
-              </div>
-            </div>
-          </div>
-      <% end %>
-      </div>
-    </div>
-  </div>
+  <%= render "shared/mylists", lists: @lists, user: @user, transform: "" %>
 </div>
 <%= render "lists/list_form", list: @new_list %>
 

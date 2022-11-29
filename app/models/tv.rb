@@ -9,4 +9,6 @@ class Tv < ApplicationRecord
   has_many :genre_items, as: :genreable
   has_many :genres, through: :genre_items
   has_many :seasons
+  has_many :keyword_items, as: :keywordable
+  has_many :keywords, through: :keyword_items
 end

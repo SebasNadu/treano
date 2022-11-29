@@ -10,7 +10,7 @@
               <% if @user.avatar.key.nil? %>
                 <%= image_tag "user.svg", class: "avatar-xl dropdown-toggle bg-secondary p-1", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
               <% else %>
-                <%= cl_image_tag @user.avatar.key, class: "avatar-xl", :gravity=>"face", :height=>36, :width=>36, :crop=>"thumb", :zoom=>"0.5" %>
+                <%= cl_image_tag @user.avatar.key, class: "avatar-xl", :height=>200, :width=>200, :gravity=>"face", :crop=>"fill", :radius=>"max" %>
               <% end %>
             </div>
             <div class="col">
@@ -138,5 +138,3 @@
     </div>
   </div>
 </div>
-
-

@@ -1,10 +1,10 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-# #   Character.create(name: "Luke", movie: movies.first)
+# # This file should contain all the record creation needed to seed the database with its default values.
+# # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+# #
+# # Examples:
+# #
+# #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+# # #   Character.create(name: "Luke", movie: movies.first)
 require 'net/http'
 require 'open-uri'
 require 'json'
@@ -36,55 +36,53 @@ providers_file = File.read("t_providers_US.json")
 providers = JSON.parse(providers_file)
 genres_file = File.read("t_genres.json")
 genres = JSON.parse(genres_file)
-male_avatars = Cloudinary::Api.resources_by_tag('male_avatar')
-female_avatars = Cloudinary::Api.resources_by_tag('female_avatar')
+male_avatars = Cloudinary::Api.resources_by_tag('male_avatar', :max_results => 50)
+female_avatars = Cloudinary::Api.resources_by_tag('female_avatar', :max_results => 50)
+
+#  #PLEASE DO NOT UNCOMMENT!! this method is for create a json with all the info related to movies
+#  #movies_group = movies_0["titles"][125..249]
+#  #full_movies = []
+#  #movies_group.each_with_index do |movie, i|
+#    #uri_tmdb = URI("https://api.themoviedb.org/3/movie/#{movie["tmdb_id"].to_s}?api_key=&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar,lists")
+#    #response_tmdb = Net::HTTP.get(uri_tmdb)
+#    #result_tmdb = JSON.parse(response_tmdb)
+#    #puts "#{i} tmdb responsed"
+
+#    #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{movie["id"].to_s}/details/?apiKey=&append_to_response=sources")
+#    #response_watchmode = Net::HTTP.get(uri_watchmode)
+#    #result_watchmode = JSON.parse(response_watchmode)
+#    #puts "#{i} watchmode responsed"
+
+#    #full_movies << [result_tmdb, result_watchmode]
+#    #puts "#{i} array pushed"
+#  #end
+#  #File.open("t_full_movies_4.json", "wb") do |file|
+#    #file.write(JSON.generate(full_movies))
+#  #end
+#  #puts "JSON created"
 
 
+#  #PLEASE DO NOT UNCOMMENT!! this method is for create a json with all the info related to tvs
+#  #tvs_group = tvs_0["titles"][125..249]
+#  #full_tvs = []
+#  #tvs_group.each_with_index do |tv, i|
+#    #uri_tmdb = URI("https://api.themoviedb.org/3/tv/#{tv["tmdb_id"].to_s}?api_key=&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
+#    #response_tmdb = Net::HTTP.get(uri_tmdb)
+#    #result_tmdb = JSON.parse(response_tmdb)
+#    #puts "#{i} tmdb responsed"
 
- #PLEASE DO NOT UNCOMMENT!! this method is for create a json with all the info related to movies
- #movies_group = movies_0["titles"][125..249]
- #full_movies = []
- #movies_group.each_with_index do |movie, i|
-   #uri_tmdb = URI("https://api.themoviedb.org/3/movie/#{movie["tmdb_id"].to_s}?api_key=&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar,lists")
-   #response_tmdb = Net::HTTP.get(uri_tmdb)
-   #result_tmdb = JSON.parse(response_tmdb)
-   #puts "#{i} tmdb responsed"
+#    #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{tv["id"].to_s}/details/?apiKey=&append_to_response=sources")
+#    #response_watchmode = Net::HTTP.get(uri_watchmode)
+#    #result_watchmode = JSON.parse(response_watchmode)
+#    #puts "#{i} watchmode responsed"
 
-   #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{movie["id"].to_s}/details/?apiKey=&append_to_response=sources")
-   #response_watchmode = Net::HTTP.get(uri_watchmode)
-   #result_watchmode = JSON.parse(response_watchmode)
-   #puts "#{i} watchmode responsed"
-
-   #full_movies << [result_tmdb, result_watchmode]
-   #puts "#{i} array pushed"
- #end
- #File.open("t_full_movies_4.json", "wb") do |file|
-   #file.write(JSON.generate(full_movies))
- #end
- #puts "JSON created"
-
-
- #PLEASE DO NOT UNCOMMENT!! this method is for create a json with all the info related to tvs
- #tvs_group = tvs_0["titles"][125..249]
- #full_tvs = []
- #tvs_group.each_with_index do |tv, i|
-   #uri_tmdb = URI("https://api.themoviedb.org/3/tv/#{tv["tmdb_id"].to_s}?api_key=&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
-   #response_tmdb = Net::HTTP.get(uri_tmdb)
-   #result_tmdb = JSON.parse(response_tmdb)
-   #puts "#{i} tmdb responsed"
-
-   #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{tv["id"].to_s}/details/?apiKey=&append_to_response=sources")
-   #response_watchmode = Net::HTTP.get(uri_watchmode)
-   #result_watchmode = JSON.parse(response_watchmode)
-   #puts "#{i} watchmode responsed"
-
-   #full_tvs << [result_tmdb, result_watchmode]
-   #puts "#{i} array pushed"
- #end
- #File.open("t_full_tvs_4.json", "wb") do |file|
-   #file.write(JSON.generate(full_tvs))
- #end
- #puts "JSON created"
+#    #full_tvs << [result_tmdb, result_watchmode]
+#    #puts "#{i} array pushed"
+#  #end
+#  #File.open("t_full_tvs_4.json", "wb") do |file|
+#    #file.write(JSON.generate(full_tvs))
+#  #end
+#  #puts "JSON created"
 
 
  puts "Cleaning up db"
@@ -110,7 +108,7 @@ female_avatars = Cloudinary::Api.resources_by_tag('female_avatar')
    first_name: "Sebastian",
    last_name: "Navarro",
    bio: "Movies are my passion",
-   reputation_score: 0
+   reputation_score: 0,
  )
  User.create(
    email: "meerim@treano.co",
@@ -130,17 +128,19 @@ i = 0
   user = User.create(
     email: Faker::Internet.unique.email,
     password: "123456",
-    username: Faker::Internet.username,
     first_name: Faker::Name.unique.female_first_name,
     last_name: Faker::Name.unique.last_name,
-    bio: Faker::Hipster.paragraph(sentence_count: 3, supplemental: true),
-    reputation_score: 0,
-    avatar_url: female_avatars["resources"][i]["url"]
+    bio: Faker::Movies::HitchhikersGuideToTheGalaxy.quote,
+    reputation_score: 0
     )
-  i += 1
+    user.username = user.first_name + "_" + rand(12345..99999).to_s
+    avatar = URI.open(female_avatars["resources"][i]["url"])
+    user.avatar.attach(io: avatar, filename: "image.png", content_type: "image/png")
+    user.save
+    i += 1
 end
 
-puts "50 male users created"
+puts "50 female users created"
 
 i = 0
 
@@ -148,13 +148,16 @@ i = 0
   user = User.create(
     email: Faker::Internet.unique.email,
     password: "123456",
-    username: Faker::Internet.username,
     first_name: Faker::Name.unique.male_first_name,
     last_name: Faker::Name.unique.last_name,
-    bio: Faker::Hipster.paragraph(sentence_count: 3, supplemental: true),
-    reputation_score: 0,
-    avatar_url: male_avatars["resources"][i]["url"]
+    bio: Faker::Books::Dune.quote,
+    reputation_score: 0
   )
+    user.username = user.first_name + "_" + rand(12345..99999).to_s
+    avatar = URI.open(male_avatars["resources"][i]["url"])
+    user.avatar.attach(io: avatar, filename: "image.png", content_type: "image/png")
+    user.save
+    i += 1
 end
 
 puts "50 male users created"
@@ -331,7 +334,7 @@ puts "50 male users created"
            reviewable_id: this_tv.id,
            reviewable: this_tv,
            content: review["content"],
-           rating: rand(2..10),
+           rating: rand(4..7),
            tmdb_review_id: review["id"]
          )
        end
@@ -393,18 +396,31 @@ puts "50 male users created"
  movies_seeds(movies_2)
  movies_seeds(movies_3)
  movies_seeds(movies_4)
-
-# 200.times do
-#   list = List.create(
-#     user_id: User.order(Arel.sql('RANDOM()')).first.id,
-#     list_name: Genre.order(Arel.sql('RANDOM()')).first.genre_name,
-#     description: Faker::Quote.famous_last_words
-#   )
-#   rand(5..10).times do
-#     ListItem.create(
-#       list_id: list.id,
-#       listable: Movie.order(Arel.sql('RANDOM()')).first
-#     )
-#   end
-# end
-# puts "Lists created"
+ 
+i = 1
+400.times do
+  list = List.create(
+    user_id: User.order(Arel.sql('RANDOM()')).first.id,
+    list_name: Genre.order(Arel.sql('RANDOM()')).first.genre_name,
+    description: Faker::Movies::HitchhikersGuideToTheGalaxy.quote
+  )
+  url = Cloudinary::Api.resources_by_tag(list.list_name)["resources"][0]["url"]
+  cover_picture = URI.open(url)
+  list.cover_picture.attach(io: cover_picture, filename: "image.png", content_type: "image/png")
+  list.save
+  rand(0..3).times do
+    ListItem.create(
+      list_id: list.id,
+      listable: Tv.order(Arel.sql('RANDOM()')).first
+    )
+  end
+  rand(5..8).times do
+    ListItem.create(
+      list_id: list.id,
+      listable: Movie.order(Arel.sql('RANDOM()')).first
+    )
+  end
+  puts "List #{i} created"
+  i += 1
+end
+puts "Lists created"

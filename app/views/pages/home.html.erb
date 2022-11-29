@@ -18,7 +18,9 @@
         <%= render 'shared/movie_banner_info', movie: @trends_media[0] %>
         <% this_movie = Movie.find_by(tmdb_id: @trends_media[0][:tmdb_id]) %>
         <% if this_movie %>
-          <%= link_to movie_path(this_movie), class: "btn btn-primary" %>
+          <div class="d-flex align-items-start justify-content-center mt-n0">
+            <%= link_to 'More info', movie_path(this_movie), class: "btn btn-success fw-semibold btn-banner" %>
+          </div>
         <% end %>
       </div>
     </div>

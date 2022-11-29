@@ -1,4 +1,4 @@
-<div class="media-banner mt-n5 position-absolute" style="background-image: linear-gradient(180deg, rgba(12,12,12,0.6) 0%, rgba(42,42,42,0.3) 40%, rgba(12,12,12,1) 90%), url('<%= @tv.backdrop_url %>')">
+<div class="media-banner mt-n5 position-absolute" style="background-image: linear-gradient(180deg, rgba(13,13,13,0.8) 0%, rgba(33,33,33,0.4) 40%, rgba(13,13,13,1) 90%), url('<%= @tv.backdrop_url %>')">
 </div>
 
 <div class="row h-100 w-100 m-0">
@@ -6,7 +6,7 @@
     <% if @tv.trailer.present? %>
       <% trailer =  @tv.trailer %>
       <% trailer["https://www.youtube.com/watch?v="] = "https://www.youtube.com/embed/" %>
-      <iframe class="" style="aspect-ratio: 16/9;" width="85%" height="" src="<%= trailer %>">
+      <iframe class="rounded" style="aspect-ratio: 16/9;" width="85%" height="" src="<%= trailer %>">
       </iframe>
     <% end %>
     <% if @tv.tagline.present? %>
@@ -19,12 +19,26 @@
         <%= render 'svg/star' %>   
       <% end %>
       <div class="dropdown-center down-none m-2">
-        <button type="button" class="btn btn-info avatar dropdown-toggle d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+        <button type="button" class="btn btn-info avatar d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#new_list_modal">
           <%= render 'svg/list' %>
         </button>
-        <form class="dropdown-menu dropdown-menu-end p-2 bg-trans border-0">
-          <%= render "list_items/new_list_item", listable: @listable, list_item: @list_item, lists: @lists %>
-        </form>
+        <%= render "list_items/new_list_item", listable: @listable, list_item: @list_item, lists: @lists %>
+      </div>
+      <button class="btn btn-info avatar m-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExtras" aria-expanded="false" aria-controls="collapseExtras">
+        <%= render 'svg/corner-right-down' %>
+      </button>
+    </div>
+    <div class="collapse" id="collapseExtras">
+      <div class="card card-body info-box m-2 mx-5 p-0 ps-3 pt-3 pb-2">
+        <div class="row row-cols-3">
+          <p class="col m-0 mb-1"><span class="trans-text px-2">Status</span> <%= @tv.status if @tv.status.present? %></p>
+          <p class="col m-0 mb-1"><span class="trans-text px-2">Number of seasons</span> <%= @tv.number_of_seasons if @tv.number_of_seasons.present? %></p>
+          <p class="col m-0 mb-1"><span class="trans-text px-2">Number of episodes</span> <%= @tv.number_of_episodes if @tv.number_of_episodes.present? %></p>
+          <p class="col m-0 mb-1"><span class="trans-text px-2">First air date</span> <%= @tv.first_air_date if @tv.first_air_date.present? %></p>
+          <p class="col m-0 mb-1"><span class="trans-text px-2">Last air date</span> <%= @tv.last_air_date if @tv.last_air_date.present? %></p>
+          <p class="col m-0 mb-1 line-clamp-s"><span class="trans-text px-2">homepage</span> <a class="text-light" href="<%= @tv.homepage if @tv.homepage.present? %>">link</a></p>
+          <p class="col m-0 mb-1"><span class="trans-text px-2">Original lenguage</span> <%= @tv.original_language.upcase if @tv.original_language.present? %></p>
+        </div>
       </div>
     </div>
   </div>
@@ -32,7 +46,7 @@
     <div class="info-small mt-2 mb-n0 fw-normal">
       <small class="mb-2"><span class="trans-text px-1">User score</span> <span class="fw-semibold text-info"><%= @tv.rating_average %></span> </small>
       <small class="mb-2"><span class="trans-text px-1">Critic score</span> <span class="fw-semibold text-info"><%= @tv.critic_score %>%</span>  </small>
-      <small class="mb-2"><span class="trans-text px-1">∆ <%= @tv.popularity.round %></span></small>
+      <small class="mb-2"><span class="trans-text px-1"><%= render 'svg/trending-up' %> <%= @tv.popularity.round %></span></small>
     </div>
     <h1 class="fs-1 fw-bold"><%= @tv.title %></h1>
     <div class="info-small pb-2 text-center">
@@ -45,7 +59,6 @@
       <% if @tv.us_rating.present? %>
         <small class="mb-2 trans-text px-1 fw-semibold"><%= @tv.us_rating %></small>
       <% end %>
-      <small class="mb-2">• <%= @tv.status %></small>
     </div>
     <p class="text-center"><%= @tv.overview %></p>
     <div class="d-flex align-items-center justify-content-center flex-wrap">
@@ -71,9 +84,7 @@
     <div id="scrollspyReview" data-insert-in-list-target="infos" class="col-12 col-md-4 mt-2 p-2 position-sticky">
         <% user_review = Review.where(reviewable_id: params[:id], reviewable_type: "Tv", user: current_user) %>
         <% if user_review.empty? %>
-          <div class="bg-trans p-2 mx-0 rounded">
           <%= render "reviews/review_form",  reviewable: @reviewable, review: @review %>
-          </div>
         <% else %>
          <h5 class="fs-6 fs-md-2 m-0 text-center">Thank you for your review!</h5>
         <% end %>

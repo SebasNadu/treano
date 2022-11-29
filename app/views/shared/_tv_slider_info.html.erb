@@ -1,33 +1,32 @@
-<div class="info px-1 py-2 d-flex flex-column align-items-center justify-content-between">
-  <div class="d-flex align-items-center flex-column justify-content-between inside-info">
+<div class="info p-1">
+  <div class="text-center inside-info">
     <p class="line-clamp-s mb-1"><%= tv[:title] %></p>
     <% if tv[:year].present? %>
-    <div class="d-flex flex-row flex-wrap justify-content-center mb-2">
-      <small class=""><span class="pe-1"><%= tv[:year] %></span>•</small>
-      <small class=""><span class="ps-1"><%= tv[:runtime] %> min</span>•</small>
+    <div class="d-flex flex-row flex-wrap justify-content-center mb-1">
+      <small class="small-inside-card "><span class="pe-1"><%= tv[:year] %></span>•</small>
+      <small class="small-inside-card "><span class="ps-1"><%= tv[:runtime] %> min</span>•</small>
       <% tv[:genre_names][0..-2].each do |genre| %>
-        <small class=""><span class="ps-1"><%= genre %>,</small>
+        <small class="small-inside-card "><span class="ps-1"><%= genre %>,</small>
       <% end %>
-      <small class=""><span class="ps-1"><%= tv[:genre_names][-1] %> •</small>
+      <small class="small-inside-card "><span class="ps-1"><%= tv[:genre_names][-1] %> •</small>
       <% if tv[:us_rating].present? %>
-        <small class=""><span class="trans-text px-1 mx-1 fw-semibold"><%= tv[:us_rating] %></span></small>
+        <small class="small-inside-card "><span class="trans-text rounded px-1 mx-1 fw-semibold"><%= tv[:us_rating] %></span></small>
       <% end %>
-      <small class="">•<span class="ps-1"><%= tv[:status] %></small>
     </div>
     <% if tv[:tagline].present? %>
-      <small class="mb-2 fw-semibold text-center line-clamp-s">“<%= tv[:tagline] %>„</small>
+      <small class="small-inside-card mb-1 fw-semibold text-center line-clamp-s">“<%= tv[:tagline] %>„</small>
     <% end %>
     <div class="d-flex flex-row flex-wrap justify-content-center">
-      <small class="square-score-inv px-1 fw-semibold me-1"><%= tv[:rating_average] %> </small>
-      <small class="square-score-inv px-1 fw-semibold me-1"><%= tv[:critic_score] %>% </small>
-      <small class="square-score-inv fw-semibold px-1">∆ <%= tv[:popularity].round(1) %></small>
+      <small class="small-inside-card square-score-inv rounded px-1 fw-semibold me-1"><%= tv[:rating_average] %> </small>
+      <small class="small-inside-card square-score-inv rounded px-1 fw-semibold me-1"><%= tv[:critic_score] %>% </small>
+      <small class="small-inside-card square-score-inv rounded fw-semibold px-1"><%= render 'svg/trending-up' %> <%= tv[:popularity].round(1) %></small>
     </div>
   <% else %>
     <div class="d-flex flex-row flex-wrap align-items-center justify-content-center">
-      <small class="square-score-inv fw-semibold px-1 mx-1"><%= tv[:first_air_date][0..3] %></small>
-      <small class="square-score-inv mx-1 px-1 fw-semibold"><%= tv[:rating_average].round(1) %> </small>
+      <small class="small-inside-card square-score-inv rounded fw-semibold px-1 mx-1"><%= tv[:first_air_date][0..3] %></small>
+      <small class="small-inside-card square-score-inv rounded mx-1 px-1 fw-semibold"><%= tv[:rating_average].round(1) %> </small>
     </div>
-   <small class="line-clamp mt-1"><%= tv[:overview] %></small>
+   <small class="small-inside-card line-clamp mt-1"><%= tv[:overview] %></small>
   <% end %>
   </div>
 </div>

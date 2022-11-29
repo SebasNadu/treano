@@ -2,22 +2,25 @@
   <%= link_to review.reviewable_type == "Movie" ? movie_path(review.reviewable) : tv_path(review.reviewable) do %>
     <%= image_tag review.reviewable.poster_url %>
   <% end %>
-  <div class="card-review-infos py-2">
-    <div class="d-flex mb-1">
-      <%#= link_to review.user.username, users_path(review.user) %>
-      <% if current_user.avatar.key.nil? %>
-        <%= image_tag "user.svg", class: "avatar-s dropdown-toggle bg-secondary p-1", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-      <% else %>
-        <%= cl_image_tag current_user.avatar.key, class: "avatar", :gravity=>"face", :height=>36, :width=>36, :crop=>"thumb", :zoom=>"0.5" %>
+  <div class="review-scroll">
+    <div class="card-review-infos my-2">
+      <div class="d-flex mb-1">
+        <% if current_user.avatar.key.nil? %>
+          <%= image_tag "user.svg", class: "avatar-s dropdown-toggle bg-secondary p-1", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+        <% else %>
+          <%= cl_image_tag current_user.avatar.key, class: "avatar", :gravity=>"face", :height=>36, :width=>36, :crop=>"thumb", :zoom=>"0.5" %>
+        <% end %>
+        <%= link_to user_dashboard_path(review.user) do %>
+          <p class="ps-2 m-0"><%= review.user.username %></p>
+        <% end %>
+        <small class="ps-2">
+          <em class="text-muted"><%= distance_of_time_in_words_to_now(review.created_at) %> ago</em>
+        </small>
+      </div>
+      <% review.rating.to_i.times do %>
+        <i class="fa-solid fa-star mb-1"></i>
       <% end %>
-      <p class="ps-2 m-0"><%= review.user.username %></p>
-      <small class="ps-2">
-        <em class="text-muted"><%= distance_of_time_in_words_to_now(review.created_at) %> ago</em>
-      </small>
+      <p class="mb-0"><%= review.content %></p>
     </div>
-    <% review.rating.to_i.times do %>
-      <i class="fa-solid fa-star mb-1"></i>
-    <% end %>
-    <p class="mb-0"><%= review.content %></p>
   </div>
 </div>

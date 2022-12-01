@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/activerecord-hackery/ransack.git
+  revision: 007075761375bce1f481717985647423db961a38
+  specs:
+    ransack (3.2.1)
+      activerecord (>= 6.1.5)
+      activesupport (>= 6.1.5)
+      i18n
+
+GIT
   remote: https://github.com/heartcombo/simple_form.git
   revision: 31fe25504771bd6cd425b585a4e0ed652fba4521
   specs:
@@ -304,6 +313,7 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4)
+  ransack!
   sassc-rails
   selenium-webdriver
   simple_form!

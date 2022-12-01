@@ -1,38 +1,38 @@
 <div class="container-fluid">
 
-  <%= render "movies/search_form", q: @q, movies: @movies %>
+  <%= render "movies/search_form", q: q, movies: movies %>
 
   <div class="p-2 mt-5 d-flex align-items-center justify-content-evenly">
     <h4 class="mx-1">Order by:</h4>
     <div class="btn-group mx-1" role="group" aria-label="title sort">
       <div class="btn btn-info btn-disabled">Titel</div>
-      <a class="btn btn-info" href="<%= sort_url(@q, :title, default_order: :asc) %>">&#9660;</a>
-      <a class="btn btn-info" href="<%= sort_url(@q, :title, default_order: :desc) %>">&#9650;</a>
+      <a class="btn btn-info" href="<%= sort_url(q, :title, default_order: :asc) %>">&#9660;</a>
+      <a class="btn btn-info" href="<%= sort_url(q, :title, default_order: :desc) %>">&#9650;</a>
     </div>
     <div class="btn-group mx-1" role="group" aria-label="User score sort">
       <div class="btn btn-info btn-disabled">User score</div>
-      <a class="btn btn-info" href="<%= sort_url(@q, :rating_average, default_order: :asc) %>">&#9660;</a>
-      <a class="btn btn-info" href="<%= sort_url(@q, :rating_average, default_order: :desc) %>">&#9650;</a>
+      <a class="btn btn-info" href="<%= sort_url(q, :rating_average, default_order: :asc) %>">&#9660;</a>
+      <a class="btn btn-info" href="<%= sort_url(q, :rating_average, default_order: :desc) %>">&#9650;</a>
     </div>
     <div class="btn-group mx-1" role="group" aria-label="Critic score sort">
       <div class="btn btn-info btn-disabled">Critic score</div>
-      <a class="btn btn-info" href="<%= sort_url(@q, :critic_score, default_order: :asc) %>">&#9660;</a>
-      <a class="btn btn-info" href="<%= sort_url(@q, :critic_score, default_order: :desc) %>">&#9650;</a>
+      <a class="btn btn-info" href="<%= sort_url(q, :critic_score, default_order: :asc) %>">&#9660;</a>
+      <a class="btn btn-info" href="<%= sort_url(q, :critic_score, default_order: :desc) %>">&#9650;</a>
     </div>
     <div class="btn-group mx-1" role="group" aria-label="Popularity sort">
       <div class="btn btn-info btn-disabled">Popularity</div>
-      <a class="btn btn-info" href="<%= sort_url(@q, :popularity, default_order: :asc) %>">&#9660;</a>
-      <a class="btn btn-info" href="<%= sort_url(@q, :popularity, default_order: :desc) %>">&#9650;</a>
+      <a class="btn btn-info" href="<%= sort_url(q, :popularity, default_order: :asc) %>">&#9660;</a>
+      <a class="btn btn-info" href="<%= sort_url(q, :popularity, default_order: :desc) %>">&#9650;</a>
     </div>
     <div class="btn-group mx-1" role="group" aria-label="Release date sort">
       <div class="btn btn-info btn-disabled">Release date</div>
-      <a class="btn btn-info" href="<%= sort_url(@q, :release_date, default_order: :asc) %>">&#9660;</a>
-      <a class="btn btn-info" href="<%= sort_url(@q, :release_date, default_order: :desc) %>">&#9650;</a>
+      <a class="btn btn-info" href="<%= sort_url(q, :release_date, default_order: :asc) %>">&#9660;</a>
+      <a class="btn btn-info" href="<%= sort_url(q, :release_date, default_order: :desc) %>">&#9650;</a>
     </div>
   </div>
   <hr>
   <div class="row row-cols-6">
-    <% @movies[0..19].each do |movie| %>
+    <% movies[0..19].each do |movie| %>
       <div class="col" >
         <div class="media-element mb-4">
           <%= image_tag movie.poster_url %>

@@ -1,0 +1,27 @@
+<div class="container-fluid">
+
+  <%= render "lists/search_form", q: q, lists: lists %>
+
+  <div class="p-2 mt-5 d-flex align-items-center justify-content-center">
+    <h4 class="mx-2">Order by:</h4>
+    <div class="btn-group mx-2" role="group" aria-label="title sort">
+      <div class="btn btn-info btn-disabled">Name</div>
+      <a class="btn btn-info" href="<%= sort_url(q, :list_name, default_order: :asc) %>">&#9660;</a>
+      <a class="btn btn-info" href="<%= sort_url(q, :list_name, default_order: :desc) %>">&#9650;</a>
+    </div>
+    <div class="btn-group mx-2" role="group" aria-label="User score sort">
+      <div class="btn btn-info btn-disabled">Votes</div>
+      <a class="btn btn-info" href="<%= sort_url(q, :votes, default_order: :asc) %>">&#9660;</a>
+      <a class="btn btn-info" href="<%= sort_url(q, :votes, default_order: :desc) %>">&#9650;</a>
+    </div>
+    <div class="btn-group mx-2" role="group" aria-label="User score sort">
+      <div class="btn btn-info btn-disabled">Creation date</div>
+      <a class="btn btn-info" href="<%= sort_url(q, :updated_at, default_order: :asc) %>">&#9660;</a>
+      <a class="btn btn-info" href="<%= sort_url(q, :updated_at, default_order: :desc) %>">&#9650;</a>
+    </div>
+  </div>
+  <hr>
+  <div class="row row-cols-5">
+    <%= render(lists) || "There are no lists" %>
+  </div>
+</div>

@@ -34,6 +34,31 @@ class PagesController < ApplicationController
     @lists = List.where(["user_id = :user_id", { user_id: @user }])
   end
 
+  def search
+    if params[:q]
+      if params[:q]["movies"]
+        @q = Movie.ransack(params[:q])
+        @q.sorts = ['rating_average desc', 'critic_score desc', 'popularity desc'] if @q.sorts.empty?
+        @movies = @q.result(distinct: true)
+        @keywords = []
+        keywords_map = @movies.map { |movie| movie.keywords.each { |keyword| @keywords << keyword } }
+        @keywords.uniq!
+      elsif params[:q][:tvs]
+        @q = Tv.ransack(params[:q])
+        @q.sorts = ['rating_average desc', 'critic_score desc', 'popularity desc'] if @q.sorts.empty?
+        @tvs = @q.result(distinct: true)
+        @keywords = []
+        keywords_map = @tvs.map { |movie| movie.keywords.each { |keyword| @keywords << keyword } }
+        @keywords.uniq!
+      elsif params[:q][:lists]
+        @q = List.where(["public = :public", { public: true }]).ransack(params[:q])
+        @q.sorts = ['votes desc'] if @q.sorts.empty?
+        @lists = @q.result(distinct: true)
+      end
+    end
+    #raise
+  end
+
   def profile
     if params[:user_id].present?
       @user = User.find(params[:user_id])

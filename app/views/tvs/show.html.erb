@@ -15,7 +15,7 @@
     </div>
     <% end %>
     <div class="d-flex align-items-center justify-content-center">
-      <%= link_to "#scrollspyReview", class: "btn btn-info avatar d-flex align-items-center justify-content-center m-2" do %>
+      <%= link_to "#review", class: "btn btn-info avatar d-flex align-items-center justify-content-center m-2", id: "button-review" do %>
         <%= render 'svg/star' %>   
       <% end %>
       <div class="dropdown-center down-none m-2">
@@ -80,8 +80,8 @@
 </div>
 
 <div class="container mb-5">
-  <div data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin" class="row">
-    <div id="scrollspyReview" data-insert-in-list-target="infos" class="col-12 col-md-4 mt-2 p-2 position-sticky">
+  <div data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin" class="row" data-bs-spy="scroll" data-bs-target="#button-review" data-bs-smooth-scroll="true" class="scrollspyReview" tabindex="0">
+    <div id="review" data-insert-in-list-target="infos" class="col-12 col-md-4 mt-2 p-2 position-sticky">
         <% user_review = Review.where(reviewable_id: params[:id], reviewable_type: "Tv", user: current_user) %>
         <% if user_review.empty? %>
           <%= render "reviews/review_form",  reviewable: @reviewable, review: @review %>

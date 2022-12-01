@@ -7,7 +7,13 @@ class MoviesController < ApplicationController
 
 
   def index
-    @movies = Movie.all
+    @q = Movie.ransack(params[:q])
+    @q.sorts = ['rating_average desc', 'critic_score desc', 'popularity desc'] if @q.sorts.empty?
+    @movies = @q.result(distinct: true)
+    @keywords = []
+    keywords_map = @movies.map { |movie| movie.keywords.each { |keyword| @keywords << keyword } }
+    @keywords.uniq!
+    #raise
   end
 
   def show

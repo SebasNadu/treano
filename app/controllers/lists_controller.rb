@@ -3,7 +3,10 @@ class ListsController < ApplicationController
   before_action :set_list, only: %i[show edit update destroy]
 
   def index
-    @lists = List.where(["public = :public", { public: true }])
+    #@lists = List.where(["public = :public", { public: true }])
+    @q = List.where(["public = :public", { public: true }]).ransack(params[:q])
+    @q.sorts = ['votes desc'] if @q.sorts.empty?
+    @lists = @q.result(distinct: true)
   end
 
   def create

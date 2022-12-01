@@ -35,4 +35,6 @@ Rails.application.routes.draw do
     get '/my_lists', to: "pages#my_lists"
   end
 
+  get '/leaderboard', to: "pages#leaderboard"
+
 end

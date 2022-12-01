@@ -1,5 +1,5 @@
 class Review < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, counter_cache: true
   belongs_to :reviewable, polymorphic: true, optional: true
 
   validates :rating, presence: true, numericality: { only_integer: true, in: 1..10 }

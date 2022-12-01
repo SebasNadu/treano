@@ -1,0 +1,36 @@
+<div class="container-fluid m-0 px-3 ps-sm-4 pt-4">
+  
+  <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#movies-tab-pane" type="button" role="tab" aria-controls="movies-tab-pane" aria-selected="true">Movies</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="series-tab" data-bs-toggle="tab" data-bs-target="#series-tab-pane" type="button" role="tab" aria-controls="series-tab-pane" aria-selected="false">Tv series</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="lists-tab" data-bs-toggle="tab" data-bs-target="#lists-tab-pane" type="button" role="tab" aria-controls="lists-tab-pane" aria-selected="false">Lists</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+
+    <div class="tab-pane fade show active" id="movies-tab-pane" role="tabpanel" aria-labelledby="movies-tab" tabindex="0">
+      <% @q_movies = Movie.ransack(params[:q]) %>
+      <% @movies = @q_movies.result(distinct: true) %>
+      <%= render "movies/movies_index", q: @q_movies, movies: @movies %>
+    </div>
+
+    <div class="tab-pane fade" id="series-tab-pane" role="tabpanel" aria-labelledby="series-tab" tabindex="0">
+      <% @q_tvs = Tv.ransack(params[:q]) %>
+      <% @tvs = @q_tvs.result(distinct: true) %>
+      <%= render "tvs/tvs_index", q: @q_tvs, tvs: @tvs %>
+    </div>
+
+    <div class="tab-pane fade" id="lists-tab-pane" role="tabpanel" aria-labelledby="lists-tab" tabindex="0">
+      <% @q_lists = List.ransack(params[:q]) %>
+      <% @lists = @q_lists.result(distinct: true) %>
+      <%= render "lists/lists_index", q: @q_lists, lists: @lists %>
+    </div>
+  </div>
+
+
+</div>

@@ -35,4 +35,6 @@ Rails.application.routes.draw do
     get '/my_lists', to: "pages#my_lists"
   end
 
+  get '/search', to: "pages#search"
+
 end

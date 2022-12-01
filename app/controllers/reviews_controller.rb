@@ -2,6 +2,7 @@ class ReviewsController < ApplicationController
   before_action :set_reviewable
 
   def create
+    #raise
     @review = Review.new(review_params)
     @review.user = current_user
     @review.reviewable = @reviewable

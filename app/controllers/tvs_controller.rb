@@ -2,7 +2,12 @@ class TvsController < ApplicationController
   before_action :set_tv, only: [:show]
 
   def index
-    @tvs = Tv.all
+    @q = Tv.ransack(params[:q])
+    @q.sorts = ['rating_average desc', 'critic_score desc', 'popularity desc'] if @q.sorts.empty?
+    @tvs = @q.result(distinct: true)
+    @keywords = []
+    keywords_map = @tvs.map { |movie| movie.keywords.each { |keyword| @keywords << keyword } }
+    @keywords.uniq!
   end
 
   def show

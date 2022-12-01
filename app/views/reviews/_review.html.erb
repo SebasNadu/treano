@@ -5,12 +5,14 @@
   <div class="review-scroll">
     <div class="card-review-infos my-2">
       <div class="d-flex mb-1">
-        <% if current_user.avatar.key.nil? %>
-          <%= image_tag "user.svg", class: "avatar-s dropdown-toggle bg-secondary p-1", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-        <% else %>
-          <%= cl_image_tag current_user.avatar.key, class: "avatar", :gravity=>"face", :height=>36, :width=>36, :crop=>"thumb", :zoom=>"0.5" %>
+        <%= link_to user_dashboard_path(review.user), target: "_blank" do %>
+          <% if review.user.avatar.key.nil? %>
+            <%= image_tag "user.svg", class: "avatar-s dropdown-toggle bg-secondary p-1", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+          <% else %>
+            <%= cl_image_tag review.user.avatar.key, class: "avatar", :aspect_ratio=>"1.0", :gravity=>"face", :width=>0.6, :zoom=>0.7, :crop=>"thumb", :radius=>"max" %>
+          <% end %>
         <% end %>
-        <%= link_to user_dashboard_path(review.user) do %>
+        <%= link_to user_dashboard_path(review.user), target: "_blank" do %>
           <p class="ps-2 m-0"><%= review.user.username %></p>
         <% end %>
         <small class="ps-2">

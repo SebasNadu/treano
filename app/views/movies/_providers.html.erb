@@ -12,7 +12,7 @@
         <ul class="dropdown-menu">
         <% media_providers.each do |media_provider| %>
           <% if media_provider.provider_id == service_provider.id %>
-            <li class="my-0"><a class="dropdown-item" href="<%= media_provider.web_url %>"><%= media_provider.name %> <%= media_provider.format %> <%= "#{media_provider.price}€" if media_provider.price.present? %></a></li>
+            <li class="my-0"><a class="dropdown-item" href="<%= media_provider.web_url %>" target="_blank"><%= media_provider.name %> <%= media_provider.format %> <%= "#{media_provider.price}€" if media_provider.price.present? %></a></li>
           <% end %>
         <% end %>
         </ul>

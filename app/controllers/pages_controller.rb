@@ -27,7 +27,11 @@ class PagesController < ApplicationController
     @reviews = Review.where(["user_id = :user_id", { user_id: @user }])
     @new_list = List.new
     @lists = List.where(["user_id = :user_id", { user_id: @user }])
-    #raise
+    # raise
+  end
+
+  def leaderboard
+    @users = User.order("reputation_score DESC")
   end
 
   def my_lists

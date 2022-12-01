@@ -1,0 +1,30 @@
+
+<% i = 1 %>
+<div class="container">
+  <table class="table table-hover">
+    <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <th scope="row"><%= i %></th>
+        <td>
+          <%= link_to user_dashboard_path(user), target: "_blank" do %>
+            <% if user.avatar.key.nil? %>
+              <%= image_tag "user.svg", class: "avatar bg-secondary" %>
+            <% else %>
+              <%= cl_image_tag user.avatar.key, class: "avatar", :aspect_ratio=>"1.0", :gravity=>"face", :width=>0.6, :zoom=>0.7, :crop=>"thumb", :radius=>"max" %>
+            <% end %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to user_dashboard_path(user), target: "_blank" do %>
+            <%= user.username %>
+          <% end %>
+        </td>
+        <td><%= user.reputation_score %></td>
+        <td><%= user.reviews_count %></td>
+      </tr>
+      <% i += 1 %>
+    <% end %>
+    </tbody>
+  </table>
+</div>

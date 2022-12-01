@@ -4,10 +4,15 @@ class ReviewsController < ApplicationController
   def create
     #raise
     @review = Review.new(review_params)
-    @review.user = current_user
+    @user = current_user
+    @review.user = @user
     @review.reviewable = @reviewable
     respond_to do |format|
       if @review.save
+        @user.reputation_score +=  20
+        @user.save
+        # @user.add_points(20, category: 'reviews')
+        # @user.reputation_score = @user.points
         format.html { redirect_to polymorphic_path(@reviewable) }
         format.json
       else
@@ -37,10 +42,14 @@ class ReviewsController < ApplicationController
 
   def destroy
     @review = Review.find(params[:id])
+    if @review.user == current_user
+      current_user.reputation_score -= 20
+    end
     @review.destroy
 
+
     respond_to do |format|
-   
+
     end
   end
 

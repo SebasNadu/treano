@@ -16,5 +16,11 @@ application.register("insert-in-list", InsertInListController)
 import MarkFavoriteController from "./mark_favorite_controller"
 application.register("mark-favorite", MarkFavoriteController)
 
+import StarFormController from "./star_form_controller"
+application.register("star-form", StarFormController)
+
+import StarRatingController from "./star_rating_controller"
+application.register("star-rating", StarRatingController)
+
 import TreanoCarouselController from "./treano_carousel_controller"
 application.register("treano-carousel", TreanoCarouselController)

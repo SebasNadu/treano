@@ -1,3 +1,5 @@
+<% list_save = "#{current_user.favorited?(list) ? 'btn-danger' : 'btn-info'}"%>
+
 <div class="col p-0">
   <div class="lists-col-element">
     <% if list.cover_picture.present? %>
@@ -9,6 +11,21 @@
                 <span class=""><%= pluralize(list.list_items.size, "Item") %></span>
               </div>
               <%= link_to "Open it", list_path(list), class: "btn btn-outline-success mx-1" %>
+                <div data-controller="mark-favorite">
+                  <% if list.user != current_user %>
+                    <%= turbo_frame_tag "bookmark" do %>
+                      <div data-mark-favorite-target="button">
+                          <%= button_to toggle_favorite_list_path(list),
+                            method: :post,
+                            data: { action: "click->mark-favorite#toggle"},
+                            class: "btn avatar d-flex align-items-center justify-content-center m-2 #{list_save}" do %>
+                              <%= render 'svg/bookmark' %>
+                            <% end %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+
               <% if list.user.id == current_user.id %>
                 <%= link_to "Edit list", edit_list_path(list), class: "btn btn-outline-success mx-1"%>
                 <%= link_to "Delete", list_path(list), class: "btn btn-outline-success mx-1" %>

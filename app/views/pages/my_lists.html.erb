@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="mb-5 mt-2 w-100 text-center trans-text rounded">My lists</h1>
+  <h1 class="mb-5 mt-2 w-100 text-center trans-text rounded"> <%= @user.first_name %>'s lists</h1>
   <div class="row row-cols-4">
     <%= render(@lists) || "There are no lists" %>
   </div>

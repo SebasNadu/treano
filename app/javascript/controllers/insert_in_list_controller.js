@@ -6,7 +6,6 @@ export default class extends Controller {
   static values = { position: String }
 
   connect() {
-    console.log("this.buttonsTarget")
   }
 
   send(event) {

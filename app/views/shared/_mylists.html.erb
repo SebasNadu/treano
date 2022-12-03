@@ -1,6 +1,8 @@
+<%# Page home %>
+
 <div class="lists-container d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 p-0">
   <div class="section-titel w-25 gap-3 d-flex flex-row flex-sm-column align-items-center justify-content-center">
-    <h3 class="trans-text w-75 fw-bolder text-center">My lists</h3>
+    <h3 class="trans-text w-75 fw-bolder text-center"> <%= user.first_name %>'s lists</h3>
     <button type="button" class="btn btn-outline-info w-50" data-bs-toggle="modal" data-bs-target="#new_list_modal">
       Create one
     </button>
@@ -10,6 +12,7 @@
     <div class="lists-group">
     <% if lists.present? %>
       <% lists.each do |list| %>
+      <% list_save = "#{current_user.favorited?(list) ? 'btn-danger' : 'btn-info'}"%>
         <div class="lists-element">
           <% if list.cover_picture.present? %>
           <div class="list-card d-flex align-items-end justify-content-center" style="background-image: url('<%= cl_image_path list.cover_picture.key %>');">
@@ -20,6 +23,20 @@
                     <span class=""><%= pluralize(list.list_items.size, "Item") %></span>
                   </div>
                   <%= link_to "Open it", list_path(list), class: "btn btn-outline-success mx-1" %>
+                  <div data-controller="mark-favorite">
+                  <% if list.user != current_user %>
+                    <%= turbo_frame_tag "bookmark" do %>
+                      <div data-mark-favorite-target="button">
+                          <%= button_to toggle_favorite_list_path(list),
+                            method: :post,
+                            data: { action: "click->mark-favorite#toggle"},
+                            class: "btn avatar d-flex align-items-center justify-content-center m-2 #{list_save}" do %>
+                              <%= render 'svg/bookmark' %>
+                            <% end %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
                   <% if list.user.id == current_user.id %>
                     <%= link_to "Edit list", edit_list_path(list), class: "btn btn-outline-success mx-1"%>
                     <%= link_to "Delete", list_path(list), class: "btn btn-outline-danger mx-1" %>

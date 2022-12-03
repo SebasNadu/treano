@@ -266,7 +266,7 @@ puts "50 male users created"
            reviewable_id: this_movie.id,
            reviewable: this_movie,
            content: review["content"],
-           rating: rand(2..10),
+           rating: rand(2..5),
            tmdb_review_id: review["id"]
          )
        end
@@ -360,7 +360,7 @@ puts "50 male users created"
            reviewable_id: this_tv.id,
            reviewable: this_tv,
            content: review["content"],
-           rating: rand(4..7),
+           rating: rand(2..5),
            tmdb_review_id: review["id"]
          )
        end

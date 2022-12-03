@@ -1,7 +1,7 @@
 <%# render "lists/list", list: @list %>
 
 <% if @list.cover_picture.present? %>
-  <div class="media-banner position-absolute top-0" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path(@list.photo.key) %>')">
+  <div class="media-banner position-absolute top-0" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path(@list.cover_picture.key) %>')">
   </div>
 <% else %>
   <% if @list.list_items.present? %>

@@ -68,6 +68,8 @@ gem 'open-uri', '~> 0.2.0'
 gem 'nokogiri', '~> 1.6', '>= 1.6.7.2'
 #Ransack for the search
 gem 'ransack', github: 'activerecord-hackery/ransack'
+#Pagination
+gem 'pagy'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"

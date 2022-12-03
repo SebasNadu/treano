@@ -8,11 +8,16 @@ class MoviesController < ApplicationController
 
   def index
     @q = Movie.ransack(params[:q])
-    @q.sorts = ['rating_average desc', 'critic_score desc', 'popularity desc'] if @q.sorts.empty?
-    @movies = @q.result(distinct: true)
+    @q.sorts = ['rating_average desc', 'critic_score desc'] if @q.sorts.empty?
+    scope = @q.result(distinct: true).includes(:keywords, :genres, :providers)
+    @pagy, @movies = pagy(scope, items: 18)
     @keywords = []
     keywords_map = @movies.map { |movie| movie.keywords.each { |keyword| @keywords << keyword } }
     @keywords.uniq!
+    respond_to do |f|
+      f.turbo_stream
+      f.html
+    end
     #raise
   end
 

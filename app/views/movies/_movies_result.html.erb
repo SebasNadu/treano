@@ -1,0 +1,12 @@
+<div class="px-2 row row-cols-6" data-refresh-search-target="result">
+  <% movies.each do |movie| %>
+    <div class="col" id="<%= dom_id(movie) %>" >
+      <div class="media-element mb-4">
+        <%= image_tag movie.poster_url %>
+        <%= link_to movie_path(movie), class: "text-decoration-none text-light" do%>
+          <%= render 'shared/movie_slider_info', movie: movie %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,46 +1,61 @@
-<div class="container-fluid">
+<%= turbo_frame_tag "result", target: '_top' do %>
+<div class="container-fluid" data-controller="refresh-search infinite-scroll">
 
-  <%= render "tvs/search_form", q: q, tvs: tvs  %>
+  <%= render "tvs/search_form", q: @q, tvs: @tvs %>
 
-  <div class="p-2 mt-5 d-flex align-items-center justify-content-evenly">
-    <h4 class="mx-1">Order by:</h4>
+  <%# request.url %>
+
+  <h4 class="mx-1 mt-5 ps-2">Order by:</h4>
+  <div class="p-2 d-flex align-items-center justify-content-evenly">
+    <%= link_to 'Clear search', request.path, data: { turbo_frame: 'result'}, class: "btn btn-outline-primary py-1" if request.query_parameters.any? %>
+
     <div class="btn-group mx-1" role="group" aria-label="title sort">
-      <div class="btn btn-info btn-disabled">Titel</div>
-      <a class="btn btn-info" href="<%= sort_url(q, :title, default_order: :asc) %>">&#9660;</a>
-      <a class="btn btn-info" href="<%= sort_url(q, :title, default_order: :desc) %>">&#9650;</a>
+      <div class="btn btn-outline-info py-1 btn-disabled">Titel</div>
+      <a class="btn btn-outline-info py-1" href="<%= sort_url(@q, :title, default_order: :asc) %>" data-turbo-frame="search" >&#9660;</a>
+      <a class="btn btn-outline-info py-1" href="<%= sort_url(@q, :title, default_order: :desc) %>" data-turbo-frame="search" >&#9650;</a>
     </div>
     <div class="btn-group mx-1" role="group" aria-label="User score sort">
-      <div class="btn btn-info btn-disabled">User score</div>
-      <a class="btn btn-info" href="<%= sort_url(q, :rating_average, default_order: :asc) %>">&#9660;</a>
-      <a class="btn btn-info" href="<%= sort_url(q, :rating_average, default_order: :desc) %>">&#9650;</a>
+      <div class="btn btn-outline-info py-1 btn-disabled">User score</div>
+      <a class="btn btn-outline-info py-1" href="<%= sort_url(@q, :rating_average, default_order: :asc) %>" data-turbo-frame="search" >&#9660;</a>
+      <a class="btn btn-outline-info py-1" href="<%= sort_url(@q, :rating_average, default_order: :desc) %>" data-turbo-frame="search" >&#9650;</a>
     </div>
     <div class="btn-group mx-1" role="group" aria-label="Critic score sort">
-      <div class="btn btn-info btn-disabled">Critic score</div>
-      <a class="btn btn-info" href="<%= sort_url(q, :critic_score, default_order: :asc) %>">&#9660;</a>
-      <a class="btn btn-info" href="<%= sort_url(q, :critic_score, default_order: :desc) %>">&#9650;</a>
+      <div class="btn btn-outline-info py-1 btn-disabled">Critic score</div>
+      <a class="btn btn-outline-info py-1" href="<%= sort_url(@q, :critic_score, default_order: :asc) %>" data-turbo-frame="search" >&#9660;</a>
+      <a class="btn btn-outline-info py-1" href="<%= sort_url(@q, :critic_score, default_order: :desc) %>" data-turbo-frame="search" >&#9650;</a>
     </div>
     <div class="btn-group mx-1" role="group" aria-label="Popularity sort">
-      <div class="btn btn-info btn-disabled">Popularity</div>
-      <a class="btn btn-info" href="<%= sort_url(q, :popularity, default_order: :asc) %>">&#9660;</a>
-      <a class="btn btn-info" href="<%= sort_url(q, :popularity, default_order: :desc) %>">&#9650;</a>
+      <div class="btn btn-outline-info py-1 btn-disabled">Popularity</div>
+      <a class="btn btn-outline-info py-1" href="<%= sort_url(@q, :popularity, default_order: :asc) %>" data-turbo-frame="search" >&#9660;</a>
+      <a class="btn btn-outline-info py-1" href="<%= sort_url(@q, :popularity, default_order: :desc) %>" data-turbo-frame="search" >&#9650;</a>
     </div>
-    <div class="btn-group mx-1" role="group" aria-label="Release date sort">
-      <div class="btn btn-info btn-disabled">Release date</div>
-      <a class="btn btn-info" href="<%= sort_url(q, :release_date, default_order: :asc) %>">&#9660;</a>
-      <a class="btn btn-info" href="<%= sort_url(q, :release_date, default_order: :desc) %>">&#9650;</a>
+    <div class="btn-group mx-1" role="group" aria-label="First air sort">
+      <div class="btn btn-outline-info py-1 btn-disabled">First air date</div>
+      <a class="btn btn-outline-info py-1" href="<%= sort_url(@q, :first_air_date, default_order: :asc) %>" data-turbo-frame="search" >&#9660;</a>
+      <a class="btn btn-outline-info py-1" href="<%= sort_url(@q, :first_air_date, default_order: :desc) %>" data-turbo-frame="search" >&#9650;</a>
+    </div>
+    <div class="btn-group mx-1" role="group" aria-label="Last air sort">
+      <div class="btn btn-outline-info py-1 btn-disabled">Last air date</div>
+      <a class="btn btn-outline-info py-1" href="<%= sort_url(@q, :last_air_date, default_order: :asc) %>" data-turbo-frame="search" >&#9660;</a>
+      <a class="btn btn-outline-info py-1" href="<%= sort_url(@q, :last_air_date, default_order: :desc) %>" data-turbo-frame="search" >&#9650;</a>
     </div>
   </div>
   <hr>
-  <div class="row row-cols-6">
-    <% tvs[0..19].each do |tv| %>
-      <div class="col" >
-        <div class="media-element mb-4">
-          <%= image_tag tv.poster_url %>
-          <%= link_to tv_path(tv), class: "text-decoration-none text-light" do%>
-            <%= render 'shared/tv_slider_info', tv: tv %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
+
+  <div id="pagination" data-infinite-scroll-target="pagination" class=" ps-3">
+    <%== pagy_bootstrap_nav(@pagy) %>
+    <%== pagy_bootstrap_nav_js(@pagy) %>
   </div>
+  <div id="items">
+    <%= render "tvs_result", tvs: @tvs %>
+  </div>
+  <div data-infinite-scroll-target='area'></div>
+  <p class="loading">Loading...</p>
+  <div id="pagination" data-infinite-scroll-target="pagination" class="pt-3">
+    <%== pagy_bootstrap_nav(@pagy) %>
+    <%== pagy_bootstrap_nav_js(@pagy) %>
+  </div>
+
 </div>
+<% end %>
+

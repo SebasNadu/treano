@@ -39,6 +39,7 @@ class PagesController < ApplicationController
   end
 
   def search
+    @pagy = pagy
     if params[:q]
       if params[:q]["movies"]
         @q = Movie.ransack(params[:q])

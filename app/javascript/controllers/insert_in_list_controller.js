@@ -2,10 +2,11 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="insert-in-list"
 export default class extends Controller {
-  static targets = ["items", "form", "first", "infos", "formEdit"]
+  static targets = ["items", "form", "first", "infos", "formEdit", "review"]
   static values = { position: String }
 
   connect() {
+    console.log("this.buttonsTarget")
   }
 
   send(event) {
@@ -29,26 +30,18 @@ export default class extends Controller {
     })
   }
 
-  displayForm() {
-    this.formEditTarget.classList.remove("d-none")
-    this.infosTarget.classList.add("d-none")
-  }
-
   update(event) {
     event.preventDefault()
     const url = this.formEditTarget.action
     fetch(url, {
       method: "PATCH",
-      headers: { "Accept": "application/json" },
-      body: new FormData(this.formEditTarget)
+      headers: { "Accept": "text/html" },
+      body: new FormEditData(this.formEditTarget)
     })
-    .then(response => response.json())
+    .then(response => response.text())
     .then((data) => {
-      if (data.inserted_item) {
-        this.itemsTarget.insertAdjacentHTML(this.positionValue, data.inserted_item)
-        this.formEditTarget.classList.add("d-none")
-        this.formEditTarget.classList.add("d-none")
-      }
+      console.log(data)
+      // this.reviewTarget.outerHTML = data
     })
   }
 }

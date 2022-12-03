@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_01_202417) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_03_005514) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,7 +45,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_01_202417) do
   create_table "challenges", force: :cascade do |t|
     t.string "challenge_name"
     t.integer "treanos"
-    t.boolean "completed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -255,6 +254,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_01_202417) do
     t.bigint "challenge_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "completed", default: false
     t.index ["challenge_id"], name: "index_user_challenges_on_challenge_id"
     t.index ["user_id"], name: "index_user_challenges_on_user_id"
   end

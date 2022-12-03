@@ -31,11 +31,7 @@ gem 'faker'
 
 gem 'acts_as_favoritor'
 
-# gem 'merit'
-
 gem 'pry', '~> 0.13.1'
-
-# gem 'rails-observers'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"

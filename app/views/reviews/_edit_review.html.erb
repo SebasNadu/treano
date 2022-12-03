@@ -1,12 +1,27 @@
- <%= simple_form_for review,
-  html: {
-    class: review.errors.any? ? "" : "d-none",
-    data: {
-      insert_in_list_target: "formEdit",
-      action: "submit->insert-in-list#update"
-      }
-    } do |f| %>
-    <%= f.input :rating %>
-    <%= f.input :content %>
-    <%= f.submit "Save changes", class: "btn btn-primary" %>
-  <% end %>
+<div class="bg-trans-0 rounded modal fade" id="edit_review_modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="bg-trans modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit review</h4>
+        <button type="button" class="close btn fs-2" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <%= simple_form_for review,
+        data: {
+          insert_in_list_target: "formEdit",
+          action: "submit->insert-in-list#update"
+          } do |f| %>
+        <div class="modal-body">
+          <%= f.input :rating %>
+          <%= f.input :content %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Save", class: "btn btn-primary" %>
+          <button type="button" class="btn btn-flat" data-bs-dismiss="modal">Back</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -122,6 +122,31 @@ female_avatars = Cloudinary::Api.resources_by_tag('female_avatar', :max_results 
 
 puts "Sebas and Meerim created"
 
+Challenge.create(
+  challenge_name: "Just signed up",
+  treanos: 5
+)
+
+Challenge.create(
+  challenge_name: "Added a bio",
+  treanos: 5
+)
+
+Challenge.create(
+  challenge_name: "Uploaded an avatar",
+  treanos: 5
+)
+
+Challenge.create(
+  challenge_name: "Created first review",
+  treanos: 20
+)
+
+Challenge.create(
+  challenge_name: "Created first list",
+  treanos: 20
+)
+
 i = 0
 
 50.times do
@@ -131,9 +156,9 @@ i = 0
     first_name: Faker::Name.unique.female_first_name,
     last_name: Faker::Name.unique.last_name,
     bio: Faker::Movies::HitchhikersGuideToTheGalaxy.quote,
-    reputation_score: 0
+    reputation_score: rand(0..1000)
     )
-    user.username = user.first_name + "_" + rand(12345..99999).to_s
+    user.username = user.first_name + "_" + rand(12345..1234567).to_s
     avatar = URI.open(female_avatars["resources"][i]["url"])
     user.avatar.attach(io: avatar, filename: "image.png", content_type: "image/png")
     user.save
@@ -151,13 +176,14 @@ i = 0
     first_name: Faker::Name.unique.male_first_name,
     last_name: Faker::Name.unique.last_name,
     bio: Faker::Books::Dune.quote,
-    reputation_score: 0
+    reputation_score: rand(0..1000)
   )
     user.username = user.first_name + "_" + rand(12345..99999).to_s
     avatar = URI.open(male_avatars["resources"][i]["url"])
     user.avatar.attach(io: avatar, filename: "image.png", content_type: "image/png")
     user.save
     i += 1
+
 end
 
 puts "50 male users created"
@@ -396,7 +422,7 @@ puts "50 male users created"
  movies_seeds(movies_2)
  movies_seeds(movies_3)
  movies_seeds(movies_4)
- 
+
 i = 1
 400.times do
   list = List.create(

@@ -1,7 +1,7 @@
 <div class="col p-0">
   <div class="lists-col-element">
     <% if list.cover_picture.present? %>
-    <div class="list-col-card d-flex align-items-end justify-content-center" style="background-image: url('<%= list.cover_picture.key %>');">
+    <div class="list-col-card d-flex align-items-end justify-content-center" style="background-image: url('<%= cl_image_path list.cover_picture.key %>');">
         <div class="flex-column p-2 list-col-h text-center bg-trans-0 align-items-center justify-content-center">
           <h4 class=""><%= list.list_name %></h4>
             <div class="d-flex w-100 flex-row align-items-center justify-content-center">

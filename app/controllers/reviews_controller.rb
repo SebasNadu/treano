@@ -28,29 +28,19 @@ class ReviewsController < ApplicationController
 
   def update
     @review = Review.find(params[:id])
-    @review.reviewable = @reviewable
-    respond_to do |format|
-      if @review.update(review_params)
-        format.html { redirect_to polymorphic_path(@reviewable) }
-        format.json
-      else
-        format.html { render "movies/show", status: :unprocessable_entity }
-        format.json
-      end
-    end
+    @review.update(review_params)
+    render partial: "reviews/review", locals: { review: @review }
+    # respond_to do |format|
+    #   format.html { redirect_to user_dashboard_path(@review.user) }
+    #   format.text { render partial: "reviews/review", locals: { review: @review }, formats: [:html] }
+    # end
   end
 
   def destroy
     @review = Review.find(params[:id])
-    if @review.user == current_user
-      current_user.reputation_score -= 20
-    end
     @review.destroy
 
 
-    respond_to do |format|
-
-    end
   end
 
   private

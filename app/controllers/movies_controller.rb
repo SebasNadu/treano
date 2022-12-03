@@ -4,7 +4,7 @@ require 'json'
 
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show]
-
+  skip_before_action :verify_authenticity_token, :only => [:toggle_favorite]
 
   def index
     @q = Movie.ransack(params[:q])
@@ -35,12 +35,17 @@ class MoviesController < ApplicationController
     @sub_providers = @providers.where(service: "sub").uniq
     @purchase_providers = @providers.where(service: "purchase").uniq
     @tve_providers = @providers.where(service: "tve").uniq
+
     #raise
   end
 
   def toggle_favorite
     @movie = Movie.find(params[:id])
     current_user.favorited?(@movie) ? current_user.unfavorite(@movie) : current_user.favorite(@movie)
+    respond_to do |format|
+      format.html { redirect_to movie_path(@movie) }
+      format.text { render "movie/show", formats: [:html] }
+    end
   end
 
   private

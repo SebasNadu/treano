@@ -1,6 +1,6 @@
 <div class="lists-container d-flex flex-column flex-sm-row justify-content-center align-items-center p-0">
   <div class="section-titel w-25 gap-3 d-flex flex-row flex-sm-column align-items-center justify-content-center">
-    <h3 class="trans-text w-75 fw-bolder text-center">My lists</h3>
+    <h3 class="trans-text w-75 fw-bolder text-center"><%= user.first_name %>'s lists</h3>
     <div class="flex-row">
       <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#new_list_modal">
         <%= render "svg/plus-square" %>
@@ -14,6 +14,7 @@
     <div class="lists-group">
     <% if lists.present? %>
       <% lists.each do |list| %>
+      <% list_save = "#{current_user.favorited?(list) ? 'btn-danger' : 'btn-info'}"%>
         <div class="lists-element">
           <% if list.cover_picture.present? %>
           <div class="list-card d-flex align-items-end justify-content-center" style="background-image: url('<%= cl_image_path list.cover_picture.key %>');">
@@ -28,6 +29,21 @@
                       <%= render "svg/external-link" %>
                     </div>
                   <% end %>
+                  <div data-controller="mark-favorite">
+                  <% if list.user != current_user %>
+                    <%= turbo_frame_tag "bookmark" do %>
+                      <div data-mark-favorite-target="button">
+                          <%= button_to toggle_favorite_list_path(list),
+                            method: :post,
+                            data: { action: "click->mark-favorite#toggle"},
+                            class: "btn avatar d-flex align-items-center justify-content-center m-2 #{list_save}" do %>
+                              <%= render 'svg/bookmark' %>
+                            <% end %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+
                   <% if list.user.id == current_user.id %>
                     <%= link_to edit_list_path(list) do%>
                       <div class="btn btn-outline-success mx-1">

@@ -44,6 +44,10 @@ class ListsController < ApplicationController
   def toggle_favorite
     @list = List.find(params[:id])
     current_user.favorited?(@list) ? current_user.unfavorite(@list) : current_user.favorite(@list)
+    respond_to do |format|
+      format.html { redirect_back_or_to lists_path }
+      format.text { render partial: "lists/list", formats: [:html] }
+    end
   end
 
   private

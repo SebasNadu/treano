@@ -6,6 +6,11 @@
       <p><%= list.description %></p>
       <p><%= list.votes %></p>
       <p><%= link_to "See more", list_path(list) %></p>
+      <% if list.user != current_user %>
+        <%= button_to saved_lists_path do %>
+          <%= render "svg/bookmark" %>
+        <% end %>
+      <% end %>
       <% if list.user.id == current_user.id %>
       <p><%= link_to "Edit list", edit_list_path(list) %></p>
       <%= link_to "Delete",

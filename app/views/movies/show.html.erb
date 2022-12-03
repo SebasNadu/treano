@@ -1,3 +1,5 @@
+<% movie_save = "#{current_user.favorited?(@movie) ? 'btn-danger' : 'btn-info'}"%>
+
 <div class="media-banner mt-n5 position-absolute" style="background-image: linear-gradient(180deg, rgba(13,13,13,0.8) 0%, rgba(33,33,33,0.4) 40%, rgba(13,13,13,1) 90%), url('<%= @movie.backdrop_url %>')">
 </div>
 
@@ -15,32 +17,24 @@
     </div>
     <% end %>
     <div class="d-flex align-items-center justify-content-center">
-      <div data-controller="mark-favorite"
-           data-mark-favorite-unliked-class="btn btn-info avatar d-flex align-items-center justify-content-center m-2"
-           data-mark-favorite-liked-class="btn btn-danger avatar d-flex align-items-center justify-content-center m-2">
-        <div data-mark-favorite-target="button" data-action="click->mark-favorite#toggle">
-          <% if current_user.favorited?(@movie) %>
-            <%= link_to toggle_favorite_movie_path(@movie), class: "btn btn-danger avatar d-flex align-items-center justify-content-center m-2",
-                remote: true, method: :post do %>
+      <div data-controller="mark-favorite">
+        <%= turbo_frame_tag "like_button" do %>
+        <div data-mark-favorite-target="button">
+            <%= button_to toggle_favorite_movie_path(@movie), method: :post, data: { action: "click->mark-favorite#toggle"}, class: "btn avatar d-flex align-items-center justify-content-center m-2 #{movie_save}" do %>
               <%= render 'svg/heart' %>
             <% end %>
-          <% else %>
-            <%= link_to toggle_favorite_movie_path(@movie), class: "btn btn-info avatar d-flex align-items-center justify-content-center m-2",
-                remote: true, method: :post do %>
-              <%= render 'svg/heart' %>
-            <% end %>
-          <% end %>
         </div>
+        <% end %>
       </div>
       <%= link_to "#scrollspyReview", class: "btn btn-info avatar d-flex align-items-center justify-content-center m-2" do %>
         <%= render 'svg/star' %>
       <% end %>
-      <div class="dropdown-center down-none m-2">
-        <button type="button" class="btn btn-info avatar d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#new_list_modal">
-          <%= render 'svg/list' %>
-        </button>
-        <%= render "list_items/new_list_item", listable: @listable, list_item: @list_item, lists: @lists %>
-      </div>
+        <div class="dropdown-center down-none m-2">
+          <button type="button" class="btn btn-info avatar d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#new_list_modal">
+            <%= render 'svg/list' %>
+          </button>
+          <%= render "list_items/new_list_item", listable: @listable, list_item: @list_item, lists: @lists %>
+        </div>
       <button class="btn btn-info avatar m-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExtras" aria-expanded="false" aria-controls="collapseExtras">
         <%= render 'svg/corner-right-down' %>
       </button>

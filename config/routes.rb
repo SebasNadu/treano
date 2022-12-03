@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     resources :reviews, only: %i[create]
   end
 
+  resources :saved_lists, only: %i[create destroy]
+
   resources :lists do
     member do
       post 'toggle_favorite', to: "lists#toggle_favorite"
@@ -35,8 +37,6 @@ Rails.application.routes.draw do
     get '/my_lists', to: "pages#my_lists"
   end
 
-
   get '/leaderboard', to: "pages#leaderboard"
   get '/search', to: "pages#search"
-
 end

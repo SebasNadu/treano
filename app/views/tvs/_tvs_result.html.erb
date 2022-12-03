@@ -1,0 +1,12 @@
+<div class="px-2 row row-cols-6" data-refresh-search-target="result">
+  <% tvs.each do |tv| %>
+    <div class="col" id="<%= dom_id(tv) %>" >
+      <div class="media-element mb-4">
+        <%= image_tag tv.poster_url %>
+        <%= link_to tv_path(tv), class: "text-decoration-none text-light" do%>
+          <%= render 'shared/tv_slider_info', tv: tv %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

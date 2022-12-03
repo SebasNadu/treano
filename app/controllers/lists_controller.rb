@@ -6,7 +6,12 @@ class ListsController < ApplicationController
     #@lists = List.where(["public = :public", { public: true }])
     @q = List.where(["public = :public", { public: true }]).ransack(params[:q])
     @q.sorts = ['votes desc'] if @q.sorts.empty?
-    @lists = @q.result(distinct: true)
+    scope = @q.result(distinct: true).includes(:user)
+    @pagy, @lists = pagy(scope, items: 24)
+    respond_to do |f|
+      f.turbo_stream
+      f.html
+    end
   end
 
   def create

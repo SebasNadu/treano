@@ -10,11 +10,17 @@ application.register("add-movie", AddMovieController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import InfiniteScrollController from "./infinite_scroll_controller"
+application.register("infinite-scroll", InfiniteScrollController)
+
 import InsertInListController from "./insert_in_list_controller"
 application.register("insert-in-list", InsertInListController)
 
 import MarkFavoriteController from "./mark_favorite_controller"
 application.register("mark-favorite", MarkFavoriteController)
+
+import RefreshSearchController from "./refresh_search_controller"
+application.register("refresh-search", RefreshSearchController)
 
 import StarFormController from "./star_form_controller"
 application.register("star-form", StarFormController)

@@ -7,10 +7,22 @@
         <div class="flex-column p-2 list-col-h text-center bg-trans-0 align-items-center justify-content-center">
           <h4 class=""><%= list.list_name %></h4>
             <div class="d-flex w-100 flex-row align-items-center justify-content-center">
-              <div class="btn btn-outline-info mx-1">
+              <%= link_to user_dashboard_path(list.user), target: "_blank" do %>
+                <% if list.user.avatar.key.nil? %>
+                  <%= image_tag "user.svg", class: "avatar-s bg-secondary mx-1" %>
+                <% else %>
+                  <%= cl_image_tag list.user.avatar.key, class: "avatar mx-1", :aspect_ratio=>"1.0", :gravity=>"face", :width=>0.6, :zoom=>0.7, :crop=>"thumb", :radius=>"max" %>
+                <% end %>
+              <% end %>
+              <div class="btn btn-outline-info btn-disabled mx-1">
                 <span class=""><%= pluralize(list.list_items.size, "Item") %></span>
               </div>
-              <%= link_to "Open it", list_path(list), class: "btn btn-outline-success mx-1" %>
+
+              <%= link_to list_path(list) do %>
+                <div class="btn btn-outline-success mx-1">
+                  <%= render "svg/external-link" %>
+                </div>
+              <% end %>
                 <div data-controller="mark-favorite">
                   <% if list.user != current_user %>
                     <%= turbo_frame_tag "bookmark" do %>
@@ -25,10 +37,17 @@
                     <% end %>
                   <% end %>
                 </div>
-
               <% if list.user.id == current_user.id %>
-                <%= link_to "Edit list", edit_list_path(list), class: "btn btn-outline-success mx-1"%>
-                <%= link_to "Delete", list_path(list), class: "btn btn-outline-success mx-1" %>
+                <%= link_to edit_list_path(list) do%>
+                  <div class="btn btn-outline-success mx-1">
+                    <%= render "svg/edit" %>
+                  </div>
+                <% end %>
+                <%= link_to list_path(list) do %>
+                  <div class="btn btn-outline-success mx-1">
+                    <%= render "svg/trash" %>
+                  </div>
+                <% end %>
               <% end %>
             </div>
         </div>
@@ -39,13 +58,25 @@
           <div class="flex-column p-2 list-col-h text-center bg-trans-0 align-items-center justify-content-center">
             <h4 class=""><%= list.list_name %></h4>
             <div class="d-flex w-100 flex-row align-items-center justify-content-center">
-              <div class="btn btn-outline-info mx-1">
+              <div class="btn btn-outline-info btn-disabled mx-1">
                 <span class=""><%= pluralize(list.list_items.size, "Item") %></span>
               </div>
-              <%= link_to "Open it", list_path(list), class: "btn btn-outline-success mx-1" %>
+              <%= link_to list_path(list) do %>
+                <div class="btn btn-outline-success mx-1">
+                  <%= render "svg/external-link" %>
+                </div>
+              <% end %>
               <% if list.user.id == current_user.id %>
-                <%= link_to "Edit list", edit_list_path(list), class: "btn btn-outline-success mx-1"%>
-                <%= link_to "Delete", list_path(list), class: "btn btn-outline-success mx-1" %>
+                <%= link_to edit_list_path(list) do%>
+                  <div class="btn btn-outline-success mx-1">
+                    <%= render "svg/edit" %>
+                  </div>
+                <% end %>
+                <%= link_to list_path(list) do %>
+                  <div class="btn btn-outline-success mx-1">
+                    <%= render "svg/trash" %>
+                  </div>
+                <% end %>
               <% end %>
             </div>
           </div>
@@ -55,13 +86,25 @@
           <div class="flex-column p-2 list-col-h text-center bg-trans-0 align-items-center justify-content-center">
             <h4 class=""><%= list.list_name %></h4>
             <div class="d-flex w-100 flex-row align-items-center justify-content-center">
-              <div class="btn btn-outline-info mx-1">
+              <div class="btn btn-outline-info btn-disabled mx-1">
                 <span class=""><%= pluralize(list.list_items.size, "Item") %></span>
               </div>
-              <%= link_to "Open it", list_path(list), class: "btn btn-outline-success mx-1" %>
+              <%= link_to list_path(list) do %>
+                <div class="btn btn-outline-success mx-1">
+                  <%= render "svg/external-link" %>
+                </div>
+              <% end %>
               <% if list.user.id == current_user.id %>
-                <%= link_to "Edit list", edit_list_path(list), class: "btn btn-outline-success mx-1"%>
-                <%= link_to "Delete", list_path(list), class: "btn btn-outline-success mx-1" %>
+                <%= link_to edit_list_path(list) do%>
+                  <div class="btn btn-outline-success mx-1">
+                    <%= render "svg/edit" %>
+                  </div>
+                <% end %>
+                <%= link_to list_path(list) do %>
+                  <div class="btn btn-outline-success mx-1">
+                    <%= render "svg/trash" %>
+                  </div>
+                <% end %>
               <% end %>
             </div>
           </div>

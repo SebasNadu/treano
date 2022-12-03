@@ -65,6 +65,9 @@ a {
 	color: $body-color;
 }
 
+.loading { visibility: hidden; }
+turbo-frame[busy] .loading { visibility: visible; }
+
 @media (max-width: 576px) {
 	p {
 		font-size: 80%;

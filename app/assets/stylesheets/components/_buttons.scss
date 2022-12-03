@@ -107,6 +107,13 @@
   right: 1rem;
 }
 
+.items-btn-left {
+  position: absolute;
+  z-index: 1;
+  top: 1rem;
+  left: 1rem;
+}
+
 .btn-disabled {
   pointer-events: none;
 }

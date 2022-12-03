@@ -4,10 +4,15 @@ class TvsController < ApplicationController
   def index
     @q = Tv.ransack(params[:q])
     @q.sorts = ['rating_average desc', 'critic_score desc', 'popularity desc'] if @q.sorts.empty?
-    @tvs = @q.result(distinct: true)
+    scope = @q.result(distinct: true).includes(:keywords, :genres, :providers)
+    @pagy, @tvs = pagy(scope, items: 18)
     @keywords = []
     keywords_map = @tvs.map { |movie| movie.keywords.each { |keyword| @keywords << keyword } }
     @keywords.uniq!
+    respond_to do |f|
+      f.turbo_stream
+      f.html
+    end
   end
 
   def show

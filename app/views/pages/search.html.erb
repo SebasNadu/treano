@@ -16,7 +16,13 @@
     <div class="tab-pane fade show active" id="movies-tab-pane" role="tabpanel" aria-labelledby="movies-tab" tabindex="0">
       <% @q_movies = Movie.ransack(params[:q]) %>
       <% @movies = @q_movies.result(distinct: true) %>
-      <%= render "movies/movies_index", q: @q_movies, movies: @movies %>
+      <% @q_movies.sorts = ['rating_average desc', 'critic_score desc'] if @q_movies.sorts.empty? %>
+      <% @movies = @q_movies.result(distinct: true).includes(:keywords, :genres, :providers) %>
+      <%# @pagy, @movies = pagy(scope, items: 24) %>
+      <% @keywords = [] %>
+      <% keywords_map = @movies.map { |movie| movie.keywords.each { |keyword| @keywords << keyword } } %>
+      <% @keywords.uniq! %>
+      <%= render "movies/movies_index", q: @q_movies, movies: @movies, keywords: @keywords %>
     </div>
 
     <div class="tab-pane fade" id="series-tab-pane" role="tabpanel" aria-labelledby="series-tab" tabindex="0">

@@ -1,0 +1,8 @@
+<%= turbo_stream.append "items" do %>
+    <%= render "lists_result", lists: @lists, collection: @lists, formats: [:html]%>
+<% end %>
+
+<%= turbo_stream.update "pagination" do %>
+    <%== pagy_bootstrap_nav(@pagy) %>
+    <%== pagy_bootstrap_nav_js(@pagy) %>
+<% end %>

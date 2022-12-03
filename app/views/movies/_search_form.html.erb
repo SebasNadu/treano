@@ -1,75 +1,80 @@
-<div class="info-box m-4 p-4">
-  <h1 class="fs-1 fw-bolder w-100 text-center trans-text mb-5">Find your movie</h1>
-  <%= search_form_for q do |f| %>
+<div class="info-box m-1 p-4 pt-3">
+  <h1 class="fs-1 fw-bolder w-100 text-center trans-text mb-4">Find your movie</h1>
+  <%= search_form_for q, html: { data: { refresh_search_target: "form", turbo_frame: "result" } } do |f| %>
     <%= f.text_field :movies, class: "d-none", value: params[:movies] %>
     <div class="form-floating mb-4">
-      <%= f.search_field :title_or_overview_or_tagline_i_cont_any, class: "form-control", id: "floatingTitel", placeholder: "Search by name" %>
+      <%= f.search_field :title_or_overview_or_tagline_or_keywords_name_or_genres_genre_name_i_cont_any, class: "form-control", id: "floatingTitel", placeholder: "Search by name", data: { refresh_search_target: "titleInput", refresh_search_target: 'clearme', action: "refresh-search#update" } %>
       <%= f.label :title_cont, 'Type your search', for: "floatingTitel" %>
     </div>
 
-    <% if params[:q] %>
+    <%# if params[:q] %>
       <div class="form-group mb-4">
-        <h3 class="mb-3">Keywords</h3>
-          <% @keywords[0..19].each do |keyword| %>
-          <div class="form-check form-switch form-check-inline">
-            <%= check_box_tag('q[keywords_id_eq_any][]', keyword.id, (true if q.keywords_id_eq_any.try(:include?, keyword.id)), :role => 'switch', class: "form-check-input") %>
-            <label class="form-check-label" for="q_keywords_id_eq_any_">
-              <%= keyword.name %>
-            </label>
-          </div>
+        <%#<h4 class="mb-3">Keywords</h4>%>
+        <div class="">
+          <% keywords[0..34].each_with_index do |keyword, i| %>
+            <div class="form-checkx form-switchx form-check-inline mb-1 me-1 col">
+              <%= check_box_tag('q[keywords_id_eq_any][]', keyword.id, (true if q.keywords_id_eq_any.try(:include?, keyword.id)), :role => 'switchx', class: "form-check-inputx keywords-selector", id: "keyword#{i}", data: { refresh_search_target: "keywordsInput", refresh_search_target: 'clearme' }, "data-action": "refresh-search#update") %>
+              <label class="form-check-labelx" for="keyword<%= i %>">
+                <%= keyword.name %>
+              </label>
+            </div>
           <% end %>
+        </div>
       </div>
-    <% end %>
+    <%# end %>
 
     <div class="form-group mb-4">
       <div class="d-flex align-items-center justify-content-start">
-        <h3 class="">Genres</h3>
+        <h4 class="">Genres</h4>
         <button class="btn btn-ghost" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGenre" aria-expanded="false" aria-controls="collapseGenre">&#9660;</button>
       </div>
 
       <div class="row">
         <div class="col">
           <div class="collapse" id="collapseGenre">
-            <% Genre.all.each do |genre| %>
-              <div class="form-check form-switch form-check-inline">
-                <%= check_box_tag('q[genres_id_eq_any][]', genre.id, (true if q.genres_id_eq_any.try(:include?, genre.id)), :role => 'switch', class: "form-check-input") %>
-                <label class="form-check-label" for="q_genres_id_eq_any_">
-                  <%= genre.genre_name %>
-                </label>
-              </div>
-            <% end %>
+            <div class="">
+              <% Genre.all.each_with_index do |genre, i| %>
+                <div class="form-checkx form-switchx form-check-inline mb-1 me-1 col">
+                  <%= check_box_tag('q[genres_id_eq_any][]', genre.id, (true if q.genres_id_eq_any.try(:include?, genre.id)), :role => 'switchx', class: "form-check-inputx genres-selector", id: "genre#{i}", data: { refresh_search_target: "genresInput", refresh_search_target: 'clearme' }, "data-action": "refresh-search#update") %>
+                  <label class="form-check-labelx" for="genre<%= i %>">
+                    <%= genre.genre_name %>
+                  </label>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="form-group mb-4">
-      <h3 class="mb-3">Providers</h3>
-      <p>
-        <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseProvidersFree" aria-expanded="false" aria-controls="multiCollapseProvidersFree">
+      <div class="d-flex align-items-center">
+        <h4 class="me-3">Providers</h4>
+        <button class="btn btn-success py-0 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseProvidersFree" aria-expanded="false" aria-controls="multiCollapseProvidersFree">
         Free
         </button>
-        <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseProvidersSubs" aria-expanded="false" aria-controls="multiCollapseProvidersSubs">
+        <button class="btn btn-success py-0 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseProvidersSubs" aria-expanded="false" aria-controls="multiCollapseProvidersSubs">
         Subs
         </button>
-        <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseProvidersPurchase" aria-expanded="false" aria-controls="multiCollapseProvidersPurchase">
+        <button class="btn btn-success py-0 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseProvidersPurchase" aria-expanded="false" aria-controls="multiCollapseProvidersPurchase">
           Purchase
         </button>
-        <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseProvidersTve" aria-expanded="false" aria-controls="multiCollapseProvidersTve">
+        <button class="btn btn-success py-0 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseProvidersTve" aria-expanded="false" aria-controls="multiCollapseProvidersTve">
           Tve
         </button>
-        <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseProvidersTve multiCollapseProvidersPurchase multiCollapseProvidersSubs multiCollapseProvidersFree">
+        <button class="btn btn-success py-0 me-2" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseProvidersTve multiCollapseProvidersPurchase multiCollapseProvidersSubs multiCollapseProvidersFree">
           All
         </button>
-      </p>
+      </div>
       <div class="row">
         <div class="col">
           <div class="collapse multi-collapse" id="multiCollapseProvidersFree">
             <div class="bg-trans p-3 mb-3 rounded">
-              <% Provider.where(service: "free").where( "'US' = ANY (regions)").each do |provider| %>
-              <div class="form-check form-switch form-check-inline">
-                <%= check_box_tag('q[providers_id_eq_any][]', provider.id, (true if q.providers_id_eq_any.try(:include?, provider.id)), :role => 'switch', class: "form-check-input") %>
-                <label class="form-check-label" for="q_providers_id_eq_any_">
+              <% Provider.where(service: "free").where( "'US' = ANY (regions)").each_with_index do |provider, i| %>
+              <div class="form-checkx form-switchx form-check-inline">
+                <%= check_box_tag('q[providers_id_eq_any][]', provider.id, (true if q.providers_id_eq_any.try(:include?, provider.id)), :role => 'switchx', class: "form-check-inputx providers-selector", id: "free#{i}", data: { refresh_search_target: "providersFreeInput", refresh_search_target: 'clearme' }, "data-action": "refresh-search#update") %>
+                <label class="form-check-labelx" for="free<%= i %>">
+                  <img src="<%= provider.logo_url %>" alt="" class="me-1">
                   <%= provider.name %>
                 </label>
               </div>
@@ -83,10 +88,11 @@
         <div class="col">
           <div class="collapse multi-collapse" id="multiCollapseProvidersSubs">
             <div class="bg-trans p-3 mb-3 rounded">
-              <% Provider.where(service: "sub").where( "'US' = ANY (regions)").each do |provider| %>
-              <div class="form-check form-switch form-check-inline">
-                <%= check_box_tag('q[providers_id_eq_any][]', provider.id, (true if q.providers_id_eq_any.try(:include?, provider.id)), :role => 'switch', class: "form-check-input") %>
-                <label class="form-check-label" for="q_providers_id_eq_any_">
+              <% Provider.where(service: "sub").where( "'US' = ANY (regions)").each_with_index do |provider, i| %>
+              <div class="form-checkx form-switchx form-check-inline">
+                <%= check_box_tag('q[providers_id_eq_any][]', provider.id, (true if q.providers_id_eq_any.try(:include?, provider.id)), :role => 'switchx', class: "form-check-inputx providers-selector", id: "sub#{i}", data: { refresh_search_target: "providersSubInput", refresh_search_target: 'clearme' }, "data-action": "refresh-search#update") %>
+                <label class="form-check-labelx" for="sub<%= i %>">
+                  <img src="<%= provider.logo_url %>" alt="" class="me-1">
                   <%= provider.name %>
                 </label>
               </div>
@@ -100,10 +106,11 @@
         <div class="col">
           <div class="collapse multi-collapse" id="multiCollapseProvidersPurchase">
             <div class="bg-trans p-3 mb-3 rounded">
-              <% Provider.where(service: "purchase").where( "'US' = ANY (regions)").each do |provider| %>
-              <div class="form-check form-switch form-check-inline">
-                <%= check_box_tag('q[providers_id_eq_any][]', provider.id, (true if q.providers_id_eq_any.try(:include?, provider.id)), :role => 'switch', class: "form-check-input") %>
-                <label class="form-check-label" for="q_providers_id_eq_any_">
+              <% Provider.where(service: "purchase").where( "'US' = ANY (regions)").each_with_index do |provider, i| %>
+              <div class="form-checkx form-switchx form-check-inline">
+                <%= check_box_tag('q[providers_id_eq_any][]', provider.id, (true if q.providers_id_eq_any.try(:include?, provider.id)), :role => 'switchx', class: "form-check-inputx providers-selector", id: "purchase#{i}", data: { refresh_search_target: "providersPurchaseInput", refresh_search_target: 'clearme' }, "data-action": "refresh-search#update") %>
+                <label class="form-check-labelx" for="purchase<%= i %>">
+                  <img src="<%= provider.logo_url %>" alt="" class="me-1">
                   <%= provider.name %>
                 </label>
               </div>
@@ -116,11 +123,12 @@
       <div class="row">
         <div class="col">
           <div class="collapse multi-collapse" id="multiCollapseProvidersTve">
-            <div class="bg-trans p-3 mb-3 rounded form-check-inline"">
-              <% Provider.where(service: "tve").where( "'US' = ANY (regions)").each do |provider| %>
-              <div class="form-check form-switch form-check-inline">
-                <%= check_box_tag('q[providers_id_eq_any][]', provider.id, (true if q.providers_id_eq_any.try(:include?, provider.id)), :role => 'switch', class: "form-check-input") %>
-                <label class="form-check-label" for="q_providers_id_eq_any_">
+            <div class="bg-trans p-3 mb-3 rounded">
+              <% Provider.where(service: "tve").where( "'US' = ANY (regions)").each_with_index do |provider, i| %>
+              <div class="form-checkx form-switchx form-check-inline">
+                <%= check_box_tag('q[providers_id_eq_any][]', provider.id, (true if q.providers_id_eq_any.try(:include?, provider.id)), :role => 'switchx', class: "form-check-inputx providers-selector", id: "tve#{i}", data: { refresh_search_target: "providersTveInput", refresh_search_target: 'clearme' }, "data-action": "refresh-search#update") %>
+                <label class="form-check-labelx" for="tve<%= i %>">
+                  <img src="<%= provider.logo_url %>" alt="" class="me-1">
                   <%= provider.name %>
                 </label>
               </div>
@@ -131,7 +139,8 @@
       </div>
     </div>
   <hr>
+
   <%= f.submit "Search!", class: "btn btn-outline-info" %>
-  <%= link_to 'Clear Filters', movies_path, class: "btn btn-outline-primary"%>
+
   <% end %>
 </div>

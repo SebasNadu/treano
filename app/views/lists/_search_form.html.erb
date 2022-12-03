@@ -1,13 +1,12 @@
-<div class="info-box m-4 p-4">
-  <h1 class="fs-1 fw-bolder w-100 text-center trans-text mb-5">Find the perfect list</h1>
-  <%= search_form_for q do |f| %>
+<div class="info-box m-1 p-4 pt-3">
+  <h1 class="fs-1 fw-bolder w-100 text-center trans-text mb-4">Find the perfect list</h1>
+  <%= search_form_for q, html: { data: { refresh_search_target: "form", turbo_frame: "result" } } do |f| %>
     <%= f.text_field :lists, class: "d-none", value: params[:lists] %>
     <div class="form-floating mb-4">
-      <%= f.search_field :list_name_or_description_i_cont_any, class: "form-control", id: "floatingTitel", placeholder: "Search by name" %>
+      <%= f.search_field :list_name_or_description_or_user_username_or_user_first_name_or_user_last_name_i_cont_any, class: "form-control", id: "floatingTitel", placeholder: "Search by name", data: { refresh_search_target: "titleInput", refresh_search_target: 'clearme', action: "refresh-search#update" } %>
       <%= f.label :title_cont, 'Type your search', for: "floatingTitel" %>
     </div>
     <hr>
-  <%= f.submit "Search!", class: "btn btn-outline-info" %>
-  <%= link_to 'Clear Filters', lists_path, class: "btn btn-outline-primary"%>
-  <% end %>
+    <%= f.submit "Search!", class: "btn btn-outline-info" %>
+    <% end %>
 </div>

@@ -1,4 +1,4 @@
-<div class="card-review bg-trans rounded mb-2">
+<div class="card-review bg-trans rounded mb-2" data-insert-in-list-target="review">
   <%= link_to review.reviewable_type == "Movie" ? movie_path(review.reviewable) : tv_path(review.reviewable) do %>
     <%= image_tag review.reviewable.poster_url %>
   <% end %>

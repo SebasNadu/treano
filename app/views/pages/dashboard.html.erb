@@ -35,11 +35,9 @@
             <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= @user.reputation_score %></p>
             <p class="m-1">Rank</p>
           </div>
-          <h5>Badges - completed challenges </h5>
           <div>
-            <ul>
-                <li><%= current_user.reputation_score %></li>
-            </ul>
+            <h5>Score</h5>
+            <%= current_user.reputation_score %>
           </div>
         </div>
       </div>
@@ -55,7 +53,8 @@
 <div class="row m-0 px-2 ps-sm-3 mb-5">
   <div class="info-box p-2 p-sm-3">
     <h3 class="m-0 trans-text fw-bolder text-center mb-4">My reviews</h3>
-    <div class="row row-cols-1 row-cols-sm-2">
+    <div class="row row-cols-1 row-cols-sm-2" data-controller="insert-in-list">
+
       <% @reviews.each do |review| %>
         <div class="col">
           <div class="row">
@@ -63,12 +62,15 @@
               <%= render "reviews/review", review: review %>
             </div>
             <div class="col-1 d-flex flex-column align-items-center justify-content-center ps-0">
-              <button class="btn btn-ghost" aria-label="Edit movie" data-action="click->insert-in-list#displayForm">
+              <button type="button" class="btn btn-ghost" aria-label="Edit movie" data-bs-toggle="modal" data-bs-target="#edit_review_modal">
                 <%= render "svg/edit" %>
               </button>
-              <%= render "reviews/edit_review", class: "d-none", review: review %>
+              <%= render "reviews/edit_review", review: review %>
               <%= link_to review_path(review), class: "btn btn-ghost",
-                data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+                data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure?"
+                  } do %>
                 <%= render "svg/trash" %>
               <% end %>
             </div>

@@ -12,12 +12,11 @@
       <% end %>
     </li>
     <li class="side-item">
-      <% if current_user %>
+      <% if user_signed_in? %>
         <%= link_to user_dashboard_path(current_user), class: "side-link" do %>
           <%= render 'svg/box' %>
           <span class="link-text">Dashboard</span>
         <% end %>
-      <% end %>
     </li>
     <li class="side-item">
       <%= link_to user_my_lists_path(current_user), class: "side-link" do %>
@@ -25,6 +24,7 @@
         <span class="link-text">Lists</span>
       <% end %>
     </li>
+    <% end %>
     <li class="side-item">
       <%= link_to leaderboard_path, class: "side-link" do %>
         <%= render 'svg/layers' %>

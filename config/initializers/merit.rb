@@ -41,22 +41,22 @@ Rails.application.reloader.to_prepare do
 Merit::Badge.create!(
   id: 1,
   name: "rookie",
-  description: "You create a list welcome to the bronze team!",
-  difficulty: :bronze
+  description: "You create a list welcome to the rookie team!",
+  custom_fields: { difficulty: :bronze }
 )
 
 Merit::Badge.create!(
   id: 2,
   name: "pro",
-  description: "Amazing 10 Lists welcome to the silver team!",
-  difficulty: :silver
+  description: "Amazing 10 Lists welcome to the pro team!",
+  custom_fields: { difficulty: :silver }
 )
 
 Merit::Badge.create!(
   id: 3,
-  name: "minnesotan",
-description: "Wow 25 lists you are now in our gold team!!",
-  difficulty: :gold
+  name: "treano",
+  description: "Wow 25 lists you are now in our gold team!!",
+  custom_fields: { difficulty: :gold }
 )
 
 Merit::Badge.create!(
@@ -81,28 +81,28 @@ Merit::Badge.create!(
   id: 7,
   name: "critic",
   description: "Your first review, congratulation!",
-  level: 1
+  custom_fields: { level: 1 }
 )
 
 Merit::Badge.create!(
   id: 8,
   name: "critic",
-description: "5 Reviews a nice beginning!",
-  level: 2
+  description: "5 Reviews a nice beginning!",
+  custom_fields: { level: 2 }
 )
 
 Merit::Badge.create!(
   id: 9,
   name: "critic",
   description: "10 Reviews you rocks!",
-  level: 3
+  custom_fields: { level: 3 }
 )
 
 Merit::Badge.create!(
   id: 10,
   name: "critic",
 description: "25 Reviews Mr. Critic",
-  level: 4
+  custom_fields: { level: 4 }
 )
 
 Merit::Badge.create!(
@@ -114,17 +114,22 @@ Merit::Badge.create!(
 Merit::Badge.create!(
   id: 12,
   name: "critic",
-description: "50 Reviews Dr. Critic",
-  level: 5
+  description: "50 Reviews Dr. Critic",
+  custom_fields: { level: 5 }
 )
 
 Merit::Badge.create!(
   id: 13,
   name: "critic",
   description: "50 Reviews you are a Critic master!",
-  level: 6
+  custom_fields: { level: 6 }
 )
 
+Merit::Badge.create!(
+  id: 14,
+  name: "pioneer",
+  description: "Welcome to treano!!",
+)
 #Merit::Badge.create!(
   #id: 16,
   #name: "schadenfreude",

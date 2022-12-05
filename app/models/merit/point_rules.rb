@@ -25,11 +25,11 @@ module Merit
       # ]
       #
       # score -10, :on => 'comments#destroy'
-      score 10, on: 'reviews#create', to: :user
-      score -10, on: 'reviews#destroy', to: :user
+      score 10, on: 'reviews#create'
+      score -10, on: 'reviews#destroy'
 
-      score 10, on: 'lists#create', to: :user
-      score -10, on: 'lists#destroy', to: :user
+      score 10, on: 'lists#create'
+      score -10, on: 'lists#destroy'
 
       score 1, on: 'lists#toggle_favorite'
       score 5, on: 'lists#toggle_favorite', to: :user

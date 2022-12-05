@@ -22,40 +22,28 @@
     <ul class="py-0 d-flex d-row list-unstyled align-items-center justify-content-center m-0">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <button class="btn btn-ghost">
-              <%= link_to movies_path  do %>
-                <%= render 'svg/film' %>
-              <% end %>
-            <button class="btn btn-ghost">
-          </li>
-          <li class="nav-item">
-            <button class="btn btn-ghost">
-              <%= link_to tvs_path  do %>
-                <%= render 'svg/tv' %>
-              <% end %>
-            </button>
-          </li>
-          <li class="nav-item">
-            <button class="btn btn-ghost">
-              <%= link_to lists_path  do %>
-                <%= render 'svg/list' %>
-              <% end %>
-            </button>
-          </li>
-          <li class="nav-item">
             <div class="btn-group dropstart">
               <button type="button" class="btn btn-ghost dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <%= render 'svg/search' %>
               </button>
-              <div class="dropdown-menu p-0 bg-transparent rounded">
-                <%= simple_form_for :search, url: root_path, method: :get, input_html: { class: 'w-100'} do |f| %>
-                  <div class="search-form-control form-group p-0 bg-transparent">
-                    <input class="form-control string required bg-trans" type="text" name="search[query]" id="search_query" placeholder="Search" />
-                    <button name="button" type="submit" class="btn btn-input text-center">
-                      Send
-                    </button>
-                  </div>
-                <% end %>
+              <div class="dropdown-menu p-0 bg-trans rounded">
+                <ul class="w-100 d-flex d-row list-unstyled align-items-start justify-content-center">
+                  <li class="pb-1">
+                    <%= link_to movies_path, class: "btn btn-ghost" do %>
+                      <%= render 'svg/film' %>
+                    <% end %>
+                  </li>
+                  <li class="pb-1">
+                    <%= link_to tvs_path, class: "btn btn-ghost" do %>
+                      <%= render 'svg/tv' %>
+                    <% end %>
+                  </li>
+                  <li class="pb-1">
+                    <%= link_to lists_path, class: "btn btn-ghost" do %>
+                      <%= render 'svg/list' %>
+                    <% end %>
+                  </li>
+                </ul>
               </div>
             </div>
           </li>
@@ -76,12 +64,39 @@
               </form>
             </div>
           </li>
-          <li class="nav-item">
-            <button class="btn btn-ghost">
-              <%= render 'svg/bell' %>
-            </button>
-          </li>
-          <li class="nav-item dropdown">
+            <%#<button class="btn btn-ghost">%>
+
+          <% if current_user %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle position-relative dropdown-bell" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= render 'svg/bell' %>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  <small class="fw-light"><%= @unread.count >= 9 ? "9+" : @unread.count %></small>
+                  <span class="visually-hidden">unread messages</span>
+                </span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-lg-end bg-trans-b p-0" aria-labelledby="navbarDropdown">
+                <% @unread.each do |notification| %>
+                  <%= render 'shared/notification', notification: notification %>
+                <% end %>
+                <% if @read.count > 0 && @unread.count > 0 %>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                <% elsif @read.count + @unread.count == 0 %>
+                  <li class="dropdown-item">
+                    No notifications yet.
+                  </li>
+                <% end %>
+                <% @read.each do |notification| %>
+                  <%= render 'shared/notification', notification: notification %>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
+              
+
+          <li class="nav-item dropdown mx-3">
             <% if current_user.avatar.key.nil? %>
               <%= image_tag "user.svg", class: "avatar-s dropdown-toggle bg-secondary p-1", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <% else %>

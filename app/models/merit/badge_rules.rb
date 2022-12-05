@@ -46,57 +46,56 @@ module Merit
       # end
 
     # Review badges
-     grant_on 'reviews#create', badge: 'critic', level: 1, temporary: true do |review|
-        review.user.reviews.count > 0 && review.user.reviews.count <= 5
+     grant_on 'reviews#create', badge_id: 7, temporary: true do |review|
+        review.user.reviews.count > 0 && review.user.reviews.count <= 4
       end
 
-      grant_on 'reviews#create', badge: 'critic', level: 2, temporary: true do |review|
-        review.user.reviews.count > 5 && review.user.reviews.count <= 10
+      grant_on 'reviews#create', badge_id: 8, temporary: true do |review|
+        review.user.reviews.count > 4 && review.user.reviews.count <= 9
       end
 
-      grant_on 'reviews#create', badge: 'critic', level: 3, temporary: true do |review|
-        review.user.reviews.count > 10 && review.user.reviews.count <= 25
+      grant_on 'reviews#create', badge_id: 9, temporary: true do |review|
+        review.user.reviews.count > 9 && review.user.reviews.count <= 19
       end
 
-      grant_on 'reviews#create', badge: 'critic', level: 4, temporary: true do |review|
-        review.user.reviews.count > 25 && review.user.reviews.count <= 50
+      grant_on 'reviews#create', badge_id: 10, temporary: true do |review|
+        review.user.reviews.count > 19 && review.user.reviews.count <= 50
       end
 
-      grant_on 'reviews#create', badge: 'critic', level: 5, temporary: true do |review|
+      grant_on 'reviews#create', badge_id: 12, temporary: true do |review|
         review.user.reviews.count > 50 && review.user.reviews.count <= 100
       end
 
-      grant_on 'reviews#create', badge: 'critic', level: 6, temporary: true do |review|
-        review.user && review.user.reviews.count == 100
-        review.user.reviews.count > 50
+      grant_on 'reviews#create', badge_id: 13, temporary: true do |review|
+        review.user.reviews.count > 100
       end
 
       # List badges
-      grant_on 'lists#create', badge: 'rookie', temporary: true do |list|
-        list.user.lists.count > 0 && list.user.lists.count <= 10
+      grant_on 'lists#create', badge_id: 1, temporary: true do |list|
+        list.user.lists.count > 0 && list.user.lists.count <= 9
       end
 
-      grant_on 'lists#create', badge: 'pro', temporary: true do |list|
-        list.user.lists.count > 10 && list.user.lists.count <= 25
+      grant_on 'lists#create', badge_id: 2, temporary: true do |list|
+        list.user.lists.count > 9 && list.user.lists.count <= 24
       end
 
-      grant_on 'lists#create', badge: 'Treano' do |list|
+      grant_on 'lists#create', badge_id: 3, temporary: true do |list|
         list.user.lists.count > 25
       end
 
       # lists likes
       grant_on 'lists#toggle_favorite', badge: 'judgemental'
 
-      grant_on 'lists#toggle_favorite', badge: 'liked', to: :user do |list|
-        list.user.favoritors.count > 5
+      grant_on 'lists#toggle_favorite', badge: 'liked' do |list|
+        list.user.favorites.count > 5 && list.user.lists
       end
 
-      grant_on 'lists#toggle_favorite', badge: 'loved', to: :user do |list|
-        list.user.favoritors.count > 10
+      grant_on 'lists#toggle_favorite', badge: 'loved' do |list|
+        list.user.favorites.count > 10
       end
 
-      grant_on 'lists#toggle_favorite', badge: 'revered', to: :user do |list|
-        list.user.favoritors.count > 25
+      grant_on 'lists#toggle_favorite', badge: 'revered' do |list|
+        list.user.favorites.count > 25
       end
 
       # Schadenfreude

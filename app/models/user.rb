@@ -21,6 +21,9 @@ class User < ApplicationRecord
   has_many :movies, through: :reviews, source: :reviewable, source_type: 'Movie'
   has_many :tvs, through: :reviews, source: :reviewable, source_type: 'Tv'
 
+  has_many :notifications, as: :recipient, dependent: :destroy
+  #has_noticed_notifications model_name: 'Notification'
+
   acts_as_favoritable
   acts_as_favoritor
 
@@ -31,6 +34,10 @@ class User < ApplicationRecord
                     }
 
   after_update :process_badges
+
+  def process_badges
+    self.add_badge(14) unless self.has_badge?(14)
+  end
 
   def lists_rep_name
     ((badge_names & ['rookie', 'pro', 'minnesotan']).first || 'N/A').capitalize

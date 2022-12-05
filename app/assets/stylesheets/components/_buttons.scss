@@ -65,6 +65,13 @@
   margin: 0;
 }
 
+.dropdown-bell {
+  &::after {
+    margin: 0;
+    content: none;
+  }
+}
+
 .h-provider {
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(8px);
@@ -125,3 +132,6 @@
 // .unsave {
 //   background-color: yellow;
 // }
+.badge {
+  padding: 0.2rem 0.4rem;
+}

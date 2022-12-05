@@ -87,6 +87,7 @@ GEM
       activerecord (>= 5.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
+    ambry (1.0.0)
     autoprefixer-rails (10.4.7.0)
       execjs (~> 2)
     aws_cf_signer (0.1.3)
@@ -157,6 +158,9 @@ GEM
       mini_mime (>= 0.1.1)
     marcel (1.0.2)
     matrix (0.4.2)
+    merit (4.0.3)
+      ambry (~> 1.0.0)
+      zeitwerk
     method_source (1.0.0)
     mime-types (3.4.1)
       mime-types-data (~> 3.2015)
@@ -314,6 +318,7 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   json (~> 2.6, >= 2.6.2)
+  merit
   nokogiri (~> 1.6, >= 1.6.7.2)
   open-uri (~> 0.2.0)
   pagy

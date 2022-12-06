@@ -24,8 +24,9 @@ class PointsNotification < Noticed::Base
   # def url
   #   post_path(params[:post])
   # end
+
   def message
-    @user = User.find(params[:user].id)
+    @user = User.find(params[:user].id || current_user.id)
     @granted_at = params[:granted_at]
     @points = params[:points]
     return "#{@user.first_name} new score: #{@points.num_points} points"

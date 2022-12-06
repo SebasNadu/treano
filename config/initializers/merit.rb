@@ -21,6 +21,7 @@ Merit.setup do |config|
   config.user_model_name = 'User'
   config.current_user_method = 'current_user'
   config.add_observer 'NewBadgeObserver'
+  config.add_observer 'NewPointsObserver'
 end
 
 # Create application badges (uses https://github.com/norman/ambry)
@@ -42,93 +43,98 @@ Merit::Badge.create!(
   id: 1,
   name: "rookie",
   description: "You create a list welcome to the rookie team!",
-  custom_fields: { difficulty: :bronze }
+  custom_fields: { difficulty: :bronze, image: 'Bronze Medal.png' }
 )
 
 Merit::Badge.create!(
   id: 2,
   name: "pro",
   description: "Amazing 10 Lists welcome to the pro team!",
-  custom_fields: { difficulty: :silver }
+  custom_fields: { difficulty: :silver, image: 'Silver Medal.png' }
 )
 
 Merit::Badge.create!(
   id: 3,
   name: "treano",
   description: "Wow 25 lists you are now in our gold team!!",
-  custom_fields: { difficulty: :gold }
+  custom_fields: { difficulty: :gold, image: 'Gold Medal.png' }
 )
 
 Merit::Badge.create!(
   id: 4,
   name: "liked",
-  description: "Your list have over 5 likes"
+  description: "Your list have over 5 likes",
+  custom_fields: { image: 'Medal Blue 2.png' }
 )
 
 Merit::Badge.create!(
   id: 5, 
   name: "loved",
-  description: "Your lists have over 10 likes"
+  description: "Your lists have over 10 likes",
+  custom_fields: { image: 'Medal Purple.png' }
 )
 
 Merit::Badge.create!(
   id: 6,
   name: "revered",
-  description: "Your lists have over 25 likes"
+  description: "Your lists have over 25 likes",
+  custom_fields: { image: 'Medal Red.png' }
 )
 
 Merit::Badge.create!(
   id: 7,
   name: "critic",
   description: "Your first review, congratulation!",
-  custom_fields: { level: 1 }
+  custom_fields: { level: 1, image: 'Award 1.png' }
 )
 
 Merit::Badge.create!(
   id: 8,
   name: "critic",
   description: "5 Reviews a nice beginning!",
-  custom_fields: { level: 2 }
+  custom_fields: { level: 2, image: 'Award 2.png' }
 )
 
 Merit::Badge.create!(
   id: 9,
   name: "critic",
   description: "10 Reviews you rocks!",
-  custom_fields: { level: 3 }
+  custom_fields: { level: 3, image: 'Award 3.png' }
 )
 
 Merit::Badge.create!(
   id: 10,
   name: "critic",
-description: "25 Reviews Mr. Critic",
-  custom_fields: { level: 4 }
+  description: "25 Reviews Mr. Critic",
+  custom_fields: { level: 4, image: 'Award 4.png' }
 )
 
 Merit::Badge.create!(
   id: 11,
   name: "judgemental",
-  description: "You have saved a list"
+  description: "You have saved a list",
+  custom_fields: { image: 'Medal Blue.png' }
 )
 
 Merit::Badge.create!(
   id: 12,
   name: "critic",
   description: "50 Reviews Dr. Critic",
-  custom_fields: { level: 5 }
+  custom_fields: { level: 5, image: 'Award 5.png' }
 )
 
 Merit::Badge.create!(
   id: 13,
   name: "critic",
-  description: "50 Reviews you are a Critic master!",
-  custom_fields: { level: 6 }
+  description: "100 Reviews you are a Critic master!",
+  custom_fields: { level: 6, image: 'Award 6.png' }
 )
 
 Merit::Badge.create!(
   id: 14,
   name: "pioneer",
   description: "Welcome to treano!!",
+  custom_fields: { level: 6, image: 'Award 1.png' }
 )
 #Merit::Badge.create!(
   #id: 16,

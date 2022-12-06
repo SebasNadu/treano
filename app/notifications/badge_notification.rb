@@ -24,11 +24,12 @@ class BadgeNotification < Noticed::Base
   # def url
   #   post_path(params[:post])
   # end
+
   def message
-    @user = User.find(params[:user].id)
+    @user = User.find(params[:user].id || current_user.id)
     @granted_at = params[:granted_at]
     @badge = params[:badge]
-    @description = params[:description]
+    @description = params[:badge].description
     return "#{@user.first_name} new score: #{@description} points"
   end
 

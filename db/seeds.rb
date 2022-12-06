@@ -124,10 +124,11 @@ puts "Merit restaured"
    username: "Sebs",
    first_name: "Sebastian",
    last_name: "Navarro",
-   bio: "Movies are my passion",
+   bio: "Professional coder during the day, amateur movie critic during the night. I specialise in Ruby on Rails and thrillers. I am passionate about beautiful apps and skilfully executed scenes. Follow me for good tech related lists and more.",
    reputation_score: 0,
  )
- sebas.avatar.attach(io: 'sebas.png', filename: "image.png", content_type: "image/png")
+ sebas_uri = URI.open('https://avatars.githubusercontent.com/u/98430438?v=4')
+ sebas.avatar.attach(io: sebas_uri, filename: "image.png", content_type: "image/png")
  if sebas.save
    sebas.save
    puts "Sebas created"
@@ -139,10 +140,11 @@ puts "Merit restaured"
    username: "Meer",
    first_name: "Meerim",
    last_name: "Asylbekova",
-   bio: "Movies are my passion",
+   bio: "Being tired of looking for what movies and tv shows to watch, I decided to create the best lists for like-minded people. Follow me for more awesome lists and recommendations. I also happen to write good reviews, check them out too!",
    reputation_score: 0
  )
- meerim.avatar.attach(io: 'meerim.jpg', filename: "image.jpg", content_type: "image/jpg")
+ meerim_uri = URI.open('https://avatars.githubusercontent.com/u/108770937?v=4')
+ meerim.avatar.attach(io: meerim_uri, filename: "image.png", content_type: "image/png")
  if meerim.save
    meerim.save
    puts "Meerim created"

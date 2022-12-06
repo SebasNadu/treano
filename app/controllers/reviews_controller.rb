@@ -9,8 +9,8 @@ class ReviewsController < ApplicationController
     @review.reviewable = @reviewable
     respond_to do |format|
       if @review.save
-        @user.reputation_score +=  20
-        @user.save
+        #@user.reputation_score +=  20
+        #@user.save
         # @user.add_points(20, category: 'reviews')
         # @user.reputation_score = @user.points
         format.html { redirect_to polymorphic_path(@reviewable) }

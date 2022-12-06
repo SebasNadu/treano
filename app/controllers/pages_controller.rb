@@ -6,6 +6,7 @@ class PagesController < ApplicationController
   before_action :set_user, only: %i[dashboard my_lists]
 
   def home
+    @new_list = List.new
     @lists = List.where(["user_id = :user_id", { user_id: current_user }])
     @airly_tvs = set_tvs(@t_airly_tvs)
     @popular_tvs = set_tvs(@t_popular_tvs)
@@ -27,6 +28,7 @@ class PagesController < ApplicationController
     @reviews = Review.where(["user_id = :user_id", { user_id: @user }])
     @new_list = List.new
     @lists = List.where(["user_id = :user_id", { user_id: @user }])
+    mark_notifications_as_read
     # raise
   end
 
@@ -131,6 +133,14 @@ class PagesController < ApplicationController
     @t_toprated_movies = JSON.parse(File.read("t_toprated_movies.json"))["results"]
     @t_weeklytrends_movies = JSON.parse(File.read("t_weeklytrends_movies.json"))["results"]
     @t_upcoming_movies = JSON.parse(File.read("t_upcoming_movies.json"))["results"]
+  end
+
+  def mark_notifications_as_read
+    if current_user
+      @user = current_user
+      notifications_to_mark_as_read = @user.notifications.where(recipient_id: current_user.id)
+      notifications_to_mark_as_read.update_all(read_at: Time.zone.now)
+    end
   end
 
 end

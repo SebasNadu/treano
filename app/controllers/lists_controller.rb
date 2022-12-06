@@ -18,9 +18,10 @@ class ListsController < ApplicationController
     @list = List.new(list_params)
     @list.user = @user
     if @list.save
-      redirect_to user_dashboard_path(current_user)
+      @list.save
+      redirect_to user_my_lists_path(current_user)
     else
-      render 'pages/dashboard', status: :unprocessable_entity
+      render 'pages/my_lists', status: :unprocessable_entity
     end
   end
 
@@ -38,7 +39,7 @@ class ListsController < ApplicationController
 
   def destroy
     @list.destroy
-    redirect_to dashboard_path, status: :see_other
+    redirect_to user_dashboard_path(current_user), status: :see_other
   end
 
   def toggle_favorite

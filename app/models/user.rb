@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_merit
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -10,8 +12,6 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   has_many :lists, dependent: :delete_all
-  has_many :saved_lists
-  has_many :lists, through: :saved_lists
   has_many :user_challenges, dependent: :delete_all
   has_many :challenges, through: :user_challenges
   has_many :user_providers
@@ -21,6 +21,38 @@ class User < ApplicationRecord
   has_many :movies, through: :reviews, source: :reviewable, source_type: 'Movie'
   has_many :tvs, through: :reviews, source: :reviewable, source_type: 'Tv'
 
+  has_many :notifications, as: :recipient, dependent: :destroy
+  #has_noticed_notifications model_name: 'Notification'
+
   acts_as_favoritable
   acts_as_favoritor
+
+  scope :top, ->(n){ joins('LEFT JOIN merit_scores ON merit_scores.sash_id = users.sash_id ' \
+                      'LEFT JOIN merit_score_points ON merit_score_points.score_id = merit_scores.id')
+                      .group('users.id', 'merit_scores.sash_id').order('SUM(num_points) DESC')
+                      .limit(n)
+                    }
+
+  after_update :process_badges
+
+  def process_badges
+    self.add_badge(14) unless self.has_badge?(14)
+  end
+
+  def lists_rep_name
+    ((badge_names & ['rookie', 'pro', 'minnesotan']).first || 'N/A').capitalize
+  end
+
+  def badge_names
+    @badge_names ||= badges.map(&:name)
+  end
+
+  def has_badge?(badge_id)
+    !find_badge(badge_id).nil?
+  end
+
+  def find_badge(badge_id)
+    badges.select{|b| b.id == badge_id}.first
+  end
+
 end

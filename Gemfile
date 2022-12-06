@@ -66,6 +66,10 @@ gem 'nokogiri', '~> 1.6', '>= 1.6.7.2'
 gem 'ransack', github: 'activerecord-hackery/ransack'
 #Pagination
 gem 'pagy'
+#Badges and points
+gem 'merit'
+# Notifications
+gem 'noticed'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"

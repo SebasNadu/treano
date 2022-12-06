@@ -84,8 +84,25 @@ female_avatars = Cloudinary::Api.resources_by_tag('female_avatar', :max_results 
 #  #end
 #  #puts "JSON created"
 
+puts "restauring Merit"
+# 1. Reset all badges/points granting
+Merit::BadgesSash.delete_all
+Merit::Score::Point.delete_all
+
+# 1.1 Optionally reset activity log (badges/points granted/removed until now)
+Merit::ActivityLog.delete_all
+
+# 2. Mark all `merit_actions` as unprocessed
+Merit::Action.all.map{|a| a.update_attribute :processed, false }
+
+# 3. Recompute reputation rules
+#Merit::Action.check_unprocessed
+#Merit::RankRules.new.check_rank_rules
+puts "Merit restaured"
 
  puts "Cleaning up db"
+ Notification.destroy_all
+ Challenge.destroy_all
  Review.destroy_all
  MediaProvider.destroy_all
  Provider.destroy_all
@@ -101,7 +118,7 @@ female_avatars = Cloudinary::Api.resources_by_tag('female_avatar', :max_results 
  User.destroy_all
  puts "Db cleaned"
 
- User.create(
+ sebas = User.new(
    email: "sebas@treano.co",
    password: "123456",
    username: "Sebs",
@@ -110,7 +127,13 @@ female_avatars = Cloudinary::Api.resources_by_tag('female_avatar', :max_results 
    bio: "Movies are my passion",
    reputation_score: 0,
  )
- User.create(
+ sebas.avatar.attach(io: 'sebas.png', filename: "image.png", content_type: "image/png")
+ if sebas.save
+   sebas.save
+   puts "Sebas created"
+ end
+
+ meerim = User.new(
    email: "meerim@treano.co",
    password: "123456",
    username: "Meer",
@@ -119,37 +142,41 @@ female_avatars = Cloudinary::Api.resources_by_tag('female_avatar', :max_results 
    bio: "Movies are my passion",
    reputation_score: 0
  )
+ meerim.avatar.attach(io: 'meerim.jpg', filename: "image.jpg", content_type: "image/jpg")
+ if meerim.save
+   meerim.save
+   puts "Meerim created"
+ end
 
-puts "Sebas and Meerim created"
 
-Challenge.create(
-  challenge_name: "Just signed up",
-  treanos: 5
-)
+#Challenge.create(
+  #challenge_name: "Just signed up",
+  #treanos: 5
+#)
 
-Challenge.create(
-  challenge_name: "Added a bio",
-  treanos: 5
-)
+#Challenge.create(
+  #challenge_name: "Added a bio",
+  #treanos: 5
+#)
 
-Challenge.create(
-  challenge_name: "Uploaded an avatar",
-  treanos: 5
-)
+#Challenge.create(
+  #challenge_name: "Uploaded an avatar",
+  #treanos: 5
+#)
 
-Challenge.create(
-  challenge_name: "Created first review",
-  treanos: 20
-)
+#Challenge.create(
+  #challenge_name: "Created first review",
+  #treanos: 20
+#)
 
-Challenge.create(
-  challenge_name: "Created first list",
-  treanos: 20
-)
+#Challenge.create(
+  #challenge_name: "Created first list",
+  #treanos: 20
+#)
 
 i = 0
 
-50.times do
+25.times do
   user = User.create(
     email: Faker::Internet.unique.email,
     password: "123456",
@@ -169,7 +196,7 @@ puts "50 female users created"
 
 i = 0
 
-50.times do
+25.times do
   user = User.create(
     email: Faker::Internet.unique.email,
     password: "123456",
@@ -424,7 +451,7 @@ puts "50 male users created"
  movies_seeds(movies_4)
 
 i = 1
-400.times do
+200.times do
   list = List.create(
     user_id: User.order(Arel.sql('RANDOM()')).first.id,
     list_name: Genre.order(Arel.sql('RANDOM()')).first.genre_name,

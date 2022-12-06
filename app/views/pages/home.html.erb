@@ -63,6 +63,7 @@
   <div class="row m-0 ps-2 ps-sm-3 mt-n4">
     <%= render "shared/mylists", lists: @lists, user: current_user, transform: "" %>
   </div>
+  <%= render "lists/list_form", list: @new_list %>
 <% end %>
 
 <div class="container-fluid m-0 px-3 ps-sm-4 mt-n0 pb-4">

@@ -62,11 +62,11 @@
   &:hover {
     filter: grayscale(0%) opacity(1);
     background: $dark;
-    color: $secondary;
+    color: $info;
     svg {
       width: 1.7rem;
       height: 1.7rem;
-      color: $secondary;
+      color: $info;
     }
   }
 }

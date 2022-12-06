@@ -36,8 +36,8 @@ class MoviesController < ApplicationController
     @purchase_providers = @providers.where(service: "purchase").uniq
     @tve_providers = @providers.where(service: "tve").uniq
     if params[:check].present?
-      noti = LinkNotification.with(user: user, badge: badge, granted_at: granted_at)
-      noti.deliver(user)
+      noti = LinkNotification.with(user: current_user, movie: @movie)
+      noti.deliver(current_user)
     end
     #raise
   end

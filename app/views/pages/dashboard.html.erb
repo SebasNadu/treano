@@ -33,11 +33,19 @@
             <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= @lists.count %></p>
             <p class="m-1">Lists</p>
             <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= @user.reputation_score %></p>
-            <p class="m-1">Rank</p>
+            <p class="m-1">score</p>
           </div>
-          <div>
-            <h5>Score</h5>
-            <%= current_user.reputation_score %>
+          <hr>
+          <div class="notification row">
+          <% current_user.badges.each do |badge| %>
+            <div class="col-6 d-flex align-items-center justify-content-start">
+              <%= image_tag (badge.custom_fields[:image]), class: "badge-m shrink me-2" %>
+              <div class="notification-content">
+              <p class="fw-semibold m-0"><%= badge.name %></p>
+              <p><%= badge.description %></p>
+              </div>
+            </div>
+          <% end %>
           </div>
         </div>
       </div>

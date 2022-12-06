@@ -5,7 +5,7 @@ export default class extends Controller {
   static targets = ['form', 'clearme', 'titleInput', 'genresInput', 'keywordsInput', 'providersFreeInput', 'providersSubInput', 'providersPurchaseInput', 'providersTveInput', 'result']
 
   connect() {
-    console.log('hello')
+    //console.log('hello')
   }
 
   update(event) {
@@ -16,7 +16,7 @@ export default class extends Controller {
   }
 
   clean() {
-    console.log(this.clearmeTarget)
+    //console.log(this.clearmeTarget)
     this.clearmeTarget.value=''
   }
 }

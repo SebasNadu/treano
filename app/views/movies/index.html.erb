@@ -1,14 +1,34 @@
-<%= turbo_frame_tag "result", target: '_top' do %>
-<div class="container-fluid mb-4" data-controller="refresh-search infinite-scroll">
+<%# turbo_frame_tag "result", target: '_top' do %>
+<div class="container-fluid mb-4" data-controller="refresh-search">
 
   <%= render "movies/search_form", q: @q, movies: @movies, keywords: @keywords %>
 
-  <%# request.url %>
+  <%= turbo_frame_tag "result", target: '_top' do %>
 
-  <div class="p-2 mt-5 d-flex align-items-center justify-content-evenly">
+    <%# request.url %>
+
+  <div data-controller="infinite-scroll">
+  <% if request.query_parameters.any? %>
+    <%= search_form_for @q, html: { data: { refresh_search_target: "form", turbo_frame: "result2" } } do |f| %>
+      <div class="form-group mx-4">
+        <div class="">
+          <% @keywords[0..34].each_with_index do |keyword, i| %>
+            <div class="form-checkx form-switchx form-check-inline mb-1 me-1 col">
+              <%= check_box_tag('q[keywords_id_eq_any][]', keyword.id, (true if @q.keywords_id_eq_any.try(:include?, keyword.id)), :role => 'switchx', class: "form-check-inputx keywords-selector", id: "keyword#{i}", data: { refresh_search_target: "keywordsInput", refresh_search_target: 'clearme' }, "data-action": "refresh-search#update") %>
+              <label class="form-check-labelx" for="keyword<%= i %>">
+                <%= keyword.name %>
+              </label>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="p-2 mt-4 d-flex align-items-center justify-content-evenly">
     <h4 class="mx-1">Order by:</h4>
-    <%= link_to 'Clear search', request.path, data: { turbo_frame: 'result'}, class: "btn btn-outline-primary py-1" if request.query_parameters.any? %>
-    <%# link_to 'Clear search', request.path, data: { action: "click->refresh-search#clean", turbo_frame: 'search'}, class: "btn btn-outline-primary py-1" if request.query_parameters.any? %>
+    <%# link_to 'Clear search', request.path, data: { turbo_frame: 'result'}, class: "btn btn-outline-primary py-1" if request.query_parameters.any? %>
+    <%# link_to 'Clear search', request.path, data: { action: "click->refresh-search#clean", turbo_frame: 'search'}, class: "btn btn-outline-primary py-1" %>
 
     <div class="btn-group mx-1" role="group" aria-label="title sort">
       <div class="btn btn-outline-info py-1 btn-disabled">Titel</div>
@@ -38,6 +58,7 @@
   </div>
   <hr>
 
+  <%= turbo_frame_tag "result2", target: '_top' do %>
   <div id="pagination" data-infinite-scroll-target="pagination" class=" ps-3">
     <%== pagy_bootstrap_nav(@pagy) %>
     <%== pagy_bootstrap_nav_js(@pagy) %>
@@ -47,10 +68,8 @@
   </div>
   <div data-infinite-scroll-target='area'></div>
   <p class="loading">Loading...</p>
-  <div id="pagination" data-infinite-scroll-target="pagination" class="pt-3">
-    <%== pagy_bootstrap_nav(@pagy) %>
-    <%== pagy_bootstrap_nav_js(@pagy) %>
-  </div>
+  <% end %>
 
-</div>
 <% end %>
+  </div>
+</div>

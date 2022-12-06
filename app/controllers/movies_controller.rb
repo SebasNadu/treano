@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
 
   def index
     @q = Movie.ransack(params[:q])
-    @q.sorts = ['rating_average desc', 'critic_score desc'] if @q.sorts.empty?
+    @q.sorts = ['popularity desc'] if @q.sorts.empty?
     scope = @q.result(distinct: true).includes(:keywords, :genres, :providers)
     @pagy, @movies = pagy(scope, items: 18)
     @keywords = []
@@ -35,7 +35,10 @@ class MoviesController < ApplicationController
     @sub_providers = @providers.where(service: "sub").uniq
     @purchase_providers = @providers.where(service: "purchase").uniq
     @tve_providers = @providers.where(service: "tve").uniq
-
+    if params[:check].present?
+      noti = LinkNotification.with(user: user, badge: badge, granted_at: granted_at)
+      noti.deliver(user)
+    end
     #raise
   end
 

@@ -1,11 +1,12 @@
-<%= turbo_frame_tag "result", target: '_top' do %>
 <div class="container-fluid" data-controller="refresh-search infinite-scroll"> 
 
   <%= render "lists/search_form", q: @q, lists: @lists %>
 
+  <%= turbo_frame_tag "result", target: '_top' do %>
+
   <div class="p-2 mt-5 d-flex align-items-center justify-content-center">
     <h4 class="mx-2">Order by:</h4>
-    <%= link_to 'Clear search', request.path, data: { turbo_frame: 'result'}, class: "btn btn-outline-primary py-1" if request.query_parameters.any? %>
+    <%# link_to 'Clear search', request.path, data: { turbo_frame: 'result'}, class: "btn btn-outline-primary py-1" if request.query_parameters.any? %>
     <div class="btn-group mx-1" role="group" aria-label="title sort">
       <div class="btn btn-outline-info btn-disabled py-1">Name</div>
       <a class="btn btn-outline-info py-1" href="<%= sort_url(@q, :list_name, default_order: :asc) %>" data-turbo-frame="search" >&#9660;</a>

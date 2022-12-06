@@ -7,6 +7,7 @@
       <%= f.label :title_cont, 'Type your search', for: "floatingTitel" %>
     </div>
     <hr>
-    <%= f.submit "Search!", class: "btn btn-outline-info" %>
+    <%= f.submit "Search!", class: "btn btn-outline-info d-none" %>
     <% end %>
+  <%= link_to 'Clear search', request.path, data: { action: "click->refresh-search#clean", turbo_frame: 'search'}, class: "btn btn-outline-info py-1" %>
 </div>

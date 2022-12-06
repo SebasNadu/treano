@@ -31,20 +31,20 @@
               <button type="button" class="btn btn-ghost dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <%= render 'svg/search' %>
               </button>
-              <div class="dropdown-menu p-0 bg-trans-b rounded">
-                <ul class="w-100 d-flex d-row list-unstyled align-items-start justify-content-center">
-                  <li class="pb-1">
-                    <%= link_to movies_path, class: "btn btn-ghost" do %>
+              <div class="dropdown-menu py-1 bg-trans-b rounded">
+                <ul class="w-100 d-flex p-0 d-row list-unstyled align-items-start justify-content-center">
+                  <li class="">
+                    <%= link_to movies_path, class: "d-flex btn btn-ghost" do %>
                       <%= render 'svg/film' %>
                     <% end %>
                   </li>
-                  <li class="pb-1">
-                    <%= link_to tvs_path, class: "btn btn-ghost" do %>
+                  <li class="">
+                    <%= link_to tvs_path, class: "d-flex btn btn-ghost" do %>
                       <%= render 'svg/tv' %>
                     <% end %>
                   </li>
-                  <li class="pb-1">
-                    <%= link_to lists_path, class: "btn btn-ghost" do %>
+                  <li class="">
+                    <%= link_to lists_path, class: "d-flex btn btn-ghost" do %>
                       <%= render 'svg/list' %>
                     <% end %>
                   </li>
@@ -86,7 +86,7 @@
                 <% end %>
                 <% if @read.count > 0 && @unread.count > 0 %>
                   <li>
-                    <hr class="dropdown-divider">
+                    <hr class="dropdown-divider text-light">
                   </li>
                 <% elsif @read.count + @unread.count == 0 %>
                   <li class="dropdown-item">

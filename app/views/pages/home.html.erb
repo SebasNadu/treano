@@ -60,8 +60,8 @@
 </div>
 
 <% if user_signed_in? %>
-  <div class="row m-0 ps-2 ps-sm-3 mt-n4">
-    <%= render "shared/mylists", lists: @lists, user: current_user, transform: "" %>
+  <div class="row m-0 px-2 ps-sm-3">
+    <%= render "shared/mylists", lists: @lists, user: current_user, transform: "", message: "lists"  %>
   </div>
   <%= render "lists/list_form", list: @new_list %>
 <% end %>

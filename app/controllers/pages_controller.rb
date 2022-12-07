@@ -28,6 +28,7 @@ class PagesController < ApplicationController
     @reviews = Review.where(["user_id = :user_id", { user_id: @user }])
     @new_list = List.new
     @lists = List.where(["user_id = :user_id", { user_id: @user }])
+    @saved_lists = User.find(params[:user_id]).favorited_by_type('List')
     mark_notifications_as_read
     if @user == current_user
       @user.reputation_score = @user.points
@@ -42,6 +43,7 @@ class PagesController < ApplicationController
   end
 
   def my_lists
+    @saved_lists = User.find(params[:user_id]).favorited_by_type('List')
     @lists = List.where(["user_id = :user_id", { user_id: @user }])
   end
 

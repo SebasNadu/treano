@@ -46,41 +46,41 @@ module Merit
       # end
 
     # Review badges
-      grant_on ['reviews#create', 'reviews#update'], badge_id: 7, to: :action_user, temporary: true, model_name: 'Review' do |review|
+      grant_on ['reviews#create', 'reviews#update'], badge_id: 7, to: :action_user, temporary: true, mulitple: true, model_name: 'Review' do |review|
         review.user && review.user.reviews.count > 0 && review.user.reviews.count <= 4
       end
 
-      grant_on ['reviews#create', 'reviews#update'], badge_id: 8, to: :action_user, temporary: true, model_name: 'Review' do |review|
+      grant_on ['reviews#create', 'reviews#update'], badge_id: 8, to: :action_user, temporary: true, mulitple: true, model_name: 'Review' do |review|
         review.user && review.user.reviews.count > 4 && review.user.reviews.count <= 9
       end
 
-      grant_on ['reviews#create', 'reviews#update'], badge_id: 9, to: :action_user, temporary: true, model_name: 'Review' do |review|
+      grant_on ['reviews#create', 'reviews#update'], badge_id: 9, to: :action_user, temporary: true, mulitple: true, model_name: 'Review' do |review|
         review.user && review.user.reviews.count > 9 && review.user.reviews.count <= 24
       end
 
-      grant_on ['reviews#create', 'reviews#update'], badge_id: 10, to: :action_user, temporary: true, model_name: 'Review' do |review|
+      grant_on ['reviews#create', 'reviews#update'], badge_id: 10, to: :action_user, temporary: true, mulitple: true, model_name: 'Review' do |review|
         review.user && review.user.reviews.count > 24 && review.user.reviews.count <= 50
       end
 
-      grant_on ['reviews#create', 'reviews#update'], badge_id: 12, to: :action_user, temporary: true, model_name: 'Review' do |review|
+      grant_on ['reviews#create', 'reviews#update'], badge_id: 12, to: :action_user, temporary: true, mulitple: true, model_name: 'Review' do |review|
         review.user && review.user.reviews.count > 50 && review.user.reviews.count <= 100
       end
 
-      grant_on ['reviews#create', 'reviews#update'], badge_id: 13, to: :action_user, temporary: true, model_name: 'Review' do |review|
+      grant_on ['reviews#create', 'reviews#update'], badge_id: 13, to: :action_user, temporary: true, mulitple: true, model_name: 'Review' do |review|
         review.user && review.user.reviews.count > 100
       end
 
       # List badges
 
-      grant_on ['lists#create', 'lists#update'], badge_id: 1, to: :action_user, temporary: true, model_name: 'List' do |list|
+      grant_on ['lists#create', 'lists#update'], badge_id: 1, to: :action_user, temporary: true, mulitple: true, model_name: 'List' do |list|
         list.user.lists.count > 0 && list.user.lists.count <= 9
       end
 
-      grant_on ['lists#create', 'lists#update'], badge_id: 2, to: :action_user, temporary: true, model_name: 'List' do |list|
+      grant_on ['lists#create', 'lists#update'], badge_id: 2, to: :action_user, temporary: true, mulitple: true, model_name: 'List' do |list|
         list.user && list.user.lists.count > 9 && list.user.lists.count <= 24
       end
 
-      grant_on ['lists#create', 'lists#update'], badge_id: 3, to: :action_user, temporary: true, model_name: 'List' do |list|
+      grant_on ['lists#create', 'lists#update'], badge_id: 3, to: :action_user, temporary: true, mulitple: true, model_name: 'List' do |list|
         list.user && list.user.lists.count > 25
       end
 

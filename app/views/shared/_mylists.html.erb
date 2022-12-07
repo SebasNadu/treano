@@ -1,8 +1,8 @@
 <div class="lists-container d-flex flex-column flex-sm-row justify-content-center align-items-center p-0">
   <div class="section-titel w-25 gap-3 d-flex flex-row flex-sm-column align-items-center justify-content-center">
-    <h3 class="trans-text w-75 fw-bolder text-center"><%= user.first_name %>'s lists</h3>
+    <h3 class="trans-text w-75 fw-bolder text-center"><%= user.first_name %>'s <%= message %></h3>
     <div class="d-flex flex-row">
-    <% if user == current_user %>
+    <% if user == current_user && message == "lists"%>
       <button type="button" class="btn d-flex btn-outline-info mx-1" data-bs-toggle="modal" data-bs-target="#new_list_modal">
         <%= render "svg/plus-square" %>
       </button>

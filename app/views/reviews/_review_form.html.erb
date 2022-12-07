@@ -1,4 +1,6 @@
-<div class="bg-trans p-3 mx-0 rounded">
+<div class="bg-trans p-3 mx-0 rounded" data-insert-in-list-target="infos">
+  <h3>Create review</h3>
+  <hr>
   <%= simple_form_for([reviewable, review], class: "",
   data: {
     controller: "star-form",
@@ -7,6 +9,6 @@
     }) do |f| %>
       <%= f.input :rating, collection: (1..5).to_a, label: "Rating", input_html: {data: { controller: "star-rating"} } %>
       <%= f.input :content %>
-      <%= f.submit "Add", class: "btn btn-outline-primary w-100" %>
+      <%= f.submit "Add", class: "btn btn-primary w-100" %>
    <% end %>
 </div>

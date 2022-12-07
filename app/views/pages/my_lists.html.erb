@@ -1,6 +1,27 @@
 <div class="container">
   <h1 class="mb-5 mt-2 w-100 text-center trans-text rounded"> <%= @user.first_name %>'s lists</h1>
-  <div class="row row-cols-4">
-    <%= render(@lists) || "There are no lists" %>
+  <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active text-light" id="home-tab" data-bs-toggle="tab" data-bs-target="#movies-tab-pane" type="button" role="tab" aria-controls="movies-tab-pane" aria-selected="true">My lists</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link text-light" id="series-tab" data-bs-toggle="tab" data-bs-target="#series-tab-pane" type="button" role="tab" aria-controls="series-tab-pane" aria-selected="false">Saved lists</button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="myTabContent">
+
+    <div class="tab-pane fade show active" id="movies-tab-pane" role="tabpanel" aria-labelledby="movies-tab" tabindex="0">
+      <div class="row row-cols-4 mt-4">
+        <%= render(@lists) || "There are no lists" %>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="series-tab-pane" role="tabpanel" aria-labelledby="series-tab" tabindex="0">
+      <div class="row row-cols-4 mt-4">
+        <%= render(@saved_lists) || "There are no lists" %>
+      </div>
+    </div>
+
   </div>
+
 </div>

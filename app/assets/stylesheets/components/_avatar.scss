@@ -1,6 +1,7 @@
 .avatar {
   width: 40px;
   height: 40px;
+  object-fit: cover;
   border-radius: 100px;
 }
 .down-none {
@@ -13,6 +14,8 @@
 }
 .avatar-s {
   width: 26px;
+  height: 26px;
+  object-fit: cover;
   border-radius: 50%;
 }
 .avatar-l {
@@ -21,7 +24,9 @@
 }
 .avatar-xl {
   width: 200px;
-  border-radius: 100px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 250px;
 }
 .avatar-bordered {
   width: 40px;

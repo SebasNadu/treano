@@ -105,7 +105,7 @@
             <% if current_user.avatar.key.nil? %>
               <%= image_tag "user.svg", class: "avatar-s dropdown-toggle bg-secondary p-1", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <% else %>
-              <%= cl_image_tag current_user.avatar.key, class: "avatar", :gravity=>"face", :height=>36, :width=>36, :crop=>"thumb", :zoom=>"0.5" %>
+              <%= cl_image_tag current_user.avatar.key, class: "avatar", :gravity=>"face", :zoom=>"0.4" %>
             <% end %>
           </li>
         <% else %>

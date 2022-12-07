@@ -23,7 +23,7 @@ class LinkNotification < Noticed::Base
     return "#{@user.first_name} Don't forget to make the review for #{@movie.title} points"
    end
   #
-  # def url
-  #   post_path(params[:post])
-  # end
+   def url
+     movie_path(params[:movie])
+   end
 end

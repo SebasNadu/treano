@@ -189,7 +189,7 @@ puts "Merit restaured"
 i = 0
 
 25.times do
-  user = User.create(
+  user = User.new(
     email: Faker::Internet.unique.email,
     password: "123456",
     first_name: Faker::Name.unique.female_first_name,
@@ -209,7 +209,7 @@ puts "50 female users created"
 i = 0
 
 25.times do
-  user = User.create(
+  user = User.new(
     email: Faker::Internet.unique.email,
     password: "123456",
     first_name: Faker::Name.unique.male_first_name,

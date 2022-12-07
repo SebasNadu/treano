@@ -2,9 +2,11 @@
   <div class="section-titel w-25 gap-3 d-flex flex-row flex-sm-column align-items-center justify-content-center">
     <h3 class="trans-text w-75 fw-bolder text-center"><%= user.first_name %>'s lists</h3>
     <div class="d-flex flex-row">
+    <% if user == current_user %>
       <button type="button" class="btn d-flex btn-outline-info mx-1" data-bs-toggle="modal" data-bs-target="#new_list_modal">
         <%= render "svg/plus-square" %>
       </button>
+    <% end %>
       <%= link_to user_my_lists_path(user), class: "btn d-flex btn-outline-info mx-1" do %>
         <%= render "svg/external-link" %>
       <% end %>

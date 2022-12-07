@@ -3,14 +3,14 @@
   <div class="info-box p-2 p-sm-4">
     <div class="row row-cols-1 row-cols-sm-2">
       <div class="col">
-        <div class="p-3 info-h">
+        <div class="p-0 info-h">
           <div class="row">
             <div class="col-6 text-center">
               <h3 class="fw-bolder mb-3 trans-text">Info</h3>
               <% if @user.avatar.key.nil? %>
                 <%= image_tag "user.svg", class: "avatar-xl dropdown-toggle bg-secondary p-1", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
               <% else %>
-                <%= cl_image_tag @user.avatar.key, class: "avatar-xl", :height=>200, :width=>200, :gravity=>"face", :crop=>"fill", :radius=>"max" %>
+                <%= cl_image_tag @user.avatar.key, class: "avatar-xl" %>
               <% end %>
             </div>
             <div class="col">
@@ -25,19 +25,16 @@
         </div>
       </div>
       <div class="col">
-        <div class="p-3 info-h">
-          <h3 class="mb-3 trans-text fw-bolder text-center">Stats</h3>
-          <div class="d-flex justify-content-center align-items-center mb-2">
-            <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= @reviews.count %></p>
-            <p class="m-1">Reviews</p>
-            <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= @lists.count %></p>
-            <p class="m-1">Lists</p>
-            <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= @user.reputation_score %></p>
-            <p class="m-1">score</p>
+        <div class="p-0 info-h">
+          <h3 class="mb-1 trans-text fw-bolder text-center">Stats</h3>
+          <div class="d-flex justify-content-center align-items-center mb-1">
+            <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= pluralize(@reviews.count, "Review") %></p>
+            <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= pluralize(@lists.count, "List") %></p>
+            <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= pluralize(@user.reputation_score, "Point") %></p>
           </div>
-          <hr>
+          <hr class="mt-0">
           <div class="notification row">
-          <% current_user.badges.each do |badge| %>
+          <% @user.badges.each do |badge| %>
             <div class="col-6 d-flex align-items-center justify-content-start">
               <%= image_tag (badge.custom_fields[:image]), class: "badge-m shrink me-2" %>
               <div class="notification-content">
@@ -60,7 +57,7 @@
 
 <div class="row m-0 px-2 ps-sm-3 mb-5">
   <div class="info-box p-2 p-sm-3">
-    <h3 class="m-0 trans-text fw-bolder text-center mb-4">My reviews</h3>
+    <h3 class="m-0 trans-text fw-bolder text-center mb-4"><%= @user.first_name %>'s reviews</h3>
     <div class="row row-cols-1 row-cols-sm-2" data-controller="insert-in-list">
 
       <% @reviews.each do |review| %>

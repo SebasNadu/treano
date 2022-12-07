@@ -14,7 +14,7 @@
               <% end %>
             </div>
             <div class="col">
-              <h5 class="m-0 mt-2"><%= @user.first_name %> <%= @user.last_name %></h5>
+              <h4 class="m-0"><%= @user.first_name %> <%= @user.last_name %></h4>
               <small>Member since</small>
               <small class=""><%= @user.created_at.strftime("%B %Y") %></small>
               <hr>
@@ -26,13 +26,13 @@
       </div>
       <div class="col">
         <div class="p-0 info-h">
-          <h3 class="mb-1 trans-text fw-bolder text-center">Stats</h3>
-          <div class="d-flex justify-content-center align-items-center mb-1">
+          <h4 class="mb-0 trans-text fw-bolder text-center">Stats</h4>
+          <div class="d-flex justify-content-center align-items-center mb-0">
             <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= pluralize(@reviews.count, "Review") %></p>
             <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= pluralize(@lists.count, "List") %></p>
             <p class="trans-text m-1 px-2 fw-bolder bg-info"><%= pluralize(@user.reputation_score, "Point") %></p>
           </div>
-          <hr class="mt-0">
+          <hr class="mt-2">
           <div class="notification row">
           <% @user.badges.each do |badge| %>
             <div class="col-6 d-flex align-items-center justify-content-start">
@@ -51,7 +51,11 @@
 </div>
 
 <div class="row m-0 px-2 ps-sm-3">
-  <%= render "shared/mylists", lists: @lists, user: @user, transform: "" %>
+  <%= render "shared/mylists", lists: @lists, user: @user, transform: "", message: "lists"  %>
+</div>
+
+<div class="row m-0 mt-n5 px-2 ps-sm-3">
+  <%= render "shared/mylists", lists: @saved_lists, user: @user, transform: "", message: "saved lists" %>
 </div>
 <%= render "lists/list_form", list: @new_list %>
 

@@ -29,6 +29,8 @@ class TvsController < ApplicationController
     @sub_providers = @providers.where(service: "sub").uniq
     @purchase_providers = @providers.where(service: "purchase").uniq
     @tve_providers = @providers.where(service: "tve").uniq
+    @seasons = Season.where(tv_id: @tv)
+    #raise
   end
 
   def toggle_favorite

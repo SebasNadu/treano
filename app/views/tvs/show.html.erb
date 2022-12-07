@@ -1,7 +1,7 @@
-<div class="media-banner mt-n5 position-absolute" style="background-image: linear-gradient(180deg, rgba(13,13,13,0.8) 0%, rgba(33,33,33,0.4) 40%, rgba(13,13,13,1) 90%), url('<%= @tv.backdrop_url %>')">
+<div class="media-banner position-absolute" style="background-image: linear-gradient(180deg, rgba(13,13,13,0.8) 0%, rgba(33,33,33,0.4) 40%, rgba(13,13,13,1) 90%), url('<%= @tv.backdrop_url %>')">
 </div>
 
-<div class="row h-100 w-100 m-0">
+<div class="row h-100 w-100 m-0 pt-5">
   <div class="col-12 col-md-6 order-5 order-sm-1 col-lg-7 d-flex flex-column align-items-center justify-content-start justify-content-md-center">
     <% if @tv.trailer.present? %>
       <% trailer =  @tv.trailer %>
@@ -70,7 +70,11 @@
   </div>
 </div>
 
-<div class="container-fluid m-0 px-3 ps-sm-4 p-2">
+<div class="row m-0 px-2 ps-sm-3 mt-n4">
+  <%= render "seasons", seasons: @seasons, tv: @tv %>
+</div>
+
+<div class="container-fluid m-0 px-3 ps-sm-4 p-2 mt-n4">
   <% if @similars.present?  %>
     <%= render 'shared/tvs_slider', tvs: @similars, slider_title: 'Similar titles' %>
   <% end %>
@@ -81,17 +85,18 @@
 
 <div class="container mb-5">
   <div data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin" class="row" data-bs-spy="scroll" data-bs-target="#button-review" data-bs-smooth-scroll="true" class="scrollspyReview" tabindex="0">
-    <div id="review" data-insert-in-list-target="infos" class="col-12 col-md-4 mt-2 p-2 position-sticky">
+    <div id="review" class="col-12 col-md-4 p-2 position-sticky">
         <% user_review = Review.where(reviewable_id: params[:id], reviewable_type: "Tv", user: current_user) %>
         <% if user_review.empty? %>
           <%= render "reviews/review_form",  reviewable: @reviewable, review: @review %>
+         <h4 class="fs-6 fs-md-2 m-0 text-center d-none" data-insert-in-list-target="message">Thank you for your review!</h4>
         <% else %>
-         <h5 class="fs-6 fs-md-2 m-0 text-center">Thank you for your review!</h5>
+         <h4 class="fs-6 fs-md-2 m-0 text-center">Thank you for your review!</h4>
         <% end %>
     </div>
     <div class="col-12 col-md-8">
       <% if @tv.reviews.empty? %>
-        <div data-insert-in-list-target="first" class="">
+        <div data-insert-in-list-target="first" class="text-center">
           <small><em class="text-muted">Be the first one to review this movie</em></small>
         </div>
       <% end %>

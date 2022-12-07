@@ -1,0 +1,28 @@
+<div class="lists-container d-flex flex-column flex-sm-row justify-content-center align-items-center p-0">
+  <div class="section-titel w-25 d-flex flex-row flex-sm-column align-items-center justify-content-center">
+    <h2 class="trans-text w-75 fw-bolder text-center m-0"><%= tv.title %></h2>
+    <h2 class="trans-text w-75 fw-bolder text-center">seasons</h2>
+    <small class="m-0">Seasons <span class="fw-semibold text-info"><%= tv.number_of_seasons %></span></small>
+    <small class="m-0">Episodes <span class="fw-semibold text-info"><%= tv.number_of_episodes %></span></small>
+    <small class="m-0">First air date <span class="fw-semibold text-info"><%= tv.first_air_date %></span></small>
+  </div>
+  <div class="lists-scroller">
+    <div class="lists-group">
+      <% seasons.each do |season| %>
+        <div class="seasons-element">
+          <div class="season-card d-flex align-items-end justify-content-center" style="background-image: url('<%= image_path season.poster_path %>');">
+              <div class="flex-column season-h text-center bg-trans-0 align-items-center justify-content-center">
+                <h4 class="m-0 mt-1"><%= season.name %></h4>
+                <div class="d-flex w-100 flex-row align-items-center justify-content-center">
+                  <div class="btn p-1 fw-semibold btn-ghost btn-disabled mx-1">
+                    <span class=""><%= pluralize(season.episode_count, "Episode") %></span>
+                  </div>
+                </div>
+                <small class="px-2"><%= season.overview %></small>
+              </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

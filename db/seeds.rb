@@ -11,78 +11,86 @@ require 'json'
 require 'faker'
 require 'cloudinary'
 
-#movies_file_0 = File.read("t_movies_2.json")
+#movies_file_0 = File.read("t_movies_3.json")
 movies_file_1 = File.read("t_full_movies_1.json")
 movies_file_2 = File.read("t_full_movies_2.json")
 movies_file_3 = File.read("t_full_movies_3.json")
 movies_file_4 = File.read("t_full_movies_4.json")
+movies_file_5 = File.read("t_full_movies_5.json")
+movies_file_6 = File.read("t_full_movies_6.json")
 #movies_0 = JSON.parse(movies_file_0)
 movies_1 = JSON.parse(movies_file_1)
 movies_2 = JSON.parse(movies_file_2)
 movies_3 = JSON.parse(movies_file_3)
 movies_4 = JSON.parse(movies_file_4)
-#tvs_file_0 = File.read("t_tvs_2.json")
+movies_5 = JSON.parse(movies_file_5)
+movies_6 = JSON.parse(movies_file_6)
+#tvs_file_0 = File.read("t_tvs_3.json")
 tvs_file_1 = File.read("t_full_tvs_1.json")
 tvs_file_2 = File.read("t_full_tvs_2.json")
 tvs_file_3 = File.read("t_full_tvs_3.json")
 tvs_file_4 = File.read("t_full_tvs_4.json")
+tvs_file_5 = File.read("t_full_tvs_5.json")
+tvs_file_6 = File.read("t_full_tvs_6.json")
 #tvs_0 = JSON.parse(tvs_file_0)
 tvs_1 = JSON.parse(tvs_file_1)
 tvs_2 = JSON.parse(tvs_file_2)
 tvs_3 = JSON.parse(tvs_file_3)
 tvs_4 = JSON.parse(tvs_file_4)
+tvs_5 = JSON.parse(tvs_file_5)
+tvs_6 = JSON.parse(tvs_file_6)
 
 providers_file = File.read("t_providers_US.json")
 providers = JSON.parse(providers_file)
 genres_file = File.read("t_genres.json")
 genres = JSON.parse(genres_file)
-male_avatars = Cloudinary::Api.resources_by_tag('male_avatar', :max_results => 50)
-female_avatars = Cloudinary::Api.resources_by_tag('female_avatar', :max_results => 50)
+male_avatars = Cloudinary::Api.resources_by_tag('male_avatar', :max_results => 25)
+female_avatars = Cloudinary::Api.resources_by_tag('female_avatar', :max_results => 25)
 
 #  #PLEASE DO NOT UNCOMMENT!! this method is for create a json with all the info related to movies
-#  #movies_group = movies_0["titles"][125..249]
-#  #full_movies = []
-#  #movies_group.each_with_index do |movie, i|
-#    #uri_tmdb = URI("https://api.themoviedb.org/3/movie/#{movie["tmdb_id"].to_s}?api_key=&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar,lists")
-#    #response_tmdb = Net::HTTP.get(uri_tmdb)
-#    #result_tmdb = JSON.parse(response_tmdb)
-#    #puts "#{i} tmdb responsed"
+  #movies_group = movies_0["titles"][125..249]
+  #full_movies = []
+  #movies_group.each_with_index do |movie, i|
+    #uri_tmdb = URI("https://api.themoviedb.org/3/movie/#{movie["tmdb_id"].to_s}?api_key=&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar,lists")
+    #response_tmdb = Net::HTTP.get(uri_tmdb)
+    #result_tmdb = JSON.parse(response_tmdb)
+    #puts "#{i} tmdb responsed"
 
-#    #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{movie["id"].to_s}/details/?apiKey=&append_to_response=sources")
-#    #response_watchmode = Net::HTTP.get(uri_watchmode)
-#    #result_watchmode = JSON.parse(response_watchmode)
-#    #puts "#{i} watchmode responsed"
+    #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{movie["id"].to_s}/details/?apiKey=&append_to_response=sources")
+    #response_watchmode = Net::HTTP.get(uri_watchmode)
+    #result_watchmode = JSON.parse(response_watchmode)
+    #puts "#{i} watchmode responsed"
 
-#    #full_movies << [result_tmdb, result_watchmode]
-#    #puts "#{i} array pushed"
-#  #end
-#  #File.open("t_full_movies_4.json", "wb") do |file|
-#    #file.write(JSON.generate(full_movies))
-#  #end
-#  #puts "JSON created"
+    #full_movies << [result_tmdb, result_watchmode]
+    #puts "#{i} array pushed"
+  #end
+  #File.open("t_full_movies_6.json", "wb") do |file|
+    #file.write(JSON.generate(full_movies))
+  #end
+  #puts "JSON created"
 
 
 #  #PLEASE DO NOT UNCOMMENT!! this method is for create a json with all the info related to tvs
-#  #tvs_group = tvs_0["titles"][125..249]
-#  #full_tvs = []
-#  #tvs_group.each_with_index do |tv, i|
-#    #uri_tmdb = URI("https://api.themoviedb.org/3/tv/#{tv["tmdb_id"].to_s}?api_key=&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
-#    #response_tmdb = Net::HTTP.get(uri_tmdb)
-#    #result_tmdb = JSON.parse(response_tmdb)
-#    #puts "#{i} tmdb responsed"
+  #tvs_group = tvs_0["titles"][125..249]
+  #full_tvs = []
+  #tvs_group.each_with_index do |tv, i|
+    #uri_tmdb = URI("https://api.themoviedb.org/3/tv/#{tv["tmdb_id"].to_s}?api_key=43f195cad08ed475966231cae7ae844e&language=en-US&append_to_response=credits,videos,images,reviews,keywords,recommendations,similar")
+    #response_tmdb = Net::HTTP.get(uri_tmdb)
+    #result_tmdb = JSON.parse(response_tmdb)
+    #puts "#{i} tmdb responsed"
 
-#    #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{tv["id"].to_s}/details/?apiKey=&append_to_response=sources")
-#    #response_watchmode = Net::HTTP.get(uri_watchmode)
-#    #result_watchmode = JSON.parse(response_watchmode)
-#    #puts "#{i} watchmode responsed"
+    #uri_watchmode = URI("https://api.watchmode.com/v1/title/#{tv["id"].to_s}/details/?apiKey=qBSAgILFtJ75GQ46RbYeTST8v73I3vA5kAi1jkBn&append_to_response=sources")
+    #response_watchmode = Net::HTTP.get(uri_watchmode)
+    #result_watchmode = JSON.parse(response_watchmode)
+    #puts "#{i} watchmode responsed"
 
-#    #full_tvs << [result_tmdb, result_watchmode]
-#    #puts "#{i} array pushed"
-#  #end
-#  #File.open("t_full_tvs_4.json", "wb") do |file|
-#    #file.write(JSON.generate(full_tvs))
-#  #end
-#  #puts "JSON created"
+    #full_tvs << [result_tmdb, result_watchmode]
+    #puts "#{i} array pushed"
+  #end
+  #File.open("t_full_tvs_6.json", "wb") do |file|
+    #file.write(JSON.generate(full_tvs))
+  #end
+  #puts "JSON created"
 
 puts "restauring Merit"
 # 1. Reset all badges/points granting
@@ -101,6 +109,8 @@ Merit::Action.all.map{|a| a.update_attribute :processed, false }
 puts "Merit restaured"
 
  puts "Cleaning up db"
+ UserChallenge.destroy_all
+ Challenge.destroy_all
  Notification.destroy_all
  Challenge.destroy_all
  Review.destroy_all
@@ -447,10 +457,14 @@ puts "50 male users created"
  tvs_seeds(tvs_2)
  tvs_seeds(tvs_3)
  tvs_seeds(tvs_4)
+ tvs_seeds(tvs_5)
+ tvs_seeds(tvs_6)
  movies_seeds(movies_1)
  movies_seeds(movies_2)
  movies_seeds(movies_3)
  movies_seeds(movies_4)
+ movies_seeds(movies_5)
+ movies_seeds(movies_6)
 
 i = 1
 200.times do
@@ -463,13 +477,13 @@ i = 1
   cover_picture = URI.open(url)
   list.cover_picture.attach(io: cover_picture, filename: "image.png", content_type: "image/png")
   list.save
-  rand(0..3).times do
+  rand(0..5).times do
     ListItem.create(
       list_id: list.id,
       listable: Tv.order(Arel.sql('RANDOM()')).first
     )
   end
-  rand(5..8).times do
+  rand(0..5).times do
     ListItem.create(
       list_id: list.id,
       listable: Movie.order(Arel.sql('RANDOM()')).first

@@ -11,7 +11,7 @@
                 <% if list.user.avatar.key.nil? %>
                   <%= image_tag "user.svg", class: "avatar-s bg-secondary mx-1" %>
                 <% else %>
-                  <%= cl_image_tag list.user.avatar.key, class: "avatar mx-1", :aspect_ratio=>"1.0", :gravity=>"face", :width=>0.6, :zoom=>0.7, :crop=>"thumb", :radius=>"max" %>
+                  <%= cl_image_tag list.user.avatar.key, class: "avatar mx-1", :gravity=>"face", :zoom=>0.4 %>
                 <% end %>
               <% end %>
               <div class="btn btn-outline-info btn-disabled mx-1">
@@ -112,16 +112,4 @@
       <% end %>
     <% end %>
   </div>
-</div>
-
-<div class="d-none">
-  <h2><%= list.list_name %></h2>
-  <p><%= list.description %></p>
-  <p><%= list.votes %></p>
-  <p><%= link_to "See more", list_path(list) %></p>
-  <% if list.user.id == current_user.id %>
-    <%= link_to "Edit list", edit_list_path(list) %>
-    <%= link_to "Delete", list_path(list),
-      data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
-  <% end %>
 </div>

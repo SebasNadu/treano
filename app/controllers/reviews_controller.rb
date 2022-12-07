@@ -2,7 +2,6 @@ class ReviewsController < ApplicationController
   before_action :set_reviewable
 
   def create
-    #raise
     @review = Review.new(review_params)
     @user = current_user
     @review.user = @user
@@ -39,8 +38,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     @review.destroy
-
-
+    redirect_to user_dashboard_path(current_user), status: :see_other
   end
 
   private

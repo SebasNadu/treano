@@ -29,10 +29,15 @@ class PagesController < ApplicationController
     @new_list = List.new
     @lists = List.where(["user_id = :user_id", { user_id: @user }])
     mark_notifications_as_read
-    # raise
+    if @user == current_user
+      @user.reputation_score = @user.points
+    end
   end
 
   def leaderboard
+    @user = current_user
+    @user.reputation_score = current_user.points
+    @user.save
     @users = User.order("reputation_score DESC")
   end
 
@@ -63,19 +68,18 @@ class PagesController < ApplicationController
         @lists = @q.result(distinct: true)
       end
     end
-    #raise
   end
 
-  def profile
-    if params[:user_id].present?
-      @user = User.find(params[:user_id])
-    end
-  end
+  #def profile
+    #if params[:user_id].present?
+      #@user = User.find(params[:user_id])
+    #end
+  #end
 
   private
 
   def set_user
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:user_id].to_i)
   end
 
   def set_movies(movies)
@@ -136,9 +140,9 @@ class PagesController < ApplicationController
   end
 
   def mark_notifications_as_read
-    if current_user
-      @user = current_user
-      notifications_to_mark_as_read = @user.notifications.where(recipient_id: current_user.id)
+    if current_user == User.find(params[:user_id])
+      user = current_user
+      notifications_to_mark_as_read = user.notifications.where(recipient_id: current_user.id)
       notifications_to_mark_as_read.update_all(read_at: Time.zone.now)
     end
   end

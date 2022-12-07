@@ -25,6 +25,7 @@ class MoviesController < ApplicationController
     create_similars(@movie)
     create_recommendations(@movie)
     @review = Review.new
+    @review.user = current_user
     @reviewable = @movie
     @list_item = ListItem.new
     @listable = @movie
@@ -35,11 +36,6 @@ class MoviesController < ApplicationController
     @sub_providers = @providers.where(service: "sub").uniq
     @purchase_providers = @providers.where(service: "purchase").uniq
     @tve_providers = @providers.where(service: "tve").uniq
-    if params[:check].present?
-      noti = LinkNotification.with(user: current_user, movie: @movie)
-      noti.deliver(current_user)
-    end
-    #raise
   end
 
   def toggle_favorite

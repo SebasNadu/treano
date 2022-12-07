@@ -13,6 +13,28 @@
           </tr>
         </thead>
         <tbody>
+        <% @users.each_with_index do |user, i| %>
+          <% if user == current_user %>
+          <tr class="bg-success">
+            <th scope="row"><%= i + 1 %></th>
+            <td>
+              <%= link_to user_dashboard_path(user), target: "_blank" do %>
+                <% if user.avatar.key.nil? %>
+                  <%= image_tag "user.svg", class: "avatar bg-secondary" %>
+                <% else %>
+                  <%= cl_image_tag user.avatar.key, class: "avatar" %>
+                <% end %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to user_dashboard_path(user), target: "_blank" do %>
+                <%= user.username %>
+              <% end %>
+            </td>
+            <td><%= user.reputation_score %></td>
+          </tr>
+        <% end %>
+      <% end %>
         <% @users.each do |user| %>
           <tr>
             <th scope="row"><%= i %></th>
@@ -21,7 +43,7 @@
                 <% if user.avatar.key.nil? %>
                   <%= image_tag "user.svg", class: "avatar bg-secondary" %>
                 <% else %>
-                  <%= cl_image_tag user.avatar.key, class: "avatar", :aspect_ratio=>"1.0", :gravity=>"face", :width=>0.6, :zoom=>0.7, :crop=>"thumb", :radius=>"max" %>
+                  <%= cl_image_tag user.avatar.key, class: "avatar" %>
                 <% end %>
               <% end %>
             </td>

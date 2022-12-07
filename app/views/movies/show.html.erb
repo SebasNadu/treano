@@ -21,7 +21,7 @@
         <%= turbo_frame_tag "like_button" do %>
         <div data-mark-favorite-target="button">
             <%= button_to toggle_favorite_movie_path(@movie), method: :post, data: { action: "click->mark-favorite#toggle"}, class: "btn avatar d-flex align-items-center justify-content-center m-2 #{movie_save}" do %>
-              <%= render 'svg/heart' %>
+              <%= render 'svg/check-circle' %>
             <% end %>
         </div>
         <% end %>

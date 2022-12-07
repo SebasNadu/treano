@@ -35,6 +35,9 @@ class PagesController < ApplicationController
   end
 
   def leaderboard
+    @user = current_user
+    @user.reputation_score = current_user.points
+    @user.save
     @users = User.order("reputation_score DESC")
   end
 

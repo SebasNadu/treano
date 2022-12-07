@@ -39,7 +39,7 @@ class ListsController < ApplicationController
 
   def destroy
     @list.destroy
-    redirect_to user_dashboard_path(current_user), status: :see_other
+    redirect_to user_my_lists_path(current_user), status: :see_other
   end
 
   def toggle_favorite

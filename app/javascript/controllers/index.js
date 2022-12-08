@@ -28,8 +28,5 @@ application.register("star-form", StarFormController)
 import StarRatingController from "./star_rating_controller"
 application.register("star-rating", StarRatingController)
 
-import SweetAlertController from "./sweet_alert_controller"
-application.register("sweet-alert", SweetAlertController)
-
 import TreanoCarouselController from "./treano_carousel_controller"
 application.register("treano-carousel", TreanoCarouselController)

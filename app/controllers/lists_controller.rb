@@ -51,6 +51,9 @@ class ListsController < ApplicationController
     end
   end
 
+  def untoggle
+  end
+
   private
 
   def set_user
@@ -62,6 +65,6 @@ class ListsController < ApplicationController
   end
 
   def list_params
-    params.require(:list).permit(:list_name, :description)
+    params.require(:list).permit(:list_name, :description, :public, :cover_picture)
   end
 end

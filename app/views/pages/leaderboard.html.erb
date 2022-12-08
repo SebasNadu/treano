@@ -14,7 +14,7 @@
         </thead>
         <tbody>
         <% @users.each_with_index do |user, i| %>
-          <% if user == current_user %>
+          <% if user == current_user && i != 1 %>
           <tr class="bg-success">
             <th scope="row"><%= i + 1 %></th>
             <td>
@@ -37,7 +37,15 @@
       <% end %>
         <% @users.each do |user| %>
           <tr>
-            <th scope="row"><%= i %></th>
+            <th scope="row">
+              <%= i %>
+              <% if i == 1 %>
+                <%= image_tag ("Trophy Cup"), class: "badge-m ps-1" %>
+              <% end %>
+              <% if i == 2 || i == 3 %>
+                <%= image_tag ("Tropy Star"), class: "badge-m ps-1" %>
+              <% end %>
+            </th>
             <td>
               <%= link_to user_dashboard_path(user), target: "_blank" do %>
                 <% if user.avatar.key.nil? %>

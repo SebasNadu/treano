@@ -54,14 +54,16 @@
   <%= render "shared/mylists", lists: @lists, user: @user, transform: "", message: "lists"  %>
 </div>
 
+<% if @saved_lists.present? %>
 <div class="row m-0 mt-n5 px-2 ps-sm-3">
   <%= render "shared/mylists", lists: @saved_lists, user: @user, transform: "", message: "saved lists" %>
 </div>
+<% end %>
 <%= render "lists/list_form", list: @new_list %>
 
 <div class="row m-0 px-2 ps-sm-3 mb-5">
   <div class="info-box p-2 p-sm-3">
-    <h3 class="m-0 trans-text fw-bolder text-center mb-4"><%= @user.first_name %>'s reviews</h3>
+    <h3 class="m-0 trans-text fw-bolder text-center py-2 mb-4"><%= @user.first_name %>'s reviews</h3>
     <div class="row row-cols-1 row-cols-sm-2" data-controller="insert-in-list">
 
       <% @reviews.each do |review| %>
@@ -71,6 +73,7 @@
               <%= render "reviews/review", review: review %>
             </div>
             <div class="col-1 d-flex flex-column align-items-center justify-content-center ps-0">
+            <% if current_user == @user %>
               <button type="button" class="btn btn-ghost" aria-label="Edit movie" data-bs-toggle="modal" data-bs-target="#edit_review_modal">
                 <%= render "svg/edit" %>
               </button>
@@ -82,6 +85,7 @@
                   } do %>
                 <%= render "svg/trash" %>
               <% end %>
+            <% end %>
             </div>
           </div>
         </div>

@@ -77,7 +77,7 @@ module Merit::Models::ActiveRecord
     validates_presence_of :badge_id, :sash
 
   def cleanup_notifications
-  notifications_as_merit_models_active_record_badges_sash.destroy_all
+    notifications_as_merit_models_active_record_badges_sash.destroy_all
   end
 
   end

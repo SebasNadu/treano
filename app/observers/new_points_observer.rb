@@ -7,7 +7,7 @@ class NewPointsObserver
       granted_at = changed_data[:granted_at]
 
       noti = PointsNotification.with(user: user, points: points, granted_at: granted_at)
-      noti.deliver_later(user)
+      noti.deliver(user)
 
     #BadgeMailer.earned_badge(user, badge, granted_at).deliver_later
   end

@@ -1,6 +1,6 @@
-require 'net/http'
-require 'open-uri'
-require 'json'
+#require 'net/http'
+#require 'open-uri'
+#require 'json'
 
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show]

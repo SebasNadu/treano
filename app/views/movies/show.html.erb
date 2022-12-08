@@ -16,7 +16,7 @@
       <h2 class="fw-bold px-2 trans-text m-0">“ <%= @movie.tagline %> „</h2>
     </div>
     <% end %>
-    <div class="d-flex align-items-center justify-content-center">
+    <div id="review-conection" class="d-flex align-items-center justify-content-center review-conection-scrollspy">
       <div data-controller="mark-favorite">
         <%= turbo_frame_tag "like_button" do %>
         <div data-mark-favorite-target="button">
@@ -26,7 +26,7 @@
         </div>
         <% end %>
       </div>
-      <%= link_to "#scrollspyReview", class: "btn btn-info avatar d-flex align-items-center justify-content-center m-2" do %>
+      <%= link_to "#review", class: "btn btn-info avatar d-flex align-items-center justify-content-center m-2" do %>
         <%= render 'svg/star' %>
       <% end %>
         <div class="dropdown-center down-none m-2">
@@ -89,8 +89,8 @@
   <% end %>
 </div>
 
-<div class="container mb-5">
-  <div data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin" class="row" data-bs-spy="scroll" data-bs-target="#button-review" data-bs-smooth-scroll="true" class="scrollspyReview" tabindex="0">
+<div class="container mb-5" data-bs-spy="scroll" data-bs-target="#review-conection" data-bs-offset="0" data-bs-smooth-scroll="true" class="scrollspy-review" tabindex="0">
+  <div data-controller="insert-in-list" data-insert-in-list-position-value="afterbegin" class="row" id="review">
     <div id="review" class="col-12 col-md-4 position-sticky">
         <% user_review = Review.where(reviewable_id: params[:id], reviewable_type: "Movie", user: current_user) %>
         <% if user_review.empty? %>

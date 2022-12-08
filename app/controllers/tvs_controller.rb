@@ -1,5 +1,6 @@
 class TvsController < ApplicationController
   before_action :set_tv, only: [:show]
+  skip_before_action :verify_authenticity_token, :only => [:toggle_favorite]
 
   def index
     @q = Tv.ransack(params[:q])
@@ -36,6 +37,10 @@ class TvsController < ApplicationController
   def toggle_favorite
     @tv = Tv.find(params[:id])
     current_user.favorited?(@tv) ? current_user.unfavorite(@tv) : current_user.favorite(@tv)
+    respond_to do |format|
+      format.html { redirect_to tv_path(@tv) }
+      format.text { render "tv/show", formats: [:html] }
+    end
   end
 
   private

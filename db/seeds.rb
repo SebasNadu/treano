@@ -128,37 +128,7 @@ puts "Merit restaured"
  User.destroy_all
  puts "Db cleaned"
 
- sebas = User.new(
-   email: "sebas@treano.co",
-   password: "123456",
-   username: "Sebs",
-   first_name: "Sebastian",
-   last_name: "Navarro",
-   bio: "Professional coder during the day, amateur movie critic during the night. I specialise in Ruby on Rails and thrillers. I am passionate about beautiful apps and skilfully executed scenes. Follow me for good tech related lists and more.",
-   reputation_score: 0,
- )
- sebas_uri = URI.open('https://avatars.githubusercontent.com/u/98430438?v=4')
- sebas.avatar.attach(io: sebas_uri, filename: "image.png", content_type: "image/png")
- if sebas.save
-   sebas.save
-   puts "Sebas created"
- end
 
- meerim = User.new(
-   email: "meerim@treano.co",
-   password: "123456",
-   username: "Meer",
-   first_name: "Meerim",
-   last_name: "Asylbekova",
-   bio: "Being tired of looking for what movies and tv shows to watch, I decided to create the best lists for like-minded people. Follow me for more awesome lists and recommendations. I also happen to write good reviews, check them out too!",
-   reputation_score: 0
- )
- meerim_uri = URI.open('https://avatars.githubusercontent.com/u/108770937?v=4')
- meerim.avatar.attach(io: meerim_uri, filename: "image.png", content_type: "image/png")
- if meerim.save
-   meerim.save
-   puts "Meerim created"
- end
 
 
 #Challenge.create(
@@ -253,92 +223,96 @@ puts "50 male users created"
 
  def movies_seeds(movies)
    movies.each_with_index do |movie, i|
-     this_movie = Movie.create(
-       title: movie[1]["title"],
-       homepage: movie[0]["homepage"],
-       poster_url: "https://image.tmdb.org/t/p/w342#{movie[0]["poster_path"]}",
-       backdrop_url: "https://image.tmdb.org/t/p/w1280#{movie[0]["backdrop_path"]}",
-       trailer: movie[1]["trailer"],
-       overview: movie[1]["plot_overview"],
-       tagline: movie[0]["tagline"],
-       runtime: movie[1]["runtime_minutes"],
-       budget: movie[0]["budget"],
-       revenue: movie[0]["revenue"],
-       status: movie[0]["status"],
-       original_language: movie[1]["original_language"],
-       year: movie[1]["year"],
-       release_date: movie[1]["release_date"],
-       rating_average: movie[1]["user_rating"],
-       critic_score: movie[1]["critic_score"],
-       popularity: movie[0]["popularity"],
-       genre_names: movie[1]["genre_names"],
-       similar_titles_watchmode: movie[1]["similar_titles"],
-       recommendations_tmdb: movie[0]["recommendations"]["results"].map { |each| each["id"] },
-       us_rating: movie[1]["us_rating"],
-       tmdb_id: movie[0]["id"],
-       watchmode_id: movie[1]["id"],
-       imdb_id: movie[0]["imdb_id"]
-     )
-     puts "movie created #{i}"
-     if movie[1]["sources"].present?
-       movie[1]["sources"].each do |source|
-         MediaProvider.create(
-           name: source["name"],
-           region: source["region"],
-           ios_url: source["ios_url"],
-           android_url: source["android_url"],
-           web_url: source["web_url"],
-           format: source["format"],
-           price: source["price"],
-           seasons: source["seasons"],
-           episodes: source["episodes"],
-           provider_id: Provider.find_by(watchmode_id: source["source_id"]).id,
-           providable: this_movie
-         )
-       end
-       puts "media providers created #{i}"
-     end
-     if movie[0]["reviews"]["results"].present?
-       movie[0]["reviews"]["results"].each do |review|
-         Review.create(
-           user_id: User.order(Arel.sql('RANDOM()')).first.id,
-           reviewable_id: this_movie.id,
-           reviewable: this_movie,
-           content: review["content"],
-           rating: rand(2..5),
-           tmdb_review_id: review["id"]
-         )
-       end
-       puts "Review created #{i}"
-     end
-     if movie[1]["genres"].present?
-       movie[1]["genres"].each do |genre|
-         GenreItem.create(
-           genre_id: Genre.find_by(watchmode_id: genre).id,
-           genreable: this_movie
-         )
-       end
-       puts "Genre created #{i}"
-     end
-     if movie[0]["keywords"]["keywords"].present?
-       movie[0]["keywords"]["keywords"].each do |keyword|
-         if Keyword.find_by(tmdb_id: keyword["id"]).present?
-           KeywordItem.create(
-             keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
-             keywordable: this_movie
-           )
-         else
-           Keyword.create(
-             name: keyword["name"],
-             tmdb_id: keyword["id"]
-           )
-           KeywordItem.create(
-             keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
-             keywordable: this_movie
+     if Movie.find_by(tmdb_id: movie["id"]).present?
+       puts "movie already created" 
+     else
+       this_movie = Movie.create(
+         title: movie[1]["title"],
+         homepage: movie[0]["homepage"],
+         poster_url: "https://image.tmdb.org/t/p/w342#{movie[0]["poster_path"]}",
+         backdrop_url: "https://image.tmdb.org/t/p/w1280#{movie[0]["backdrop_path"]}",
+         trailer: movie[1]["trailer"],
+         overview: movie[1]["plot_overview"],
+         tagline: movie[0]["tagline"],
+         runtime: movie[1]["runtime_minutes"],
+         budget: movie[0]["budget"],
+         revenue: movie[0]["revenue"],
+         status: movie[0]["status"],
+         original_language: movie[1]["original_language"],
+         year: movie[1]["year"],
+         release_date: movie[1]["release_date"],
+         rating_average: movie[1]["user_rating"],
+         critic_score: movie[1]["critic_score"],
+         popularity: movie[0]["popularity"],
+         genre_names: movie[1]["genre_names"],
+         similar_titles_watchmode: movie[1]["similar_titles"],
+         recommendations_tmdb: movie[0]["recommendations"]["results"].map { |each| each["id"] },
+         us_rating: movie[1]["us_rating"],
+         tmdb_id: movie[0]["id"],
+         watchmode_id: movie[1]["id"],
+         imdb_id: movie[0]["imdb_id"]
+       )
+       puts "movie created #{i}"
+       if movie[1]["sources"].present?
+         movie[1]["sources"].each do |source|
+           MediaProvider.create(
+             name: source["name"],
+             region: source["region"],
+             ios_url: source["ios_url"],
+             android_url: source["android_url"],
+             web_url: source["web_url"],
+             format: source["format"],
+             price: source["price"],
+             seasons: source["seasons"],
+             episodes: source["episodes"],
+             provider_id: Provider.find_by(watchmode_id: source["source_id"]).id,
+             providable: this_movie
            )
          end
+         puts "media providers created #{i}"
        end
-       puts "keyword created #{i}"
+       if movie[0]["reviews"]["results"].present?
+         movie[0]["reviews"]["results"].each do |review|
+           Review.create(
+             user_id: User.order(Arel.sql('RANDOM()')).first.id,
+             reviewable_id: this_movie.id,
+             reviewable: this_movie,
+             content: review["content"],
+             rating: rand(2..5),
+             tmdb_review_id: review["id"]
+           )
+         end
+         puts "Review created #{i}"
+       end
+       if movie[1]["genres"].present?
+         movie[1]["genres"].each do |genre|
+           GenreItem.create(
+             genre_id: Genre.find_by(watchmode_id: genre).id,
+             genreable: this_movie
+           )
+         end
+         puts "Genre created #{i}"
+       end
+       if movie[0]["keywords"]["keywords"].present?
+         movie[0]["keywords"]["keywords"].each do |keyword|
+           if Keyword.find_by(tmdb_id: keyword["id"]).present?
+             KeywordItem.create(
+               keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
+               keywordable: this_movie
+             )
+           else
+             Keyword.create(
+               name: keyword["name"],
+               tmdb_id: keyword["id"]
+             )
+             KeywordItem.create(
+               keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
+               keywordable: this_movie
+             )
+           end
+         end
+         puts "keyword created #{i}"
+       end
      end
    end
    puts "Movies Created"
@@ -346,108 +320,112 @@ puts "50 male users created"
 
  def tvs_seeds(tvs)
    tvs.each_with_index do |tv, i|
-     this_tv = Tv.create(
-       title: tv[0]["name"],
-       overview: tv[0]["overview"],
-       homepage: tv[0]["homepage"],
-       first_air_date: tv[0]["first_air_date"],
-       last_air_date: tv[0]["last_air_date"],
-       poster_url: "https://image.tmdb.org/t/p/w342#{tv[0]["poster_path"]}",
-       backdrop_url: "https://image.tmdb.org/t/p/w1280#{tv[0]["backdrop_path"]}",
-       trailer: tv[1]["trailer"],
-       number_of_episodes: tv[0]["number_of_episodes"],
-       number_of_seasons: tv[0]["number_of_seasons"],
-       runtime: tv[1]["runtime_minutes"],
-       original_language: tv[1]["original_language"],
-       popularity: tv[0]["popularity"],
-       rating_average: tv[1]["user_rating"],
-       critic_score: tv[1]["critic_score"],
-       us_rating: tv[1]["us_rating"],
-       year: tv[1]["year"],
-       status: tv[0]["status"],
-       tagline: tv[0]["tagline"],
-       recommendations_tmdb: tv[0]["recommendations"]["results"].map { |each| each["id"] },
-       similar_titles_watchmode: tv[1]["similar_titles"],
-       genre_names: tv[1]["genre_names"],
-       tmdb_id: tv[0]["id"],
-       watchmode_id: tv[1]["id"],
-       imdb_id: tv[1]["imdb_id"]
-     )
-     puts "Tv Created #{i}"
-     if tv[1]["sources"].present?
-       tv[1]["sources"].each do |source|
-         MediaProvider.create(
-           name: source["name"],
-           region: source["region"],
-           ios_url: source["ios_url"],
-           android_url: source["android_url"],
-           web_url: source["web_url"],
-           format: source["format"],
-           price: source["price"],
-           seasons: source["seasons"],
-           episodes: source["episodes"],
-           provider_id: Provider.find_by(watchmode_id: source["source_id"]).id,
-           providable: this_tv
-         )
-       end
-       puts "media providers created #{i}"
-     end
-     if tv[0]["reviews"]["results"].present?
-       tv[0]["reviews"]["results"].each do |review|
-         Review.create(
-           user_id: User.order(Arel.sql('RANDOM()')).first.id,
-           reviewable_id: this_tv.id,
-           reviewable: this_tv,
-           content: review["content"],
-           rating: rand(2..5),
-           tmdb_review_id: review["id"]
-         )
-       end
-       puts "Review created #{i}"
-     end
-     if tv[1]["genres"].present?
-       tv[1]["genres"].each do |genre|
-         GenreItem.create(
-           genre_id: Genre.find_by(watchmode_id: genre).id,
-           genreable: this_tv
-         )
-       end
-       puts "Genre created #{i}"
-     end
-     if tv[0]["keywords"]["keywords"].present?
-       tv[0]["keywords"]["keywords"].each do |keyword|
-         if Keyword.find_by(tmdb_id: keyword["id"]).present?
-           KeywordItem.create(
-             keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
-             keywordable: this_tv
-           )
-         else
-           Keyword.create(
-             name: keyword["name"],
-             tmdb_id: keyword["id"]
-           )
-           KeywordItem.create(
-             keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
-             keywordable: this_tv
+     if Tv.find_by(tmdb_id: tv["id"]).present?
+       puts "tv already created" 
+     else
+       this_tv = Tv.create(
+         title: tv[0]["name"],
+         overview: tv[0]["overview"],
+         homepage: tv[0]["homepage"],
+         first_air_date: tv[0]["first_air_date"],
+         last_air_date: tv[0]["last_air_date"],
+         poster_url: "https://image.tmdb.org/t/p/w342#{tv[0]["poster_path"]}",
+         backdrop_url: "https://image.tmdb.org/t/p/w1280#{tv[0]["backdrop_path"]}",
+         trailer: tv[1]["trailer"],
+         number_of_episodes: tv[0]["number_of_episodes"],
+         number_of_seasons: tv[0]["number_of_seasons"],
+         runtime: tv[1]["runtime_minutes"],
+         original_language: tv[1]["original_language"],
+         popularity: tv[0]["popularity"],
+         rating_average: tv[1]["user_rating"],
+         critic_score: tv[1]["critic_score"],
+         us_rating: tv[1]["us_rating"],
+         year: tv[1]["year"],
+         status: tv[0]["status"],
+         tagline: tv[0]["tagline"],
+         recommendations_tmdb: tv[0]["recommendations"]["results"].map { |each| each["id"] },
+         similar_titles_watchmode: tv[1]["similar_titles"],
+         genre_names: tv[1]["genre_names"],
+         tmdb_id: tv[0]["id"],
+         watchmode_id: tv[1]["id"],
+         imdb_id: tv[1]["imdb_id"]
+       )
+       puts "Tv Created #{i}"
+       if tv[1]["sources"].present?
+         tv[1]["sources"].each do |source|
+           MediaProvider.create(
+             name: source["name"],
+             region: source["region"],
+             ios_url: source["ios_url"],
+             android_url: source["android_url"],
+             web_url: source["web_url"],
+             format: source["format"],
+             price: source["price"],
+             seasons: source["seasons"],
+             episodes: source["episodes"],
+             provider_id: Provider.find_by(watchmode_id: source["source_id"]).id,
+             providable: this_tv
            )
          end
+         puts "media providers created #{i}"
        end
-       puts "Keyword created #{i}"
-     end
-     if tv[0]["seasons"].present?
-       tv[0]["seasons"].each do |season|
-         Season.create(
-           air_date: season["air_date"],
-           episode_count: season["episode_count"],
-           tmdb_id: season["id"],
-           name: season["name"],
-           overview: season["overview"],
-           poster_path: "https://image.tmdb.org/t/p/w342#{season["poster_path"]}",
-           season_number: season["season_number"],
-           tv_id: this_tv.id
-         )
+       if tv[0]["reviews"]["results"].present?
+         tv[0]["reviews"]["results"].each do |review|
+           Review.create(
+             user_id: User.order(Arel.sql('RANDOM()')).first.id,
+             reviewable_id: this_tv.id,
+             reviewable: this_tv,
+             content: review["content"],
+             rating: rand(2..5),
+             tmdb_review_id: review["id"]
+           )
+         end
+         puts "Review created #{i}"
        end
-       puts "Season created #{i}"
+       if tv[1]["genres"].present?
+         tv[1]["genres"].each do |genre|
+           GenreItem.create(
+             genre_id: Genre.find_by(watchmode_id: genre).id,
+             genreable: this_tv
+           )
+         end
+         puts "Genre created #{i}"
+       end
+       if tv[0]["keywords"]["keywords"].present?
+         tv[0]["keywords"]["keywords"].each do |keyword|
+           if Keyword.find_by(tmdb_id: keyword["id"]).present?
+             KeywordItem.create(
+               keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
+               keywordable: this_tv
+             )
+           else
+             Keyword.create(
+               name: keyword["name"],
+               tmdb_id: keyword["id"]
+             )
+             KeywordItem.create(
+               keyword_id: Keyword.find_by(tmdb_id: keyword["id"]).id,
+               keywordable: this_tv
+             )
+           end
+         end
+         puts "Keyword created #{i}"
+       end
+       if tv[0]["seasons"].present?
+         tv[0]["seasons"].each do |season|
+           Season.create(
+             air_date: season["air_date"],
+             episode_count: season["episode_count"],
+             tmdb_id: season["id"],
+             name: season["name"],
+             overview: season["overview"],
+             poster_path: "https://image.tmdb.org/t/p/w342#{season["poster_path"]}",
+             season_number: season["season_number"],
+             tv_id: this_tv.id
+           )
+         end
+         puts "Season created #{i}"
+       end
      end
    end
    puts "tvs created"
@@ -493,3 +471,35 @@ i = 1
   i += 1
 end
 puts "Lists created"
+
+ sebas = User.new(
+   email: "sebas@treano.co",
+   password: "123456",
+   username: "Sebs",
+   first_name: "Sebastian",
+   last_name: "Navarro",
+   bio: "Professional coder during the day, amateur movie critic during the night. I specialise in Ruby on Rails and thrillers. I am passionate about beautiful apps and skilfully executed scenes. Follow me for good tech related lists and more.",
+   reputation_score: 0,
+ )
+ sebas_uri = URI.open('https://avatars.githubusercontent.com/u/98430438?v=4')
+ sebas.avatar.attach(io: sebas_uri, filename: "image.png", content_type: "image/png")
+ if sebas.save
+   sebas.save
+   puts "Sebas created"
+ end
+
+ meerim = User.new(
+   email: "meerim@treano.co",
+   password: "123456",
+   username: "Meer",
+   first_name: "Meerim",
+   last_name: "Asylbekova",
+   bio: "Being tired of looking for what movies and tv shows to watch, I decided to create the best lists for like-minded people. Follow me for more awesome lists and recommendations. I also happen to write good reviews, check them out too!",
+   reputation_score: 0
+ )
+ meerim_uri = URI.open('https://avatars.githubusercontent.com/u/108770937?v=4')
+ meerim.avatar.attach(io: meerim_uri, filename: "image.png", content_type: "image/png")
+ if meerim.save
+   meerim.save
+   puts "Meerim created"
+ end

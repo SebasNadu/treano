@@ -13,12 +13,24 @@
 
     <div class="tab-pane fade show active" id="movies-tab-pane" role="tabpanel" aria-labelledby="movies-tab" tabindex="0">
       <div class="row row-cols-4 mt-4">
-        <%= render(@lists) || "There are no lists" %>
+        <% if @lists.present? %>
+          <% @lists.each do |list| %>
+          <%= render 'lists/list', list: list %>
+          <% end %>
+        <% else %>
+          <p>There are no lists</p>
+        <% end %>
       </div>
     </div>
     <div class="tab-pane fade" id="series-tab-pane" role="tabpanel" aria-labelledby="series-tab" tabindex="0">
       <div class="row row-cols-4 mt-4">
-        <%= render(@saved_lists) || "There are no lists" %>
+        <% if @saved_lists.present? %>
+          <% @saved_lists.each do |saved_list| %>
+          <%= render 'lists/list', list: saved_list %>
+          <% end %>
+        <% else %>
+          <p>There are no lists</p>
+        <% end %>
       </div>
     </div>
 

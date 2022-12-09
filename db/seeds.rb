@@ -145,33 +145,6 @@ puts "Merit restaured"
  puts "Db cleaned"
 
 
-
-
-#Challenge.create(
-  #challenge_name: "Just signed up",
-  #treanos: 5
-#)
-
-#Challenge.create(
-  #challenge_name: "Added a bio",
-  #treanos: 5
-#)
-
-#Challenge.create(
-  #challenge_name: "Uploaded an avatar",
-  #treanos: 5
-#)
-
-#Challenge.create(
-  #challenge_name: "Created first review",
-  #treanos: 20
-#)
-
-#Challenge.create(
-  #challenge_name: "Created first list",
-  #treanos: 20
-#)
-
 i = 0
 
 25.times do

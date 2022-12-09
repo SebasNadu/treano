@@ -239,7 +239,7 @@ puts "50 male users created"
 
  def movies_seeds(movies)
    movies.each_with_index do |movie, i|
-     if Movie.find_by(tmdb_id: movie["id"]).present?
+     if Movie.find_by(tmdb_id: movie[0]["id"]).present?
        puts "movie already created" 
      else
        this_movie = Movie.create(
@@ -336,7 +336,7 @@ puts "50 male users created"
 
  def tvs_seeds(tvs)
    tvs.each_with_index do |tv, i|
-     if Tv.find_by(tmdb_id: tv["id"]).present?
+     if Tv.find_by(tmdb_id: tv[0]["id"]).present?
        puts "tv already created" 
      else
        this_tv = Tv.create(

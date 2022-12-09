@@ -26,7 +26,7 @@ class BadgeNotification < Noticed::Base
   # end
 
   def message
-    @user = User.find(params[:user].id || current_user.id)
+    @user = User.find_by(sash_id: params[:sash_id])
     @granted_at = params[:granted_at]
     @badge = params[:badge]
     @description = params[:description]
@@ -34,7 +34,8 @@ class BadgeNotification < Noticed::Base
   end
 
   def url
-    user_dashboard_path(params[:user])
+    @user = User.find_by(sash_id: params[:sash_id])
+    user_dashboard_path(@user)
   end
 
 end

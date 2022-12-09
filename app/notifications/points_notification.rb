@@ -26,14 +26,15 @@ class PointsNotification < Noticed::Base
   # end
 
   def message
-    @user = User.find(params[:user].id || current_user.id)
+    @user = User.find_by(sash_id: params[:sash_id])
     @granted_at = params[:granted_at]
     @points = params[:points]
     return "#{@user.first_name}, you obtain #{@points.num_points} points"
   end
 
   def url
-    user_dashboard_path(params[:user])
+    @user = User.find_by(sash_id: params[:sash_id])
+    user_dashboard_path(@user)
   end
 
 end

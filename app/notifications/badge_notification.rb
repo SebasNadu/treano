@@ -26,7 +26,7 @@ class BadgeNotification < Noticed::Base
   # end
 
   def message
-    @user = User.find(params[:user].id)
+    @user = User.find(params[:user].id || current_user.id)
     @granted_at = params[:granted_at]
     @badge = params[:badge]
     @description = params[:description]

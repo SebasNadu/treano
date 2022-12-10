@@ -1,4 +1,4 @@
-<% tv_save = "#{current_user.favorited?(@tv) ? 'btn-danger' : 'btn-info'}"%>
+<% tv_save = current_user.favorited?(@tv) ? 'btn-danger' : 'btn-info' %>
 
 <div class="media-banner position-absolute" style="background-image: linear-gradient(180deg, rgba(13,13,13,0.8) 0%, rgba(33,33,33,0.4) 40%, rgba(13,13,13,1) 90%), url('<%= @tv.backdrop_url %>')">
 </div>

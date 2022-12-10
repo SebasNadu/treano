@@ -1,4 +1,4 @@
-<% movie_save = "#{current_user.favorited?(@movie) ? 'btn-danger' : 'btn-info'}"%>
+<% movie_save = current_user.favorited?(@movie) ? 'btn-danger' : 'btn-info' %>
 
 <div class="media-banner mt-n5 position-absolute" style="background-image: linear-gradient(180deg, rgba(13,13,13,0.8) 0%, rgba(33,33,33,0.4) 40%, rgba(13,13,13,1) 90%), url('<%= @movie.backdrop_url %>')">
 </div>

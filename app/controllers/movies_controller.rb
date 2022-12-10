@@ -59,6 +59,8 @@ class MoviesController < ApplicationController
         Movie.find_by(watchmode_id: similar.to_i)
       }
       @similars.compact!
+    else
+      []
     end
   end
 
@@ -68,6 +70,8 @@ class MoviesController < ApplicationController
         Movie.find_by(tmdb_id: reco.to_i)
       }
       @recommendations.compact!
+    else
+      []
     end
   end
 end

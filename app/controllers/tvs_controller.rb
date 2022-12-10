@@ -55,6 +55,8 @@ class TvsController < ApplicationController
       Tv.find_by(watchmode_id: similar.to_i)
     }
     @similars.compact!
+    else
+      []
     end
   end
 
@@ -64,6 +66,8 @@ class TvsController < ApplicationController
         Tv.find_by(tmdb_id: reco.to_i)
       }
       @recommendations.compact!
+    else
+      []
     end
   end
 end

@@ -26,7 +26,7 @@
                 </div>
               <% end %>
                 <div data-controller="mark-favorite">
-                  <% if list.user_id != current_user.id %>
+                  <% unless list.user_id == current_user.id %>
                     <%= turbo_frame_tag "bookmark" do %>
                       <div data-mark-favorite-target="button">
                           <%= button_to toggle_favorite_list_path(list),
@@ -68,7 +68,7 @@
                   <%= render "svg/external-link" %>
                 </div>
               <% end %>
-              <% if list.user.id == current_user.id %>
+              <% if list.user_id == current_user.id %>
                 <%= link_to edit_list_path(list) do%>
                   <div class="btn btn-outline-success mx-1">
                     <%= render "svg/edit" %>
@@ -80,6 +80,22 @@
                   </div>
                 <% end %>
               <% end %>
+
+                <div data-controller="mark-favorite">
+                  <% unless list.user_id == current_user.id %>
+                    <%= turbo_frame_tag "bookmark" do %>
+                      <div data-mark-favorite-target="button">
+                          <%= button_to toggle_favorite_list_path(list),
+                            method: :post,
+                            data: { action: "click->mark-favorite#toggle"},
+                            class: "btn avatar d-flex align-items-center justify-content-center m-2 #{list_save}" do %>
+                              <%= render 'svg/bookmark' %>
+                            <% end %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+
             </div>
           </div>
         </div>
@@ -96,7 +112,7 @@
                   <%= render "svg/external-link" %>
                 </div>
               <% end %>
-              <% if list.user.id == current_user.id %>
+              <% if list.user_id == current_user.id %>
                 <%= link_to edit_list_path(list) do%>
                   <div class="btn btn-outline-success mx-1">
                     <%= render "svg/edit" %>
@@ -108,6 +124,22 @@
                   </div>
                 <% end %>
               <% end %>
+
+                <div data-controller="mark-favorite">
+                  <% unless list.user_id == current_user.id %>
+                    <%= turbo_frame_tag "bookmark" do %>
+                      <div data-mark-favorite-target="button">
+                          <%= button_to toggle_favorite_list_path(list),
+                            method: :post,
+                            data: { action: "click->mark-favorite#toggle"},
+                            class: "btn avatar d-flex align-items-center justify-content-center m-2 #{list_save}" do %>
+                              <%= render 'svg/bookmark' %>
+                            <% end %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+
             </div>
           </div>
         </div>

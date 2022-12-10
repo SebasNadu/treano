@@ -86,7 +86,7 @@ module Merit
 
       # lists likes
       grant_on ['lists#toggle_favorite', "lists#untoggle"], badge_id: 11, mulitple: true, to: :action_user, temporary: true, badge: 'judgemental', :model_name => 'List' do |list|
-        list.user && list.user.favorites.count > 0 && list.user.list.favorites.count <= 4
+        list.user && list.user.favorites.count > 0 && list.user.favorites.count <= 4
       end
 
       grant_on ['lists#toggle_favorite', 'lists#untoggle'], badge_id: 4, mulitple: true, to: :user, temporary: true, badge: 'liked', :model_name => 'List' do |list|

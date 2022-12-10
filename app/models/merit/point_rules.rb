@@ -31,8 +31,8 @@ module Merit
       score 10, on: 'lists#create'
       score -10, on: 'lists#destroy'
 
-      score 1, on: 'lists#toggle_favorite'
-      score 5, on: 'lists#toggle_favorite', to: :user
+      score 1, on: 'lists#toggle_favorite', :model_name => 'List'
+      score 5, on: 'lists#toggle_favorite', :to => :user, :model_name => 'List'
     end
   end
 end

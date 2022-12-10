@@ -45,6 +45,7 @@ class PagesController < ApplicationController
   def my_lists
     @saved_lists = User.find(params[:user_id]).favorited_by_type('List')
     @lists = List.where(["user_id = :user_id", { user_id: @user }])
+    #raise
   end
 
   def search

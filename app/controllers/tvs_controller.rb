@@ -50,16 +50,20 @@ class TvsController < ApplicationController
   end
 
   def create_similars(tv)
+    if tv.similar_titles_watchmode.present?
     @similars = tv.similar_titles_watchmode.map { |similar|
       Tv.find_by(watchmode_id: similar.to_i)
     }
     @similars.compact!
+    end
   end
 
   def create_recommendations(tv)
-    @recommendations = tv.recommendations_tmdb.map { |reco|
-      Tv.find_by(tmdb_id: reco.to_i)
-    }
-    @recommendations.compact!
+    if tv.similar_titles_watchmode.present?
+      @recommendations = tv.recommendations_tmdb.map { |reco|
+        Tv.find_by(tmdb_id: reco.to_i)
+      }
+      @recommendations.compact!
+    end
   end
 end

@@ -54,16 +54,20 @@ class MoviesController < ApplicationController
   end
 
   def create_similars(movie)
-    @similars = movie.similar_titles_watchmode.map { |similar|
-      Movie.find_by(watchmode_id: similar.to_i)
-    }
-    @similars.compact!
+    if movie.similar_titles_watchmode.present?
+      @similars = movie.similar_titles_watchmode.map { |similar|
+        Movie.find_by(watchmode_id: similar.to_i)
+      }
+      @similars.compact!
+    end
   end
 
   def create_recommendations(movie)
-    @recommendations = movie.recommendations_tmdb.map { |reco|
-      Movie.find_by(tmdb_id: reco.to_i)
-    }
-    @recommendations.compact!
+    if movie.similar_titles_watchmode.present?
+      @recommendations = movie.recommendations_tmdb.map { |reco|
+        Movie.find_by(tmdb_id: reco.to_i)
+      }
+      @recommendations.compact!
+    end
   end
 end

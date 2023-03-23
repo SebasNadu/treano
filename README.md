@@ -11,4 +11,4 @@
   <li>Be in the top 10 of Treano best players</li>
 </ul>
 
-<h3><a>www.treano.co</a></h3>
+[Visit Treano now!](www.treano.co)
